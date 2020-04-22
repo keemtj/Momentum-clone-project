@@ -96,6 +96,7 @@
 
 /* todolist  */
 .todolist-sec {
+  display: none;
   position: relative;
 }
 .icon-th-list {
@@ -174,4 +175,10 @@ label i:last-child{
 .todolist-body::-webkit-scrollbar-track {
   background: #ddd;
   border-radius: 20px;
+}
+.logo-main {
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+  font-size: 14vh;
 }

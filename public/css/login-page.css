@@ -39,3 +39,28 @@
   transition: 0.25s ease-in-out;
   font-weight: 700;
 }
+.login-error-msg {
+  display: inline-block;
+  text-align: center;
+  margin-top: 1.4rem;
+  font-size: 0.7rem;
+  max-height: 0;
+  opacity: 0;
+  transition: 0.25s linear;
+  overflow: hidden;
+  padding: 0.3rem 1rem;
+}
+.login-error-msg.error {
+  display: inline-block;
+  text-align: center;
+  margin-top: 1.4rem;
+  font-size: 0.7rem;
+  max-height: 2rem;
+  opacity: 1;
+  transition: 0.25s linear;
+  border: 1px solid rgb(218, 68, 68);
+  border-radius: 0.3rem;
+  background-color: #e79696a8;
+  padding: 0.3rem 1rem;
+
+}
