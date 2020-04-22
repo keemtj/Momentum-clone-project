@@ -10394,8 +10394,8 @@ var clock = setInterval(function () {
   var sec = now.getSeconds();
   sec = sec <= 9 ? sec = '0' + sec : sec;
   min = min <= 9 ? min = '0' + min : min;
-  hour = hour <= 9 ? hour = '0' + hour : hour; // $digitalClock.innerHTML = `${hour}:${min}`
-
+  hour = hour <= 9 ? hour = '0' + hour : hour;
+  $digitalClock.innerHTML = "".concat(hour, ":").concat(min);
   $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
   $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
   $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
