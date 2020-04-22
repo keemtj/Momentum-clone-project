@@ -162,25 +162,23 @@
     <div id="main" class="grid main-page">
       <!-- Search -->
       <div class="search-sec">
-        <div class="search-sec">
-          <i class="icon-search"></i>
-          <form class="search" method="get" action="https://www.youtube.com/results?search_query=" target="_self" >   
-            <input class="search-area" type="text" name="q" size="25" maxlength="255" value="" />
-            <img class="current" src="./asset/logo/google.ico" alt="search at Google">
-            <i class="icon-angle-down"></i>
-          </form>
-          <ul class="search-provider">
-            <li>
-              <img src="./asset/logo/youtube.png" alt="search at Youtube"> <span>Youtube</span>
-            </li>
-            <li>
-              <img src="./asset/logo/naver.png" alt="search at Naver"><span>Naver</span>
-            </li>
-            <li>
-              <img src="./asset/logo/google.ico" alt="search at Google"><span>Google</span>
-            </li>
-          </ul> 
-        </div>
+        <i class="icon-search"></i>
+        <form class="search slide-right slide-left" method="get" action="https://www.youtube.com/results?search_query=" target="_self" >   
+          <input class="search-area" autocomplete="off" type="text" name="q" maxlength="255" value="" />
+          <span class="current-box"><img class="current" src="./asset/logo/google.ico" alt="search at Google">
+            <i class="icon-angle-down"></i></span>
+        </form>
+        <ul class="search-provider">
+          <li>
+            <img src="./asset/logo/youtube.png" alt="search at Youtube"> <span>Youtube</span>
+          </li>
+          <li>
+            <img src="./asset/logo/naver.png" alt="search at Naver"><span>Naver</span>
+          </li>
+          <li>
+            <img src="./asset/logo/google.ico" alt="search at Google"><span>Google</span>
+          </li>
+        </ul> 
       </div>
       <!-- Weather -->
       <div class="weather-sec">
@@ -254,104 +252,117 @@
       </div>
       <!-- Clock & Todo -->
       <div class="main-sec">
-        <time class="current-time">14:34</time>
-        <p class="greeting">Good Afternooe, Name</p>
-
-        <div class="focus-wr">
-          <div class="todo-focus">
-            <h3>What is your main focus?</h3>
-            <input type="text" class="input-todo" autocomplete="off">
+        <div class="clock-box">
+          <div clas="digital-clock">
+            <!-- <time class="current-time"></time> -->
+          </div>
+          <div class="analog-clock">
+            <div class="hour hand"></div>
+            <div class="minute hand"></div>
+            <div class="second hand"></div>
+            <div class="center-circle"></div>
+          </div>
+          <div class="greeting">
+            <p>Good evening, Name</p>
           </div>
         </div>
-        <div class="todo-rapping">
-          <div>
-            <div class="todo">todo<span class="icon-plus"></span><span class="icon-plus-circled"></span></div>
+        
+        <div class="todo-focus-before">
+          <h3>What is your main focus?</h3>
+          <input type="text" class="input-todo" autocomplete="off">
+        </div>
+        <div class="todo-focus-after">
+          <div class="add-todo">
+            <h3>TODO</h3>
+            <span class="add-icon">
+              <i class="icon-plus"></i>
+              <i class="icon-plus-circled"></i>
+            </span>
           </div>
-          <div class="todo-heading">
-            <div class="todo-daily">
-              <input id="ck-myid" type="checkbox" class="checkbox">
-              <label for="ck-myid" class="todo-content">HTML</label>
-              <div class="btn-todo">
-                <i class="icon-cancel"></i><i class="icon-cancel-circled"></i>
-              </div>
-            </div>
+          <div class="latest-todo">
+            <span class="check-icon">
+              <i class="icon-check-empty"></i>
+            </span>
+            <span class="latest-todo-text"></span>
+            <span class="delete-icon">
+              <i class="icon-cancel"></i>
+              <i class="icon-cancel-circled"></i>
+            </span>
+            <p class="compliment">Good job!</p>
           </div>
         </div>
       </div>
       <!-- Setting -->
-    <div class="setting-sec">
-      <i class="icon-cog"></i>
-      <ul class="setting-list">
-        <li class="title">
-          <h2>Setting</h2>
-        </li>
-        <li>
-          <h3>Clock</h3>
-          <div class="toggle-box">
-            <input class="toggle toggle-input" id="clock" type="checkbox"/>
-            <label class="btn-toggle" data-tg-off="ANALOG" data-tg-on="DIGITAL" for="clock"></label>
-          </div>
-        </li>
-        <li>
-          <h3>Todo</h3>
-          <div class="toggle-box">
-            <input class="toggle toggle-input" id="todo" type="checkbox"/>
-            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="todo"></label>
-          </div>
-        </li>
-        <li>
-          <h3>Search</h3>
-          <div class="toggle-box">
-            <input class="toggle toggle-input" id="search" type="checkbox"/>
-            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="search"></label>
-          </div>
-        </li>
-        <li>
-          <h3>Weather</h3>
-          <div class="toggle-box">
-            <input class="toggle toggle-input" id="weather" type="checkbox"/>
-            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="weather"></label>
-          </div>
-        </li>
-        <li>
-          <h3>Quote</h3>
-          <div class="toggle-box">
-            <input class="toggle toggle-input" id="quote" type="checkbox"/>
-            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="quote"></label>
-          </div>
-        </li>
-      </ul>
-    </div>
+      <div class="setting-sec">
+        <i class="icon-cog"></i>
+        <ul class="setting-list">
+          <li class="title">
+            <h2>Setting</h2>
+          </li>
+          <li>
+            <h3>Clock</h3>
+            <div class="toggle-box">
+              <input class="toggle toggle-input" id="clock" type="checkbox" checked/>
+              <label class="btn-toggle" data-tg-off="ANALOG" data-tg-on="DIGITAL" for="clock"></label>
+            </div>
+          </li>
+          <li>
+            <h3>Todo</h3>
+            <div class="toggle-box">
+              <input class="toggle toggle-input" id="todo" type="checkbox" checked/>
+              <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="todo"></label>
+            </div>
+          </li>
+          <li>
+            <h3>Search</h3>
+            <div class="toggle-box">
+              <input class="toggle toggle-input" id="search" type="checkbox" checked/>
+              <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="search"></label>
+            </div>
+          </li>
+          <li>
+            <h3>Weather</h3>
+            <div class="toggle-box">
+              <input class="toggle toggle-input" id="weather" type="checkbox" checked/>
+              <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="weather"></label>
+            </div>
+          </li>
+          <li>
+            <h3>Quote</h3>
+            <div class="toggle-box">
+              <input class="toggle toggle-input" id="quote" type="checkbox" checked/>
+              <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="quote"></label>
+            </div>
+          </li>
+          <li class="logout">
+            <h3>LOGOUT</h3>
+          </li>
+        </ul>
+      </div>
       <!-- Quote -->
       <div class="quote-sec">
         <q>“It is no measure of health to be well adjusted to a profoundly sick society.”</q>
       </div>
       <!-- TodoList -->
+      <!-- TodoList -->
       <div class="todolist-sec">
-        <i class="icon-th-list-1"></i>
-        <div class="todolist-sec">
-          <h2></h2>
-          <i class="icon-th-list-1"></i>
-          <div class="todolist-menu">
-            <div class="todo-header">
-              <ul class="todo-list-nav">
-                <li id="all" class="active">today</li>
-                <li id="active">Active</li>
-                <li id="completed">Completed</li>
-              </ul>
-            </div>
-            <div class="todo-list-section">
-              <ul class="todo-list">
-                <li id="myId" class="todo-item">
-                  <input id="ck-myid" class="checkbox" type="checkbox">
-                  <label for="ck-myid" class="todo-content">HTML</label>
-                  <div class="btn-todo">
-                    <i class="icon-cancel"></i><i class="icon-cancel-circled"></i>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <i class="icon-th-list"></i>
+        <div class="todolist-box">
+          <ul class="todolist-menu">
+            <li id="all" class="active">Today</li>
+            <li id="active">Active</li>
+            <li id="completed">Completed</li>
+          </ul>
+          <ul class="todolist-body">
+            <!-- <li>
+              <label for="added-todo">
+                <i class="icon-check-empty"></i>
+                <input type="checkbox" id="added-todo">
+                <span class="added-todo-text"></span>
+                <i class="icon-cancel"></i>
+              </label>
+            </li> -->
+          </ul>
         </div>
       </div>
     </div>
