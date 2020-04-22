@@ -3,6 +3,7 @@ import * as ani from './animation';
 import * as valid from './validation';
 import { openWeatherBox, closeWeatherBox } from './weather';
 import * as setting from './setting';
+import * as etc from './etc';
 
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 const $loginSignUp = document.querySelector('.login-signup-text');
@@ -148,7 +149,6 @@ $forgotPwEmail.onblur = ({ target }) => {
   valid.enableNextBtn(target);
 };
 
-
 // ---pw-hint page Event Bindings---
 // pw-hint-page에서 Next 버튼 누르면 pw-reset-page로 이동
 const $pwHintNextBtn = document.querySelector('.pw-hint-btn-next');
@@ -205,3 +205,16 @@ $settingBtn.onclick = e => {
 const $clockToggle = document.querySelector('#clock');
 
 // setting end
+
+// etc start
+const $currentBox = document.querySelector('.current-box');
+const $searchProvider = document.querySelector('.search-provider');
+$currentBox.onclick = e => {
+  $searchProvider.style.display === 'block' ? etc.closeSearchProvider($searchProvider) : etc.openSearchProvider($searchProvider);
+};
+
+const $listIcon = document.querySelector('.icon-th-list');
+const $todolistBox = document.querySelector('.todolist-box');
+$listIcon.onclick = e => {
+  $todolistBox.style.display === 'block' ? etc.closeTodoList($todolistBox) : etc.openTodoList($todolistBox);
+};
