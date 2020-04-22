@@ -1,0 +1,64 @@
+
+@import './reset.css';
+@import './fontello.css';
+@import './start-page-common.css';
+@import './weather.css';
+@import './todo.css';
+@import './animation.css';
+
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 10px;
+  font-family: 'Manrope', 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.7);
+  /* box-sizing: border-box; */
+  color: #fff;
+}
+h1, h2, h3 {
+  display: none;
+  font-size: 11rem;
+  font-weight: 500;
+}
+input, button{
+  outline: 0;
+  background: none;
+}
+.container {
+  background: url('../asset/images/pascal-debrunner-1WQ5RZuH9xo-unsplash.jpg') no-repeat top;
+  background-size: cover;
+  opacity: 1;
+  overflow: hidden;
+  height: 100vh;
+}
+div[class$="-page"] {
+  display: none;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows:  1fr 2fr 1fr;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 1%;
+}
+.grid > div:nth-child(1),
+.grid > div:nth-child(2),
+.grid > div:nth-child(3),
+.grid > div:nth-child(7),
+.grid > div:nth-child(8),
+.grid > div:nth-child(9) {
+  height: 15vh;
+}
+.grid > div:nth-child(4),
+.grid > div:nth-child(5),
+.grid > div:nth-child(6) {
+  height: 70vh;
+}

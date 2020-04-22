@@ -1,5 +1,3 @@
-# Momentum-clone-project
-
 # Will
 ​
 2020년 4월 팀프로젝트에서 작업한 모멘텀입니다.
@@ -10,9 +8,9 @@
 ​
 ## 프로젝트 조원
 ​
-PM: 주한슬
+PM: 윤관영
 ​
-생존자들: 장지연, 김태진
+생존자들: 장지연, 주한슬, 김태진
 ​
 ## 프로젝트 목표
 ​
@@ -121,8 +119,8 @@ Unauthorized copying of this file, via any medium is NOT strictly prohibited
 ​
 Proprietary and confidential.
 ​
-Written by 장지연, 주한슬, 김태진 jimmyjoo1029@gmail.com, April 2020
+Written by 장지연, 윤관영, 주한슬, 김태진 keemgreat@gmail.com, April 2020
 ​
-This source has referenced github user @장지연, 주한슬 and 김태진's repository
+This source has referenced github user @윤관영, 장지연, 주한슬 and 김태진's repository
 ​
-Copyright (C) 장지연, 주한슬, 김태진 - All Rights Reserved
+Copyright (C) 장지연, 윤관영, 주한슬, 김태진 - All Rights Reserved

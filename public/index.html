@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/bundle.js" defer></script>
+  <title>WILL</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="login-container">
+      <!-- Login Page Start-->
+      <div id="login" class="login-page fade-in">
+        <h2 class="login-word">ACCOUNT LOGIN</h2>
+        <div class="login-form">
+          <label for="login-email"></label>
+          <input type="text" id="login-email" placeholder="Email">
+          <label for="login-pw"></label>
+          <input type="password" id="login-pw" placeholder="Password">
+          <div class="login-mid-container">
+            <span class="login-forgot-pw">
+              Forgot password?
+            </span>
+          </div>
+          <button class="btn-login">LOGIN</button>
+          <div class="login-signup-box">Not a member?
+            <span class="login-signup-text">Sign up now</span>
+          </div>
+        </div>
+      </div>
+      <!-- Login Page End -->
+      <!-- Signup Page Start-->
+      <div id="signup" class="signup-page">
+        <i class="signup-back-btn icon-left-open"></i>
+        <h2 class="signup-word">SIGNUP</h2>
+        <div class="signup-form">
+          <label for="signup-username"></label>
+          <input type="text" id="signup-username" placeholder="Name">
+          <p class="signup-username-length-check">Enter your name</p>
+          <label for="signup-email"></label>
+          <input type="text" id="signup-email" placeholder="Email">
+          <p class="signup-email-length-check">Enter email address</p>
+          <p class="signup-email-form-check">Verify email address</p>
+          <label for="signup-pw"></label>
+          <input type="password" id="signup-pw" placeholder="Password">
+          <p class="signup-pw-length-check">Enter password</p>
+          <p class="signup-pw-form-check">Verify password</p>
+          <ul class="pw-req">
+            <li class="pw-req-length">
+              <span>More than 8 Characters<span></span></span>
+            </li>
+            <li class="pw-req-number">
+              <span>Contains Number<span></span></span>
+            </li>
+            <li class="pw-req-upper">
+              <span>Contains Uppercase<span></span></span>
+            </li>
+            <li class="pw-req-special">
+              <span>Contains Special Character<span></span></span>
+            </li>
+          </ul>
+          <label for="signup-confirm-pw"></label>
+          <input type="password" id="signup-confirm-pw" placeholder="Confirm Password">
+          <p class="signup-confirm-pw-length-check">Enter password</p>
+          <p class="signup-confirm-pw-form-check">Password do not match</p>
+          <div class="pw-hint-box">
+            <div class="hint-options-container">
+              <div class="option">
+                <input type="radio" class="radio" name="hint-category" id="hint-book">
+                <label for="hint-book">What is your favorite book?</label>
+              </div>
+              <div class="option">
+                <input type="radio" class="radio" name="hint-category" id="hint-food">
+                <label for="hint-food">What is your favorite food?</label>
+              </div>
+              <div class="option">
+                <input type="radio" class="radio" name="hint-category" id="hint-place">
+                <label for="hint-place">In what city were you born?</label>
+              </div>
+              <div class="option">
+                <input type="radio" class="radio" name="hint-category" id="hint-father-name">
+                <label for="hint-father-name">What is your father's middle name?</label>
+              </div>
+              <div class="option">
+                <input type="radio" class="radio" name="hint-category" id="hint-movie">
+                <label for="hint-movie">What is your favorite movie?</label>
+              </div>
+            </div>
+            <div class="hint-selected">
+              Select a hint
+            </div>
+          </div>
+          <label for="signup-pw-hint-answer"></label>
+          <input type="text" id="signup-pw-hint-answer" placeholder="Hint Answer">
+          <p class="signup-pw-hint-answer-check">Enter hint answer</p>
+          <button class="btn-signup" disabled>CREATE ACCOUNT</button>
+        </div>
+      </div>
+      <!-- Signup Page End-->
+      <!-- Forgot-Pw Page Start -->
+      <div id="forgot-pw" class="forgot-pw-page">
+        <i class="forgot-pw-back-btn icon-left-open"></i>
+        <h2 class="forgot-pw-word">FORGOT PASSWORD</h2>
+        <div class="forgot-pw-form">
+          <label for="forgot-pw-email"></label>
+          <input type="text" id="forgot-pw-email" placeholder="Enter your email">
+          <p class="forgot-pw-length-check">Enter email address</p>
+          <p class="forgot-pw-form-check">Verify email address</p>
+          <button class="forgot-pw-btn-next" disabled>NEXT</button>
+        </div>
+      </div>
+      <!-- Forgot-Pw Page End -->
+      <!-- Pw-Hint-Page Start -->
+      <div id="pw-hint" class="pw-hint-page">
+        <i class="pw-hint-back-btn icon-left-open"></i>
+        <h2 class="pw-hint-word">FORGOT PASSWORD</h2>
+        <div class="pw-hint-form">
+          <p class="pw-hint-text">Hint</p>
+          <p class="pw-hint-question">What is your favorite movie?</p>
+          <label for="pw-hint-answer"></label>
+          <input type="text" id="pw-hint-answer" placeholder="Answer">
+          <p class="pw-hint-answer-check">Enter hint answer</p>
+          <button class="pw-hint-btn-next">NEXT</button>
+        </div>
+      </div>
+      <!-- Pw-Hint-Page End -->
+      <!-- Reset-Pw Page Start -->
+      <div id="pw-reset" class="pw-reset-page">
+        <i class="pw-reset-back-btn icon-left-open"></i>
+        <h2 class="pw-reset-word">RESET PASSWORD</h2>
+        <div class="pw-reset-form">
+          <label for="pw-reset-new-pw"></label>
+          <input type="password" id="pw-reset-new-pw" placeholder="New Password">
+          <p class="pw-reset-new-pw-length-check">Enter password</p>
+          <p class="pw-reset-new-pw-form-check">Verify password</p>
+          <ul class="reset-pw-req">
+            <li class="pw-req-length">
+              <span>More than 8 Characters<span></span></span>
+            </li>
+            <li class="pw-req-number">
+              <span>Contains Number<span></span></span>
+            </li>
+            <li class="pw-req-upper">
+              <span>Contains Uppercase<span></span></span>
+            </li>
+            <li class="pw-req-special">
+              <span>Contains Special Character<span></span></span>
+            </li>
+          </ul>
+          <label for="pw-reset-new-pw-confirm"></label>
+          <input type="password" id="pw-reset-new-pw-confirm" placeholder="Confirm New Password">
+          <p class="pw-reset-confirm-pw-length-check">Enter password</p>
+          <p class="pw-reset-confirm-pw-form-check">Password do not match</p>
+          <button class="btn-reset-pw" disabled>RESET</button>
+        </div>
+      </div>
+      <!-- Reset-Pw Page End -->
+    </div>
+    <div id="main" class="grid main-page">
+      <!-- Search -->
+      <div class="search-sec">
+        <i class="icon-search"></i>
+        <!-- <form class="search" method="get" action="https://www.youtube.com/results?search_query=" target="_self" >   
+         <input class="search-area" type="text" name="q" size="25" maxlength="255" value="" /> 
+         <input class="btn-submit" type="submit" name="btnG" value="youtube" /> 
+       </form>  -->
+      </div>
+      <!-- Nothing -->
+      <div calss="nothing">
+      </div>
+      <!-- Weather -->
+      <div class="weather-sec">
+        <h2 class="weather-heading">Weather-heading</h2>
+        <div class="weather-main">
+          <i class="icon-sun main-i-id"></i>
+          <span class="main-temp-id">14</span>
+          <i class="icon-celcius main-celcius"></i>
+          <div class="weather-location main-location">Seongdong-gu</div>
+        </div>
+        <div class="weather-box">
+          <h3>Weather-box</h3>
+          <div class="box-top">
+            <div class="weather-location box-location">Seongdong-gu</div>
+            <div class="box-state box-state-id">Clear Sky</div>
+            <i class="icon-sun box-i box-i-id"></i>
+            <span class="box-temp box-temp-id">14</span>
+            <i class="icon-celcius box-celcius"></i>
+          </div>
+          <div class="box-weekly">
+            <div class="weekly-day">
+              <span class="day-id">Mon</span>
+              <span class="day-id">Tue</span>
+              <span class="day-id">Wed</span>
+              <span class="day-id">Thu</span>
+              <span class="day-id">Fri</span>
+              <span class="day-id">Sat</span>
+              <span class="day-id">Sun</span>
+            </div>
+            <div class="weekly-i">
+              <i class="icon-sun i-id"></i>
+              <i class="icon-cloud-sun i-id"></i>
+              <i class="icon-sun i-id"></i>
+              <i class="icon-rain i-id"></i>
+              <i class="icon-clouds i-id"></i>
+              <i class="icon-cloud-sun i-id"></i>
+              <i class="icon-sun i-id"></i>
+            </div>
+            <div class="weekly-temp">
+              <div class="weelky-temp-id">
+                <span class="weekly-max-id">17</span>
+                <span class="weekly-min-id">4</span>
+              </div>
+              <div class="weekly-temp-id">
+                <span class="weekly-max-id">16</span>
+                <span class="weekly-min]-id">4</span>
+              </div>
+              <div class="weekly-temp-id">
+                <span class="weekly-max-id">17</span>
+                <span class="weekly-min-id">9</span>
+              </div>
+              <div class="weekly-temp-id">
+                <span class="weekly-max-id">14</span>
+                <span class="weekly-min-id">7</span>
+              </div>
+              <div class="weekly-temp-id">
+                <span class="weekly-max-id">16</span>
+                <span class="weekly-min-id">8</span>
+              </div>
+              <div class="weekly-temp-id">
+                <span class="weekly-max-id">21</span>
+                <span class="weekly-min-id">10</span>
+              </div>
+              <div class="weekly-temp-id">
+                <span class="weekly-max-id">22</span>
+                <span class="weekly-min-id">11</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Nothing -->
+      <div calss="nothing">
+      </div>
+      <!-- Clock & Todo -->
+      <div class="main-sec">
+        <div class="focus-wr">
+          <div class="todo-focus">
+            <h3>What is your main focus?</h3>
+            <input type="text" class="input-todo" autocomplete="off">
+          </div>
+        </div>
+        <!-- <ul class="todo-list">
+          <li class="todo">Todo</li><span></span>
+          <li id="myId" class="todo-item">
+            <input id="ck-myid" class="check icon-check-empty" type="checkbox">
+            <label for="ck-myid">Css</label>
+            <i class="btn-todo icon-cancel"></i>
+          </li>
+        </ul> -->
+        <div class="todo-rapping">
+          <div>
+            <div class="todo">todo<span class="icon-plus icon-plus-circled"></span></div>
+          </div>
+          <ul class="todo-list">
+            <li id="myId" class="todo-item">
+              <input id="ck-myid" class="check icon-check-empty icon-check" type="checkbox">
+              <label for="ck-myid" class="todo-content">HTML</label>
+              <i class="btn-todo icon-cancel icon-cancel-circled"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Nothing -->
+      <div calss="nothing">
+      </div>
+      <!-- Setting -->
+      <div class="setting-sec">
+        <i class="icon-cog"></i>
+      </div>
+      <!-- Quote -->
+      <div class="quote-sec">
+      </div>
+      <!-- TodoList -->
+      <div class="todolist-sec">
+        <h1></h1>
+        <header class="todo-header">
+          <div class="active-list-container">
+            <span class="list-row active-todo-list">today</span>
+            <i class="icon-wrapper icon-angle-down"></i>
+          </div>
+          <ul class="todo-list-dropdown">
+            <li id="all" class="active">today</li>
+            <li id="active">Active</li>
+            <li id="completed">Completed</li>
+          </ul>
+        </header>
+        <section class="todo-list-section">
+          <ul class="todo-list">
+            <li id="myId" class="todo-item">
+              <input id="ck-myid" type="checkbox" class="icon-check-empty icon-check">
+              <label for="ck-myid">HTML</label>
+              <i class="btn-todo icon-cancel"></i>
+            </li>
+          </ul>
+        </section>
+        <!-- <i class="icon-th-list-1"></i> -->
+        <!-- <i class="icon-th-list-1"></i> -->
+      </div>
+      <i class="icon-th-list-1"></i>
+    </div>
+  </div>
+</body>
+
+</html>

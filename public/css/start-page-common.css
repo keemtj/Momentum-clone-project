@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import './reset.css';
+@import './fontello.css';
+@import './login-page.css';
+@import './signup-page.css';
+@import './forgot-pw-page.css';
+@import './pw-hint-page.css';
+@import './pw-reset-page.css';
+
+.login-container {
+  /* border: 2px solid red; */
+  position: absolute;
+  min-width: 360px;
+  left: calc(50% - 180px);
+  top: calc(50% - 30vh);
+}
+/* startPage 넓이 */
+.login-container > div[class*="-page"] {
+  /* border: 1px solid blue; */
+  height: 100%;
+  color: #181818;
+}
+
+/* h2 text */
+.login-container h2[class$="-word"] {
+  display: block;
+  text-align: center;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 3vh 0;
+  letter-spacing: 0.1rem;
+}
+
+/* button은 기본적으로 deactivate */
+.login-container button[class*="btn-"] {
+  width: 100%;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+  color: #181818;
+  cursor: pointer;
+}
+.login-container button[class*="btn-"]:hover {
+  border: none;
+  transform: scale(1.1);
+  transition: 0.25s ease-in-out;
+}
+.login-container button[class*="btn-"]:disabled {
+  cursor: auto;
+  color: rgba(0, 0, 0, .5);
+}
+.login-container button[class*="btn-"]:disabled:hover {
+  transform: none;
+  /* transition: none; */
+}
+/* back-btn */
+
+.login-container [class*='back-btn'] {
+  display: none;
+  position: absolute;
+  top: 1.5rem;
+  left: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.login-container div[class*="-form"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  background-color: #fff;
+  opacity: 0.7;
+  border-radius: 0.5rem;
+  padding: 2rem 2.5rem;
+
+}
+
+.login-container div[class*="-form"] > input {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  margin: 0.5rem;
+  font-size: 1.2rem;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+.login-container div[class*="-form"] > input:focus {
+  background-color: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .6);
+  transition: 0.3s ease-in;
+}
+.login-container div[class*="-form"] > input.warning {
+  transition: 0.3s ease-in;
+  border: 1px solid rgb(218, 68, 68);
+  border-radius: 0.3rem;
+  background-color: #e79696a8;
+}
+.login-container div[class*="-form"] > input.warning:focus {
+  border: 0;
+  background-color: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .6);
+  transition: 0.3s ease-in;
+}
+.login-container div[class*="-form"]>input::placeholder {
+  color: rgba(0, 0, 0, .3);
+  font-size: 1rem;
+}
+
+ul[class*="-req"] li {
+  padding: 0.1rem 0.1rem;
+  margin: 0.2rem 0;
+  color: rgba(0, 0, 0, .8);
+}
+
