@@ -26,7 +26,7 @@ const clock = setInterval(() => {
   sec = sec <= 9 ? sec = '0' + sec : sec;
   min = min <= 9 ? min = '0' + min : min;
   hour = hour <= 9 ? hour = '0' + hour : hour;
-  $digitalClock.innerHTML = `${hour}:${min}`
+  // $digitalClock.innerHTML = `${hour}:${min}`
   $hour.style.transform = `rotate(${hour % 12 * 30}deg)`
   $minute.style.transform = `rotate(${min % 60 * 6}deg)`
   $second.style.transform = `rotate(${sec % 60 * 6}deg)`
