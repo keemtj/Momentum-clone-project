@@ -3,3 +3,5 @@ npm-debug.log
 .DS_Store
 .vscode/*
 public/js/*
+public/js/bundle.js
+public/js/bundle.js.map
