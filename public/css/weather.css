@@ -1,0 +1,70 @@
+/* weather main */
+.weather-main {
+  margin-top: -0.2rem;
+  text-align: right;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.weather-main:hover {
+  cursor: pointer;
+}
+.weather-main :first-child {
+  font-size: 2.4rem;
+}
+.weather-main :nth-child(2) {
+  margin-left: -0.6rem;
+}
+.weather-main :nth-child(3) {
+  margin: 0 -1.2rem 0 -1.7rem;
+  font-size: 2.8rem;
+}
+.main-location {
+  margin-top: 0.2rem;
+  font-size: 1.1rem;
+}
+
+/* weather box */
+.weather-box {
+  display: none;
+  background: #181818;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+.box-top{
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+.box-state {
+  color: #aaaaaa;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+/* weather weekly */
+.box-weekly {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.3rem 0 0.3rem;
+  font-size: 0.9rem;
+  line-height: 1.4rem;
+}
+.weekly-day {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.weekly-i {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding-left: 1rem;
+}
+.weekly-temp > div {
+  display: flex;
+  justify-content: space-between;
+}
+.weekly-temp span:last-child {
+  padding-left: 0.8rem;
+}

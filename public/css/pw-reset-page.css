@@ -1,0 +1,11 @@
+/* pw-reset-page.css */
+.pw-reset-page {
+  height: 50vh;
+  top: calc(50% - 25vh);
+}
+.pw-reset-page .btn-reset-pw {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.2rem;
+}

@@ -1,0 +1,99 @@
+.fade-in {
+  display: block !important;
+  animation-name: fade-in-ani;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in;
+
+}
+.fade-out {
+  display: block !important;
+  animation-name: fade-out-ani;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+
+}
+
+@keyframes fade-in-ani {
+  0% {
+      opacity: 0;
+  }
+  100%{
+      opacity: 1;
+  }
+}
+
+@keyframes fade-out-ani {
+  0% {
+      opacity: 1;
+  }
+  100%{
+      opacity: 0;
+  }
+}
+
+ul[class*="-req"] {
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  width: 100%;
+  padding-left: 1rem;
+  list-style-type: disc;
+}
+ul[class*="-req"].active {
+  max-height: 4.5rem;
+  opacity: 1;
+}
+
+div[class*="-form"] p[class*="-check"] {
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.5s ease;
+  /* overflow: hidden; */
+  width: 100%;
+  padding-left: 0.5rem;
+}
+div[class*="-form"] p[class*="-check"].msg-show {
+  max-height: 2rem;
+  opacity: 1;
+  font-size: 0.7rem;
+}
+
+li[class*="pw-req"] {
+  margin-bottom: 8px;
+  color: #525f7f;
+}
+li[class*="pw-req"]>span {
+  position: relative;
+}
+li[class*="pw-req"].underline>span {
+  position: relative;
+}
+
+li[class*="pw-req"]>span>span::before {
+  content: "";
+  width: 0%; height: 2px;
+  background: #e47171;
+  position: absolute;
+  left: 0; top: 50%;
+  display: block;
+  transition: all .6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+li[class*="pw-req"].underline>span>span::before {
+  content: "";
+  width: 100%; height: 2px;
+  background: #e47171;
+  position: absolute;
+  left: 0; top: 50%;
+  display: block;
+  transition: all .6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container div.main-page.fade-in {
+  display: grid !important;
+}
+
+.container div.main-page.fade-out {
+  display: grid !important;
+}

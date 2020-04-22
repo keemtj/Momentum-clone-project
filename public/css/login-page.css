@@ -1,0 +1,41 @@
+/* Login Page */
+.login-page {
+  top: calc(50% - 30vh);
+}
+
+.login-page .btn-login {
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.2rem;
+}
+.login-mid-container {
+  width: 100%;
+  text-align: right;
+}
+.login-forgot-pw {
+  display: inline-block;
+  cursor: pointer;
+  letter-spacing: 0.05rem;
+  line-height: 2rem;
+}
+.login-forgot-pw:hover {
+  display: inline-block;
+  transform: scale(1.1);
+  transition: 0.25s ease-in-out;
+}
+.login-signup-box {
+  margin-top: 2rem;
+}
+.login-signup-text {
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  font-weight: 700;
+}
+.login-signup-text:hover {
+  display: inline-block;
+  transform: scale(1.1);
+  transition: 0.25s ease-in-out;
+  font-weight: 700;
+}

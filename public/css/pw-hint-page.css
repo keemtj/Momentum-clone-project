@@ -1,0 +1,26 @@
+/* pw-hint-page.css */
+.pw-hint-page {
+  height: 50vh;
+  top: calc(50% - 40vh);
+}
+.pw-hint-form p{
+  width: 100%;
+  text-align: left;
+}
+.pw-hint-text {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+}
+.pw-hint-question {
+  font-weight: 400;
+  font-size: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.pw-hint-page .pw-hint-btn-next {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.2rem;
+}
