@@ -1,6 +1,8 @@
 // src/js/main.js
 import * as ani from './animation';
 import * as valid from './validation';
+import { openWeatherBox, closeWeatherBox } from './weather';
+import * as setting from './setting';
 
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 const $loginSignUp = document.querySelector('.login-signup-text');
@@ -183,3 +185,23 @@ $pwResetNewPwConfirm.onblur = ({ target }) => {
   valid.checkConfirmPw($newPw, target);
   valid.enableNextBtn(target);
 };
+// weather start
+const $wMain = document.querySelector('.weather-main');
+const $wBox = document.querySelector('.weather-box');
+
+$wMain.onclick = () => {
+  $wBox.style.display === 'block' ? closeWeatherBox($wBox) : openWeatherBox($wBox);
+};
+
+// weather end
+
+// setting start
+const $settingBtn = document.querySelector('.setting-sec > i');
+const $settingBox = document.querySelector('.setting-list');
+$settingBtn.onclick = e => {
+  $settingBox.style.display === 'block' ? setting.closeSettingBox($settingBox) : setting.openSettingBox($settingBox);
+};
+
+const $clockToggle = document.querySelector('#clock');
+
+// setting end

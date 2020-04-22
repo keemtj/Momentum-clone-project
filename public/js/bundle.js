@@ -10320,7 +10320,11 @@ var movePage = function movePage(from, to) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
+/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+/* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
 // src/js/main.js
+
+
 
  // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 
@@ -10518,7 +10522,26 @@ $pwResetNewPwConfirm.onblur = function (_ref13) {
   var $newPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkConfirmPw"]($newPw, target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
+}; // weather start
+
+
+var $wMain = document.querySelector('.weather-main');
+var $wBox = document.querySelector('.weather-box');
+
+$wMain.onclick = function () {
+  $wBox.style.display === 'block' ? Object(_weather__WEBPACK_IMPORTED_MODULE_2__["closeWeatherBox"])($wBox) : Object(_weather__WEBPACK_IMPORTED_MODULE_2__["openWeatherBox"])($wBox);
+}; // weather end
+// setting start
+
+
+var $settingBtn = document.querySelector('.setting-sec > i');
+var $settingBox = document.querySelector('.setting-list');
+
+$settingBtn.onclick = function (e) {
+  $settingBox.style.display === 'block' ? _setting__WEBPACK_IMPORTED_MODULE_3__["closeSettingBox"]($settingBox) : _setting__WEBPACK_IMPORTED_MODULE_3__["openSettingBox"]($settingBox);
 };
+
+var $clockToggle = document.querySelector('#clock'); // setting end
 
 /***/ }),
 
@@ -10597,6 +10620,32 @@ var resetErrorBg = function resetErrorBg() {
   _toConsumableArray(errorBg).forEach(function ($bg) {
     $bg.classList.remove('warning');
   });
+};
+
+
+
+/***/ }),
+
+/***/ "./src/js/setting.js":
+/*!***************************!*\
+  !*** ./src/js/setting.js ***!
+  \***************************/
+/*! exports provided: openSettingBox, closeSettingBox */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openSettingBox", function() { return openSettingBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSettingBox", function() { return closeSettingBox; });
+/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+
+
+var openSettingBox = function openSettingBox(settingbox) {
+  settingbox.style.display = 'block';
+};
+
+var closeSettingBox = function closeSettingBox(settingbox) {
+  settingbox.style.display = 'none';
 };
 
 
@@ -10707,6 +10756,171 @@ var enableNextBtn = function enableNextBtn($target) {
   $btn.disabled = $warnings.length;
 };
 
+
+
+/***/ }),
+
+/***/ "./src/js/weather.js":
+/*!***************************!*\
+  !*** ./src/js/weather.js ***!
+  \***************************/
+/*! exports provided: openWeatherBox, closeWeatherBox, weatherInit, getLocation, succesLocation, errorLocation, getWeather, weatherRender, bgRender */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openWeatherBox", function() { return openWeatherBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeWeatherBox", function() { return closeWeatherBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weatherInit", function() { return weatherInit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocation", function() { return getLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "succesLocation", function() { return succesLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorLocation", function() { return errorLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeather", function() { return getWeather; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weatherRender", function() { return weatherRender; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgRender", function() { return bgRender; });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+// DOMs
+var $container = document.querySelector('.container');
+var $weatherMain = document.querySelector('.weather-main');
+var $boxTop = document.querySelector('.box-top');
+var $weeklyDay = document.querySelector('.weekly-day');
+var $weeklyIcon = document.querySelector('.weekly-i');
+var $weeklyTemp = document.querySelector('.weekly-temp'); // toggle weather box
+
+var openWeatherBox = function openWeatherBox(weatherbox) {
+  weatherbox.style.display = 'block';
+};
+
+var closeWeatherBox = function closeWeatherBox(weatherbox) {
+  weatherbox.style.display = 'none';
+}; // Weather API
+
+
+var API_KEY = 'bbcad54aeb4d627c3798f0773d883830'; // generateNum
+
+var getRandomNum = function getRandomNum(num1, num2) {
+  var min = Math.ceil(num1);
+  var max = Math.floor(num2);
+  var randomNum = Math.floor(Math.random() * (max - min)) + min;
+  console.log(randomNum);
+  return randomNum;
+}; // Background Image Rendering
+
+
+var bgRender = function bgRender(res) {
+  var _res$current$weather = _slicedToArray(res.current.weather, 1),
+      currentId = _res$current$weather[0].id;
+
+  console.log('[currentId]', currentId);
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(10, 15), ".jpg)");
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(5, 10), ".jpg)");
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 22), ".jpg)");
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(10, 15), ".jpg)");
+  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(0, 5), ".jpg)");
+  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(5, 10), ".jpg)");
+}; // Weather Infomation Rendering
+
+
+var weatherRender = function weatherRender(res) {
+  var _res$timezone$split = res.timezone.split('/'),
+      _res$timezone$split2 = _slicedToArray(_res$timezone$split, 2),
+      continent = _res$timezone$split2[0],
+      city = _res$timezone$split2[1];
+
+  var temperature = Math.floor(res.current.temp);
+
+  var _res$current$weather2 = _slicedToArray(res.current.weather, 1),
+      _res$current$weather3 = _res$current$weather2[0],
+      currentId = _res$current$weather3.id,
+      description = _res$current$weather3.description;
+
+  var weeklyId = res.daily.map(function (day) {
+    return day.weather.reduce(function (acc, dayW) {
+      return acc + dayW.id;
+    }, 0);
+  });
+  var weeklyTemp = res.daily.map(function (day) {
+    return [Math.floor(day.temp.min), Math.floor(day.temp.max)];
+  });
+  var dayName = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  var currentIcon = '';
+  if (currentId >= 200 && currentId < 300) currentIcon = 'icon-clouds';
+  if (currentId >= 300 && currentId < 400) currentIcon = 'icon-cloud-sun';
+  if (currentId >= 500 && currentId < 700) currentIcon = 'icon-rain';
+  if (currentId >= 700 && currentId < 800) currentIcon = 'icon-clouds';
+  if (currentId === 800) currentIcon = 'icon-sun';
+  if (currentId > 800) currentIcon = 'icon-cloud-sun';
+  $weatherMain.innerHTML = "\n    <i class=\"".concat(currentIcon, "\"></i>\n    <span class=\"main-temp\">").concat(temperature, "</span>\n    <i class=\"icon-celcius main-celcius\"></i>\n    <div class=\"main-location\">").concat(city, ", ").concat(continent, "</div>\n  ");
+  $boxTop.innerHTML = "\n    <div class=\"box-location\">".concat(city, ", ").concat(continent, "</div>\n    <div class=\"box-state\">").concat(description, "</div>\n    <i class=\"").concat(currentIcon, " box-i\"></i>\n    <span class=\"box-temp\">").concat(temperature, "</span>\n    <i class=\"icon-celcius box-celcius\"></i>\n  ");
+  dayName.forEach(function (_, i, arr) {
+    var today = new Date();
+    $weeklyDay.innerHTML += "<span>".concat(arr[(today.getDay() + i) % 7], "</span>");
+  });
+  var weeklyIcon = '';
+  weeklyId.forEach(function (dailyId) {
+    if (dailyId >= 200 && dailyId < 300) weeklyIcon = 'icon-clouds';
+    if (dailyId >= 300 && dailyId < 400) weeklyIcon = 'icon-cloud-sun';
+    if (dailyId >= 500 && dailyId < 700) weeklyIcon = 'icon-rain';
+    if (dailyId >= 700 && dailyId < 800) weeklyIcon = 'icon-clouds';
+    if (dailyId === 800) weeklyIcon = 'icon-sun';
+    if (dailyId > 800) weeklyIcon = 'icon-cloud-sun';
+    $weeklyIcon.innerHTML += "<i class=\"".concat(weeklyIcon, "\"></i>");
+  });
+  weeklyTemp.forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        min = _ref2[0],
+        max = _ref2[1];
+
+    $weeklyTemp.innerHTML += "\n      <div>\n        <span>".concat(max, "</span>\n        <span>").concat(min, "</span>\n      </div>\n    ");
+  });
+  $weeklyIcon.removeChild($weeklyIcon.lastElementChild);
+  $weeklyTemp.removeChild($weeklyTemp.lastElementChild);
+  bgRender(res);
+}; // Get weather Object
+
+
+var getWeather = function getWeather(lat, lng) {
+  fetch("https://api.openweathermap.org/data/2.5/onecall?lat=".concat(lat, "&lon=").concat(lng, "&appid=").concat(API_KEY, "&units=metric")).then(function (res) {
+    return res.json();
+  }).then(function (res) {
+    weatherRender(res);
+  });
+}; // Get Coordinate
+
+
+var succesLocation = function succesLocation(position) {
+  console.log(position);
+  console.log('succes position available');
+  var _position$coords = position.coords,
+      latitude = _position$coords.latitude,
+      longitude = _position$coords.longitude;
+  getWeather(latitude, longitude);
+};
+
+var errorLocation = function errorLocation() {
+  console.log('Sorry, no position available.');
+};
+
+var getLocation = function getLocation() {
+  navigator.geolocation.getCurrentPosition(succesLocation, errorLocation);
+};
+
+var weatherInit = function weatherInit() {
+  getLocation();
+};
+
+weatherInit();
 
 
 /***/ }),
