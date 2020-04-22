@@ -22,15 +22,15 @@ $currentBox.onclick = () => {
 $searchProvider.onclick = e => {
   if (e.target.className === 'youtube') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
-    $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=')
+    $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
   };
   if (e.target.className === 'google') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
-    $currentForm.setAttribute('action', 'https://www.google.com/search?q=')
+    $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
   };
   if (e.target.className === 'naver') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
-    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=')
+    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
   };
   ani.fadeOut($searchProvider, 150);
 };
@@ -57,7 +57,7 @@ const clock = setInterval(() => {
   sec = sec <= 9 ? sec = '0' + sec : sec;
   min = min <= 9 ? min = '0' + min : min;
   hour = hour <= 9 ? hour = '0' + hour : hour;
-  // $digitalClock.innerHTML = `${hour}:${min}`
+  $digitalClock.innerHTML = `${hour}:${min}`
   $hour.style.transform = `rotate(${hour % 12 * 30}deg)`
   $minute.style.transform = `rotate(${min % 60 * 6}deg)`
   $second.style.transform = `rotate(${sec % 60 * 6}deg)`
@@ -87,12 +87,12 @@ let greeting = [
 ], 
 hour = new Date().getHours();
 
-for(let i = 0; i < greeting.length; i++){
-  if(hour >= greeting[i][0] && hour <= greeting[i][1]){
-    $greeting.innerHTML = '<p><span class="good">'+ greeting[i][2] +', </span><span>NAME</span></p>';
+for (let i = 0; i < greeting.length; i++) {
+  if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
+    $greeting.innerHTML = `<p><span class="good">${greeting[i][2]}, </span></p>`;
     break;
   }
-}
+};
 
 const $quote = document.querySelector('.quote-sec');
 const saying = [
@@ -112,7 +112,7 @@ const saying = [
   let todayPick = saying.splice(select, 1);
 
   // let todayPick = saying.splice(Math.floor(Math.random()), 1)[0];
-  $quote.innerHTML = '<q>'+'"'+todayPick+'"'+'</q>';
+  $quote.innerHTML = `<q>"${todayPick}"</q>`;
   
   // console.log('todayPick:', todayPick);
   let todos = [];
@@ -132,12 +132,10 @@ const saying = [
   //   </label>
   // </li>
 
-  
 const render = () => {
   let html = '';
 
   const _todos = [...todos].filter(todo => (active === 'All' ? true : (active === 'Active' ? !todo.completed : todo.completed)));
-  // 왜 let 이 아니라 const를 쓰는 지?
 
   _todos.forEach(todo => {
     html += ` <li>
@@ -181,10 +179,9 @@ $inputTodo.onkeyup = e => {
   render();
 };
 
-
 export {
-  openSearchProvider, 
+  openSearchProvider,
   closeSearchProvider,
-  openTodoList, 
+  openTodoList,
   closeTodoList,
 };

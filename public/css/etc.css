@@ -349,7 +349,7 @@
 .current-time{
   font-size: 10rem;
   font-weight: 500;
-  /* display: none; */
+  display: none;
 }
 .analog-clock {
   position: relative;
@@ -360,7 +360,7 @@
   border: 6px solid rgba(255,255,255,.9);
   border-radius: 50%;
   padding-bottom: 1rem;
-  display: none;
+  display: block;
 }
 .hand {
   position: absolute;

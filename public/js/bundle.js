@@ -10399,8 +10399,8 @@ var clock = setInterval(function () {
   var sec = now.getSeconds();
   sec = sec <= 9 ? sec = '0' + sec : sec;
   min = min <= 9 ? min = '0' + min : min;
-  hour = hour <= 9 ? hour = '0' + hour : hour; // $digitalClock.innerHTML = `${hour}:${min}`
-
+  hour = hour <= 9 ? hour = '0' + hour : hour;
+  $digitalClock.innerHTML = "".concat(hour, ":").concat(min);
   $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
   $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
   $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
@@ -10424,17 +10424,18 @@ var greeting = [[0, 4, "Good night"], [5, 11, "Good morning"], [12, 17, "Good af
 
 for (var i = 0; i < greeting.length; i++) {
   if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
-    $greeting.innerHTML = '<p><span class="good">' + greeting[i][2] + ', </span><span>NAME</span></p>';
+    $greeting.innerHTML = "<p><span class=\"good\">".concat(greeting[i][2], ", </span></p>");
     break;
   }
 }
 
+;
 var $quote = document.querySelector('.quote-sec');
 var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
 var select = Math.floor(Math.random() * saying.length);
 var todayPick = saying.splice(select, 1); // let todayPick = saying.splice(Math.floor(Math.random()), 1)[0];
 
-$quote.innerHTML = '<q>' + '"' + todayPick + '"' + '</q>'; // console.log('todayPick:', todayPick);
+$quote.innerHTML = "<q>\"".concat(todayPick, "\"</q>"); // console.log('todayPick:', todayPick);
 
 var todos = [];
 var active = 'All';
@@ -10455,8 +10456,7 @@ var render = function render() {
 
   var _todos = _toConsumableArray(todos).filter(function (todo) {
     return active === 'All' ? true : active === 'Active' ? !todo.completed : todo.completed;
-  }); // 왜 let 이 아니라 const를 쓰는 지?
-
+  });
 
   _todos.forEach(function (todo) {
     html += " <li>\n                <label for=\"added-todo\">\n                  <i class=\"icon-check-empty\"></i>\n                  <input type=\"checkbox\" id=\"added-todo\">\n                  <span class=\"added-todo-text\">".concat(todo.content, "</span>\n                  <i class=\"icon-cancel\"></i>\n                </label>\n              </li>");
