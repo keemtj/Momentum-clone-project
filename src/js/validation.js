@@ -168,6 +168,8 @@ const login = async ($email, $pw) => {
       $email.value = '';
       $pw.value = '';
       const $greetingName = document.querySelector('.greeting .name');
+      console.log($greetingName);
+      
       $greetingName.textContent = user.name;
       console.log('[login...users]: ', user.name);
     } else {
