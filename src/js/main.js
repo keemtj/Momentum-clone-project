@@ -5,7 +5,11 @@ import * as etc from './etc';
 import * as set from './setting';
 import * as weather from './weather';
 
+// 상태변수
+
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
+const $loginEmail = document.querySelector('#login-email');
+const $loginPw = document.querySelector('#login-pw');
 const $loginSignUp = document.querySelector('.login-signup-text');
 const $btnLogin = document.querySelector('.btn-login');
 // Page
@@ -36,20 +40,37 @@ const $signUpHintAnswer = document.querySelector('#signup-pw-hint-answer');
 
 
 // ---login-page Event Bindings---
+// login-page에서 이메일 형식 확인
+$loginEmail.onblur = ({ target }) => {
+  valid.enableLoginBtn(target);
+};
+
+// login-page에서 비밀번호 입력 확인
+$loginPw.onblur = ({ target }) => {
+  valid.enableLoginBtn(target);
+};
+
 // login-page -> signup-page
 $loginSignUp.onclick = () => {
   ani.movePage($loginPage, $signupPage);
 };
 // login-page -> main-page
 $btnLogin.onclick = () => {
-  ani.movePage($loginPage, $mainPage);
+  const $emailInput = $loginPage.querySelector('#login-email');
+  const $pwInput = $loginPage.querySelector('#login-pw');
+  valid.login($emailInput, $pwInput);
 };
 
 
 // --signup-page Event Bindings---
 $signupCreateBtn.onclick = () => {
+  valid.createAccount();
+  // axios.get('/users')
+  //   .then(({ data }) => { users = data; })
+  //   .then(() => { console.log(users); })
+  //   .catch(err => console.error(err));
   // email이 중복되지 않으면
-  ani.movePage($signupPage, $loginPage);
+  // ani.movePage($signupPage, $loginPage);
   // email이 중복되면 showEmailErrorMsg(); 
 };
 
@@ -202,3 +223,5 @@ $listIcon.onclick = () => {
   todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
 // all fade-out
+
+window.onload = valid.getUsers;

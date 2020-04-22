@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="js/bundle.js" defer></script>
   <title>WILL</title>
 </head>
@@ -18,8 +19,11 @@
         <div class="login-form">
           <label for="login-email"></label>
           <input type="text" id="login-email" placeholder="Email">
+          <p class="login-email-length-check">Enter email address</p>
+          <p class="login-email-form-check">Verify email address</p>
           <label for="login-pw"></label>
           <input type="password" id="login-pw" placeholder="Password">
+          <p class="login-pw-length-check">Enter password</p>
           <div class="login-mid-container">
             <span class="login-forgot-pw">
               Forgot password?
@@ -29,6 +33,7 @@
           <div class="login-signup-box">Not a member?
             <span class="login-signup-text">Sign up now</span>
           </div>
+          <div class="login-error-msg">Incorrect username or password</div>
         </div>
       </div>
       <!-- Login Page End -->
@@ -267,7 +272,7 @@
             <div class="center-circle"></div>
           </div>
           <div class="greeting">
-            <p>Good evening, Name</p>
+            <p><span class="good">Good Evening, </span><span class="name"></span></p>
           </div>
         </div>
         
