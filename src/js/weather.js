@@ -20,7 +20,7 @@ const closeWeatherBox = weatherbox => {
 
 $weatherMain.onclick = () => {
   const weatherBoxCs = window.getComputedStyle($weatherBox);
-  const weatherOnOff= weatherBoxCs.getPropertyValue('display');
+  const weatherOnOff = weatherBoxCs.getPropertyValue('display');
   weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 };
 
