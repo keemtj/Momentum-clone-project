@@ -31,12 +31,12 @@ const getRandomNum = (num1, num2) => {
 const bgRender = res => {
   const [{ id: currentId }] = res.current.weather;
   console.log('[currentId]', currentId);
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(10, 15)}.jpg)`;
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(5, 10)}.jpg)`;
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(15, 22)}.jpg)`;
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(10, 15)}.jpg)`;
-  if (currentId === 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(0, 5)}.jpg)`;
-  if (currentId > 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(5, 10)}.jpg)`;
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(15, 23)}.jpg)`;
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(8, 15)}.jpg)`;
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(23, 31)}.jpg)`;
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(15, 23)}.jpg)`;
+  if (currentId === 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(0, 8)}.jpg)`;
+  if (currentId > 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(8, 15)}.jpg)`;
 };
 
 // Weather Infomation Rendering
