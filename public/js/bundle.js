@@ -10645,7 +10645,7 @@ var $startPageInputs = document.querySelectorAll('.login-container input');
 var $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
 var $signUpPwReq = document.querySelector('.signup-form .pw-req > li');
 var $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req > li');
-var $startPageBtns = document.querySelectorAll('.login-container button');
+var $startPageBtns = document.querySelectorAll('.login-container button:not(.btn-login)');
 
 var resetInputs = function resetInputs() {
   _toConsumableArray($startPageInputs).forEach(function ($input) {
@@ -10890,12 +10890,12 @@ var bgRender = function bgRender(res) {
       currentId = _res$current$weather[0].id;
 
   console.log('[currentId]', currentId);
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(10, 15), ".jpg)");
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(5, 10), ".jpg)");
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 22), ".jpg)");
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(10, 15), ".jpg)");
-  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(0, 5), ".jpg)");
-  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(5, 10), ".jpg)");
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(23, 31), ".jpg)");
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
+  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(0, 8), ".jpg)");
+  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
 }; // Weather Infomation Rendering
 
 
