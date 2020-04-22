@@ -50,7 +50,6 @@ const $minute = document.querySelector('.minute');
 const $hour = document.querySelector('.hour');
 const clock = setInterval(() => {
   const now = new Date();
-  
   let hour = now.getHours();
   let min = now.getMinutes();
   let sec = now.getSeconds();
@@ -58,38 +57,24 @@ const clock = setInterval(() => {
   min = min <= 9 ? min = '0' + min : min;
   hour = hour <= 9 ? hour = '0' + hour : hour;
   $digitalClock.innerHTML = `${hour}:${min}`
-  $hour.style.transform = `rotate(${hour % 12 * 30}deg)`
-  $minute.style.transform = `rotate(${min % 60 * 6}deg)`
-  $second.style.transform = `rotate(${sec % 60 * 6}deg)`
+  $hour.style.transform = `rotate(${hour % 12 * 30}deg)`;
+  $minute.style.transform = `rotate(${min % 60 * 6}deg)`;
+  $second.style.transform = `rotate(${sec % 60 * 6}deg)`;
 }, 1000);
 
-// const now = new Date();
-// let hour = now.getHours();
-// let greeting = (hour < 12 ) ? 'Good morning' : (hour >= 12 && hour <= 17) ? 'Good evening' : 'Good afternoon';
+const $greeting = document.querySelector('.greeting .good');
+const greeting = [
+  [0, 4, 'Good night'], 
+  [5, 11, 'Good morning'],
+  [12, 17, 'Good afternoon'],
+  [18, 24, 'Good night']
+];
 
-// let greeting;
-// if (hour < 12){
-//   greeting = 'Good morning';
-// } else if(hour >= 12 && hour <= 17) {
-//   greeting = 'Good evening';
-// } else if(hour >= 17 && hour <= 24){
-//   greeting = 'Good afternoon';
-// } else {
-//   greeting = 'Good night';
-// }
-
-const $greeting = document.querySelector('.greeting');
-let greeting = [
-  [0, 4, "Good night"], 
-  [5, 11, "Good morning"],
-  [12, 17, "Good afternoon"],
-  [18, 24, "Good night"]
-], 
-hour = new Date().getHours();
+const hour = new Date().getHours();
 
 for (let i = 0; i < greeting.length; i++) {
   if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
-    $greeting.innerHTML = `<p><span class="good">${greeting[i][2]}, </span></p>`;
+    $greeting.textContent = `${greeting[i][2]}, `;
     break;
   }
 };
@@ -97,26 +82,26 @@ for (let i = 0; i < greeting.length; i++) {
 const $quote = document.querySelector('.quote-sec');
 const saying = [
   "If you don't study, you work in hot weather and cold weather.",
-  "The beginning is not half, but the beginning is just the beginning.",
-  "Handsome men pay for their faces, and ugly men pay for their looks.",
-  "The enemy meets at the company.",
+  'The beginning is not half, but the beginning is just the beginning.',
+  'Handsome men pay for their faces, and ugly men pay for their looks.',
+  'The enemy meets at the company.',
   "You don't have to do what you can do tomorrow today.",
-  "A migraine inevitably follows pain.",
+  'A migraine inevitably follows pain.',
   "Avoid it if you can't enjoy it",
-  "Be comfortable to give up.",
-  "Beer and chicken at dawn are 0 calories.",
-  "Early birds are tired, Early worms are eaten."
+  'Be comfortable to give up.',
+  'Beer and chicken at dawn are 0 calories.',
+  'Early birds are tired, Early worms are eaten.'
 ];
 
-  let select = Math.floor(Math.random() * saying.length);
-  let todayPick = saying.splice(select, 1);
-
-  // let todayPick = saying.splice(Math.floor(Math.random()), 1)[0];
-  $quote.innerHTML = `<q>"${todayPick}"</q>`;
+  const select = Math.floor(Math.random() * saying.length);
+  const todayPick = saying.splice(select, 1);
+  // $quote.innerHTML = '<q>' + '"' + todayPick + '"' + '</q>';
+  $quote.innerHTML = `<q>"&{todayPick}"</q>`;
   
   // console.log('todayPick:', todayPick);
+
   let todos = [];
-  let active = 'All';
+  const active = 'All';
 
   const $todoList = document.querySelector('.todolist-body');
   const $inputTodo = document.querySelector('.input-todo');
@@ -165,7 +150,7 @@ const getTodos = () => {
   render();
 };
 
-window.onload = getTodos; // 호출의 상하관계 알 것
+// window.onload = getTodos; // 호출의 상하관계 알 것
 
 
 $inputTodo.onkeyup = e => {
