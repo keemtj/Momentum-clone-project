@@ -10413,19 +10413,19 @@ var clock = setInterval(function () {
 //   greeting = 'Good night';
 // }
 
-var $greeting = document.querySelector('.greeting');
-var greeting = [[0, 4, "Good night"], [5, 11, "Good morning"], [12, 17, "Good afternoon"], [18, 24, "Good night"]],
-    hour = new Date().getHours();
+var $greeting = document.querySelector('.greeting .good');
+var greeting = [[0, 4, 'Good night'], [5, 11, 'Good morning'], [12, 17, 'Good afternoon'], [18, 24, 'Good night']];
+var hour = new Date().getHours();
 
 for (var i = 0; i < greeting.length; i++) {
   if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
-    $greeting.innerHTML = '<p><span class="good">' + greeting[i][2] + ', </span><span>NAME</span></p>';
+    $greeting.textContent = "".concat(greeting[i][2], ", ");
     break;
   }
 }
 
 var $quote = document.querySelector('.quote-sec');
-var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
+var saying = ["If you don't study, you work in hot weather and cold weather.", 'The beginning is not half, but the beginning is just the beginning.', 'Handsome men pay for their faces, and ugly men pay for their looks.', 'The enemy meets at the company.', "You don't have to do what you can do tomorrow today.", 'A migraine inevitably follows pain.', "Avoid it if you can't enjoy it", 'Be comfortable to give up.', 'Beer and chicken at dawn are 0 calories.', 'Early birds are tired, Early worms are eaten.'];
 var select = Math.floor(Math.random() * saying.length);
 var todayPick = saying.splice(select, 1); // let todayPick = saying.splice(Math.floor(Math.random()), 1)[0];
 
@@ -10478,9 +10478,8 @@ var getTodos = function getTodos() {
     return todo2.id - todo1.id;
   });
   render();
-};
+}; // window.onload = getTodos; // 호출의 상하관계 알 것
 
-window.onload = getTodos; // 호출의 상하관계 알 것
 
 $inputTodo.onkeyup = function (e) {
   if (e.keyCode !== 13 || $inputTodo.value === '') return;
@@ -10571,8 +10570,11 @@ $loginSignUp.onclick = function () {
 
 $btnLogin.onclick = function () {
   var $emailInput = $loginPage.querySelector('#login-email');
-  var $pwInput = $loginPage.querySelector('#login-pw');
-  _validation__WEBPACK_IMPORTED_MODULE_1__["login"]($emailInput, $pwInput);
+  var $pwInput = $loginPage.querySelector('#login-pw'); // test동안에는 valid.login주석
+  // valid.login($emailInput, $pwInput);
+  // 대신 ani.movePage
+
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
 }; // --signup-page Event Bindings---
 
 
@@ -11181,6 +11183,7 @@ var login = /*#__PURE__*/function () {
               $email.value = '';
               $pw.value = '';
               $greetingName = document.querySelector('.greeting .name');
+              console.log($greetingName);
               $greetingName.textContent = user.name;
               console.log('[login...users]: ', user.name);
             } else {

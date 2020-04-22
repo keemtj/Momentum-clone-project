@@ -58,7 +58,10 @@ $loginSignUp.onclick = () => {
 $btnLogin.onclick = () => {
   const $emailInput = $loginPage.querySelector('#login-email');
   const $pwInput = $loginPage.querySelector('#login-pw');
-  valid.login($emailInput, $pwInput);
+  // test동안에는 valid.login주석
+  // valid.login($emailInput, $pwInput);
+  // 대신 ani.movePage
+  ani.movePage($loginPage, $mainPage);
 };
 
 
