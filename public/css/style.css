@@ -4,11 +4,11 @@
 @import './start-page-common.css';
 @import './weather.css';
 @import './todo.css';
-@import './animation.css';
 @import './etc.css';
-
+@import './animation.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -17,23 +17,19 @@ body {
   font-family: 'Manrope', 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.7);
-  /* box-sizing: border-box; */
   color: #fff;
+  overflow: hidden;
 }
 h1, h2, h3 {
   display: none;
-  font-size: 11rem;
-  font-weight: 500;
 }
 input, button{
   outline: 0;
   background: none;
 }
 .container {
-  background: url('../asset/images/0.jpg') no-repeat top;
+  background: url('../asset/images/main/main.jpg') no-repeat top;
   background-size: cover;
   opacity: 1;
   overflow: hidden;
@@ -84,10 +80,10 @@ div[class$="-page"] {
     padding: 2%;
   }
   .search-sec{
-    grid-area:1/1/2/3;
+    grid-area: 1/1/2/3;
   }
   .weather-sec{
-    grid-area:1/4/2/6;
+    grid-area: 1/4/2/6;
   }
   .main-sec{
     grid-area: 2/1/3/6;

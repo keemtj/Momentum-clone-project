@@ -10309,6 +10309,56 @@ var movePage = function movePage(from, to) {
 
 /***/ }),
 
+/***/ "./src/js/etc.js":
+/*!***********************!*\
+  !*** ./src/js/etc.js ***!
+  \***********************/
+/*! exports provided: openSearchProvider, closeSearchProvider, openTodoList, closeTodoList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openSearchProvider", function() { return openSearchProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSearchProvider", function() { return closeSearchProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openTodoList", function() { return openTodoList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
+var openSearchProvider = function openSearchProvider(searchProvider) {
+  searchProvider.style.display = 'block';
+};
+
+var closeSearchProvider = function closeSearchProvider(searchProvider) {
+  searchProvider.style.display = 'none';
+};
+
+var openTodoList = function openTodoList(todoList) {
+  todoList.style.display = 'block';
+};
+
+var closeTodoList = function closeTodoList(todoList) {
+  todoList.style.display = 'none';
+};
+
+var $digitalClock = document.querySelector('.current-time');
+var $second = document.querySelector('.second');
+var $minute = document.querySelector('.minute');
+var $hour = document.querySelector('.hour');
+var clock = setInterval(function () {
+  var now = new Date();
+  var hour = now.getHours();
+  var min = now.getMinutes();
+  var sec = now.getSeconds();
+  sec = sec <= 9 ? sec = '0' + sec : sec;
+  min = min <= 9 ? min = '0' + min : min;
+  hour = hour <= 9 ? hour = '0' + hour : hour;
+  $digitalClock.innerHTML = "".concat(hour, ":").concat(min);
+  $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
+  $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
+  $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
+}, 1000);
+
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
@@ -10322,7 +10372,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
 /* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
+/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 // src/js/main.js
+
 
 
 
@@ -10542,6 +10594,21 @@ $settingBtn.onclick = function (e) {
 };
 
 var $clockToggle = document.querySelector('#clock'); // setting end
+// etc start
+
+var $currentBox = document.querySelector('.current-box');
+var $searchProvider = document.querySelector('.search-provider');
+
+$currentBox.onclick = function (e) {
+  $searchProvider.style.display === 'block' ? _etc__WEBPACK_IMPORTED_MODULE_4__["closeSearchProvider"]($searchProvider) : _etc__WEBPACK_IMPORTED_MODULE_4__["openSearchProvider"]($searchProvider);
+};
+
+var $listIcon = document.querySelector('.icon-th-list');
+var $todolistBox = document.querySelector('.todolist-box');
+
+$listIcon.onclick = function (e) {
+  $todolistBox.style.display === 'block' ? _etc__WEBPACK_IMPORTED_MODULE_4__["closeTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_4__["openTodoList"]($todolistBox);
+};
 
 /***/ }),
 
@@ -10822,13 +10889,19 @@ var bgRender = function bgRender(res) {
   var _res$current$weather = _slicedToArray(res.current.weather, 1),
       currentId = _res$current$weather[0].id;
 
-  console.log('[currentId]', currentId);
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(23, 31), ".jpg)");
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
-  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(0, 8), ".jpg)");
-  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
+  console.log('[currentId]', currentId); // clouds
+
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // cloud-sun
+
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)"); // rain
+
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)"); // clouds
+
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // sun
+
+  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)"); // cloud-sun
+
+  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
 }; // Weather Infomation Rendering
 
 
