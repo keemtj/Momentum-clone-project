@@ -10575,8 +10575,11 @@ $loginSignUp.onclick = function () {
 
 $btnLogin.onclick = function () {
   var $emailInput = $loginPage.querySelector('#login-email');
-  var $pwInput = $loginPage.querySelector('#login-pw');
-  _validation__WEBPACK_IMPORTED_MODULE_1__["login"]($emailInput, $pwInput);
+  var $pwInput = $loginPage.querySelector('#login-pw'); // test동안에는 valid.login주석
+  // valid.login($emailInput, $pwInput);
+  // 대신 ani.movePage
+
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
 }; // --signup-page Event Bindings---
 
 
