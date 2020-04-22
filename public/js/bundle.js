@@ -10650,6 +10650,7 @@ $listIcon.onclick = function () {
   todoOnOff === 'none' ? _etc__WEBPACK_IMPORTED_MODULE_2__["openTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_2__["closeTodoList"]($todolistBox);
 }; // all fade-out
 
+
 window.onload = _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"];
 
 /***/ }),
