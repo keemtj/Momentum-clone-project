@@ -10322,20 +10322,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSearchProvider", function() { return closeSearchProvider; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openTodoList", function() { return openTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+ // search provider
+
+var $searchProvider = document.querySelector('.search-provider');
+var $currentBox = document.querySelector('.current-box');
+var $currentForm = document.querySelector('.search');
+
 var openSearchProvider = function openSearchProvider(searchProvider) {
-  searchProvider.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](searchProvider, 150);
 };
 
 var closeSearchProvider = function closeSearchProvider(searchProvider) {
-  searchProvider.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](searchProvider, 150);
 };
 
+$currentBox.onclick = function () {
+  var providerCs = window.getComputedStyle($searchProvider);
+  var providerOnOff = providerCs.getPropertyValue('display');
+  providerOnOff === 'none' ? openSearchProvider($searchProvider) : closeSearchProvider($searchProvider);
+};
+
+$searchProvider.onclick = function (e) {
+  if (e.target.className === 'youtube') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
+    $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
+  }
+
+  ;
+
+  if (e.target.className === 'google') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
+    $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
+  }
+
+  ;
+
+  if (e.target.className === 'naver') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
+    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
+  }
+
+  ;
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchProvider, 150);
+}; // todolist button
+
+
 var openTodoList = function openTodoList(todoList) {
-  todoList.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](todoList, 150);
 };
 
 var closeTodoList = function closeTodoList(todoList) {
-  todoList.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](todoList, 150);
 };
 
 var $digitalClock = document.querySelector('.current-time');
@@ -10349,8 +10387,8 @@ var clock = setInterval(function () {
   var sec = now.getSeconds();
   sec = sec <= 9 ? sec = '0' + sec : sec;
   min = min <= 9 ? min = '0' + min : min;
-  hour = hour <= 9 ? hour = '0' + hour : hour;
-  $digitalClock.innerHTML = "".concat(hour, ":").concat(min);
+  hour = hour <= 9 ? hour = '0' + hour : hour; // $digitalClock.innerHTML = `${hour}:${min}`
+
   $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
   $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
   $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
@@ -10370,9 +10408,9 @@ var clock = setInterval(function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
-/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
-/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
+/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
 // src/js/main.js
 
 
@@ -10575,40 +10613,20 @@ $pwResetNewPwConfirm.onblur = function (_ref13) {
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkConfirmPw"]($newPw, target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
 }; // weather start
-
-
-var $wMain = document.querySelector('.weather-main');
-var $wBox = document.querySelector('.weather-box');
-
-$wMain.onclick = function () {
-  $wBox.style.display === 'block' ? Object(_weather__WEBPACK_IMPORTED_MODULE_2__["closeWeatherBox"])($wBox) : Object(_weather__WEBPACK_IMPORTED_MODULE_2__["openWeatherBox"])($wBox);
-}; // weather end
+// weather end
 // setting start
-
-
-var $settingBtn = document.querySelector('.setting-sec > i');
-var $settingBox = document.querySelector('.setting-list');
-
-$settingBtn.onclick = function (e) {
-  $settingBox.style.display === 'block' ? _setting__WEBPACK_IMPORTED_MODULE_3__["closeSettingBox"]($settingBox) : _setting__WEBPACK_IMPORTED_MODULE_3__["openSettingBox"]($settingBox);
-};
-
-var $clockToggle = document.querySelector('#clock'); // setting end
+// setting end
 // etc start
 
-var $currentBox = document.querySelector('.current-box');
-var $searchProvider = document.querySelector('.search-provider');
-
-$currentBox.onclick = function (e) {
-  $searchProvider.style.display === 'block' ? _etc__WEBPACK_IMPORTED_MODULE_4__["closeSearchProvider"]($searchProvider) : _etc__WEBPACK_IMPORTED_MODULE_4__["openSearchProvider"]($searchProvider);
-};
 
 var $listIcon = document.querySelector('.icon-th-list');
 var $todolistBox = document.querySelector('.todolist-box');
 
-$listIcon.onclick = function (e) {
-  $todolistBox.style.display === 'block' ? _etc__WEBPACK_IMPORTED_MODULE_4__["closeTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_4__["openTodoList"]($todolistBox);
-};
+$listIcon.onclick = function () {
+  var todoBoxCs = window.getComputedStyle($todolistBox);
+  var todoOnOff = todoBoxCs.getPropertyValue('display');
+  todoOnOff === 'none' ? _etc__WEBPACK_IMPORTED_MODULE_2__["openTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_2__["closeTodoList"]($todolistBox);
+}; // all fade-out
 
 /***/ }),
 
@@ -10697,25 +10715,73 @@ var resetErrorBg = function resetErrorBg() {
 /*!***************************!*\
   !*** ./src/js/setting.js ***!
   \***************************/
-/*! exports provided: openSettingBox, closeSettingBox */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openSettingBox", function() { return openSettingBox; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSettingBox", function() { return closeSettingBox; });
-/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 
+var $settingBtn = document.querySelector('.setting-sec > i');
+var $settingBox = document.querySelector('.setting-list');
 
 var openSettingBox = function openSettingBox(settingbox) {
-  settingbox.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settingbox, 150);
 };
 
 var closeSettingBox = function closeSettingBox(settingbox) {
-  settingbox.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settingbox, 150);
 };
 
+$settingBtn.onclick = function () {
+  var settingBoxCs = window.getComputedStyle($settingBox);
+  var settingOnOff = settingBoxCs.getPropertyValue('display');
+  console.log(settingOnOff);
+  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
+};
 
+var $toggleClock = document.getElementById('clock');
+var $toggleTodo = document.getElementById('todo');
+var $toggleSearch = document.getElementById('search');
+var $toggleWeather = document.getElementById('weather');
+var $toggleQuote = document.getElementById('quote');
+var $todolistSection = document.querySelector('.todolist-sec');
+
+$toggleTodo.onchange = function () {
+  var todolistCs = window.getComputedStyle($todolistSection);
+  var todoToggle = todolistCs.getPropertyValue('display');
+  if (todoToggle === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+
+  if (todoToggle === 'none') {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
+  } // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300); 
+
+};
+
+var $searchSection = document.querySelector('.search-sec');
+
+$toggleSearch.onchange = function () {
+  var searchCs = window.getComputedStyle($searchSection);
+  var searchToggle = searchCs.getPropertyValue('display');
+  searchToggle === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
+};
+
+var $weatherSection = document.querySelector('.weather-sec');
+
+$toggleWeather.onchange = function () {
+  var weatherCs = window.getComputedStyle($weatherSection);
+  var weatherToggle = weatherCs.getPropertyValue('display');
+  weatherToggle === 'block' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
+};
+
+var $quoteSection = document.querySelector('.quote-sec');
+
+$toggleQuote.onchange = function () {
+  var quoteCs = window.getComputedStyle($quoteSection);
+  var quoteToggle = quoteCs.getPropertyValue('display');
+  quoteToggle === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+};
 
 /***/ }),
 
@@ -10845,6 +10911,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeather", function() { return getWeather; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weatherRender", function() { return weatherRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgRender", function() { return bgRender; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10857,20 +10924,28 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-// DOMs
+ // DOMs
+
 var $container = document.querySelector('.container');
 var $weatherMain = document.querySelector('.weather-main');
+var $weatherBox = document.querySelector('.weather-box');
 var $boxTop = document.querySelector('.box-top');
 var $weeklyDay = document.querySelector('.weekly-day');
 var $weeklyIcon = document.querySelector('.weekly-i');
 var $weeklyTemp = document.querySelector('.weekly-temp'); // toggle weather box
 
 var openWeatherBox = function openWeatherBox(weatherbox) {
-  weatherbox.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](weatherbox, 150);
 };
 
 var closeWeatherBox = function closeWeatherBox(weatherbox) {
-  weatherbox.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](weatherbox, 150);
+};
+
+$weatherMain.onclick = function () {
+  var weatherBoxCs = window.getComputedStyle($weatherBox);
+  var weatherOnOff = weatherBoxCs.getPropertyValue('display');
+  weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 }; // Weather API
 
 

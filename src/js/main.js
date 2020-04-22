@@ -1,9 +1,9 @@
 // src/js/main.js
 import * as ani from './animation';
 import * as valid from './validation';
-import { openWeatherBox, closeWeatherBox } from './weather';
-import * as setting from './setting';
 import * as etc from './etc';
+import * as set from './setting';
+import * as weather from './weather';
 
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 const $loginSignUp = document.querySelector('.login-signup-text');
@@ -185,36 +185,20 @@ $pwResetNewPwConfirm.onblur = ({ target }) => {
   valid.checkConfirmPw($newPw, target);
   valid.enableNextBtn(target);
 };
+
 // weather start
-const $wMain = document.querySelector('.weather-main');
-const $wBox = document.querySelector('.weather-box');
-
-$wMain.onclick = () => {
-  $wBox.style.display === 'block' ? closeWeatherBox($wBox) : openWeatherBox($wBox);
-};
-
 // weather end
 
 // setting start
-const $settingBtn = document.querySelector('.setting-sec > i');
-const $settingBox = document.querySelector('.setting-list');
-$settingBtn.onclick = e => {
-  $settingBox.style.display === 'block' ? setting.closeSettingBox($settingBox) : setting.openSettingBox($settingBox);
-};
-
-const $clockToggle = document.querySelector('#clock');
-
 // setting end
 
 // etc start
-const $currentBox = document.querySelector('.current-box');
-const $searchProvider = document.querySelector('.search-provider');
-$currentBox.onclick = e => {
-  $searchProvider.style.display === 'block' ? etc.closeSearchProvider($searchProvider) : etc.openSearchProvider($searchProvider);
-};
-
 const $listIcon = document.querySelector('.icon-th-list');
 const $todolistBox = document.querySelector('.todolist-box');
-$listIcon.onclick = e => {
-  $todolistBox.style.display === 'block' ? etc.closeTodoList($todolistBox) : etc.openTodoList($todolistBox);
+
+$listIcon.onclick = () => {
+  const todoBoxCs = window.getComputedStyle($todolistBox);
+  const todoOnOff = todoBoxCs.getPropertyValue('display');
+  todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
+// all fade-out

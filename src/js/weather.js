@@ -1,6 +1,9 @@
+import * as ani from './animation';
+
 // DOMs
 const $container = document.querySelector('.container');
 const $weatherMain = document.querySelector('.weather-main');
+const $weatherBox = document.querySelector('.weather-box');
 const $boxTop = document.querySelector('.box-top');
 const $weeklyDay = document.querySelector('.weekly-day');
 const $weeklyIcon = document.querySelector('.weekly-i');
@@ -8,11 +11,17 @@ const $weeklyTemp = document.querySelector('.weekly-temp');
 
 // toggle weather box
 const openWeatherBox = weatherbox => {
-  weatherbox.style.display = 'block';
+  ani.fadeIn(weatherbox, 150);
 };
 
 const closeWeatherBox = weatherbox => {
-  weatherbox.style.display = 'none';
+  ani.fadeOut(weatherbox, 150);
+};
+
+$weatherMain.onclick = () => {
+  const weatherBoxCs = window.getComputedStyle($weatherBox);
+  const weatherOnOff= weatherBoxCs.getPropertyValue('display');
+  weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 };
 
 // Weather API
@@ -137,6 +146,7 @@ const weatherInit = () => {
 };
 
 weatherInit();
+
 export {
   openWeatherBox,
   closeWeatherBox,
