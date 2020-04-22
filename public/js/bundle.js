@@ -10349,21 +10349,16 @@ $searchProvider.onclick = function (e) {
     $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
   }
 
-  ;
-
   if (e.target.className === 'google') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
     $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
   }
-
-  ;
 
   if (e.target.className === 'naver') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
     $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
   }
 
-  ;
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchProvider, 150);
 }; // todolist button
 
@@ -10650,6 +10645,7 @@ $listIcon.onclick = function () {
   todoOnOff === 'none' ? _etc__WEBPACK_IMPORTED_MODULE_2__["openTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_2__["closeTodoList"]($todolistBox);
 }; // all fade-out
 
+
 window.onload = _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"];
 
 /***/ }),
@@ -10779,7 +10775,7 @@ $toggleTodo.onchange = function () {
   if (todoToggle === 'none') {
     $todolistSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
-  } // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300); 
+  } // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300);
 
 };
 
