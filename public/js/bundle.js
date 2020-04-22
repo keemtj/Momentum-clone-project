@@ -10322,6 +10322,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSearchProvider", function() { return closeSearchProvider; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openTodoList", function() { return openTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var openSearchProvider = function openSearchProvider(searchProvider) {
   searchProvider.style.display = 'block';
 };
@@ -10354,7 +10366,104 @@ var clock = setInterval(function () {
   $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
   $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
   $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
-}, 1000);
+}, 1000); // const now = new Date();
+// let hour = now.getHours();
+// let greeting = (hour < 12 ) ? 'Good morning' : (hour >= 12 && hour <= 17) ? 'Good evening' : 'Good afternoon';
+// let greeting;
+// if (hour < 12){
+//   greeting = 'Good morning';
+// } else if(hour >= 12 && hour <= 17) {
+//   greeting = 'Good evening';
+// } else if(hour >= 17 && hour <= 24){
+//   greeting = 'Good afternoon';
+// } else {
+//   greeting = 'Good night';
+// }
+
+var $greeting = document.querySelector('.greeting');
+var greeting = [[0, 4, "Good night"], [5, 11, "Good morning"], [12, 17, "Good afternoon"], [18, 24, "Good night"]],
+    hour = new Date().getHours();
+
+for (var i = 0; i < greeting.length; i++) {
+  if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
+    $greeting.innerHTML = '<p><span class="good">' + greeting[i][2] + ', </span><span>NAME</span></p>';
+    break;
+  }
+}
+
+var $quote = document.querySelector('.quote-sec');
+var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
+var select = Math.floor(Math.random() * saying.length);
+var todayPick = saying.splice(select, 1); // let todayPick = saying.splice(Math.floor(Math.random()), 1)[0];
+
+$quote.innerHTML = '<q>' + '"' + todayPick + '"' + '</q>'; // console.log('todayPick:', todayPick);
+
+var todos = [];
+var active = 'All';
+var $todoList = document.querySelector('.todolist-body');
+var $inputTodo = document.querySelector('.input-todo');
+var $activeTodos = document.getElementById('active');
+var $completedTodos = document.getElementById('completed'); // <li>
+//   <label for="added-todo">
+//   <i class="icon-check-empty"></i>
+//   <input type="checkbox" id="added-todo">
+//   <span class="added-todo-text"></span>
+//   <i class="icon-cancel"></i>
+//   </label>
+// </li>
+
+var render = function render() {
+  var html = '';
+
+  var _todos = _toConsumableArray(todos).filter(function (todo) {
+    return active === 'All' ? true : active === 'Active' ? !todo.completed : todo.completed;
+  }); // 왜 let 이 아니라 const를 쓰는 지?
+
+
+  _todos.forEach(function (todo) {
+    html += " <li>\n                <label for=\"added-todo\">\n                  <i class=\"icon-check-empty\"></i>\n                  <input type=\"checkbox\" id=\"added-todo\">\n                  <span class=\"added-todo-text\">".concat(todo.content, "</span>\n                  <i class=\"icon-cancel\"></i>\n                </label>\n              </li>");
+  });
+
+  $todoList.innerHTML = html; // completedTodos();
+  // activeTodos();
+};
+
+var getTodos = function getTodos() {
+  todos = [{
+    id: 1,
+    content: 'HTML',
+    completed: false
+  }, {
+    id: 2,
+    content: 'css',
+    completed: true
+  }, {
+    id: 3,
+    content: 'Javascript',
+    completed: false
+  }].sort(function (todo1, todo2) {
+    return todo2.id - todo1.id;
+  });
+  render();
+};
+
+window.onload = getTodos; // 호출의 상하관계 알 것
+
+$inputTodo.onkeyup = function (e) {
+  if (e.keyCode !== 13 || $inputTodo.value === '') return;
+  var newId = todos.length ? Math.max.apply(Math, _toConsumableArray(todos.map(function (todo) {
+    return todo.id;
+  }))) + 1 : 1;
+  var newTodo = {
+    id: newId,
+    content: $inputTodo.value,
+    completed: false
+  };
+  todos = [newTodo].concat(_toConsumableArray(todos));
+  $inputTodo.value = '';
+  render();
+};
+
 
 
 /***/ }),

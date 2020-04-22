@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./asset/favicon.ico">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/bundle.js" defer></script>
   <title>WILL</title>
@@ -184,68 +185,17 @@
       <div class="weather-sec">
         <h2 class="weather-heading">Weather-heading</h2>
         <div class="weather-main">
-          <!-- <i class="icon-sun"></i>
-          <span class="main-temp">NULL</span>
-          <i class="icon-celcius main-celcius"></i>
-          <div class="main-location">City, Continent</div> -->
         </div>
         <div class="weather-box">
           <h3>Weather-box</h3>
           <div class="box-top">
-            <!-- <div class="box-location">City, Continent</div>
-            <div class="box-state">weather state</div>
-            <i class="icon-sun box-i"></i>
-            <span class="box-temp">NULL</span>
-            <i class="icon-celcius box-celcius"></i> -->
           </div>
           <div class="box-weekly">
             <div class="weekly-day">
-              <!-- <span>SUN</span>
-              <span>MON</span>
-              <span>TUE</span>
-              <span>WED</span>
-              <span>THU</span>
-              <span>FRI</span>
-              <span>SAT</span> -->
             </div>
             <div class="weekly-i">
-              <!-- <i class="icon-sun"></i>
-              <i class="icon-sun"></i>
-              <i class="icon-sun"></i>
-              <i class="icon-sun"></i>
-              <i class="icon-sun"></i>
-              <i class="icon-sun"></i>
-              <i class="icon-sun"></i> -->
             </div>
             <div class="weekly-temp">
-              <!-- <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div>
-              <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div>
-              <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div>
-              <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div>
-              <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div>
-              <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div>
-              <div>
-                <span>Max</span>
-                <span>Min</span>
-              </div> -->
             </div>
           </div>
         </div>
@@ -254,7 +204,7 @@
       <div class="main-sec">
         <div class="clock-box">
           <div clas="digital-clock">
-            <!-- <time class="current-time"></time> -->
+            <time class="current-time"></time>
           </div>
           <div class="analog-clock">
             <div class="hour hand"></div>
@@ -263,7 +213,7 @@
             <div class="center-circle"></div>
           </div>
           <div class="greeting">
-            <p>Good evening, Name</p>
+            <p><span class="good"></span><span class="name"></span></p>
           </div>
         </div>
         
@@ -300,7 +250,7 @@
             <h2>Setting</h2>
           </li>
           <li>
-            <h3>Clock</h3>
+            <h3 class="clock-change">Clock</h3>
             <div class="toggle-box">
               <input class="toggle toggle-input" id="clock" type="checkbox" checked/>
               <label class="btn-toggle" data-tg-off="ANALOG" data-tg-on="DIGITAL" for="clock"></label>
@@ -341,7 +291,7 @@
       </div>
       <!-- Quote -->
       <div class="quote-sec">
-        <q>“It is no measure of health to be well adjusted to a profoundly sick society.”</q>
+        <!-- <q>“It is no measure of health to be well adjusted to a profoundly sick society.”</q> -->
       </div>
       <!-- TodoList -->
       <!-- TodoList -->
