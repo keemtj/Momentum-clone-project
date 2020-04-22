@@ -3,14 +3,12 @@
   animation-name: fade-in-ani;
   animation-fill-mode: both;
   animation-timing-function: ease-in;
-
 }
 .fade-out {
   display: block !important;
   animation-name: fade-out-ani;
   animation-fill-mode: both;
   animation-timing-function: ease-out;
-
 }
 
 @keyframes fade-in-ani {

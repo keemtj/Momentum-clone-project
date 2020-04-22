@@ -1,4 +1,17 @@
 // validation.js
+import * as ani from './animation';
+
+let user = {};
+let users = [];
+let todos = [];
+let settings = {};
+
+const $loginPage = document.querySelector('#login');
+const $signupPage = document.querySelector('.signup-page');
+const $forgotPwPage = document.querySelector('.forgot-pw-page');
+const $pwHintPage = document.querySelector('.pw-hint-page');
+const $pwResetPage = document.querySelector('.pw-reset-page');
+const $mainPage = document.querySelector('.main-page');
 
 const checkLengthZero = $target => {
   const input = $target.value.trim();
@@ -33,9 +46,6 @@ const checkPwCondition = $target => {
   const $pwReqNumber = $form.querySelector('ul > li[class*="-number"');
   const $pwReqUpper = $form.querySelector('ul > li[class*="-upper"');
   const $pwReqSpecial = $form.querySelector('ul > li[class*="-special"');
-  // const $pwReqNumber = document.querySelector('.pw-req > .pw-req-number');
-  // const $pwReqUpper = document.querySelector('.pw-req > .pw-req-upper');
-  // const $pwReqSpecial = document.querySelector('.pw-req > .pw-req-special');
   $pwReqLength.classList.toggle('underline', (pw.length >= 8));
   $pwReqNumber.classList.toggle('underline', numExp.test(pw));
   $pwReqUpper.classList.toggle('underline', upperExp.test(pw));
@@ -69,6 +79,19 @@ const checkConfirmPw = ($pw, $confirmPw) => {
   $formMsg.classList.toggle('msg-show', (pw !== confirmPw) && confirmPw);
 };
 
+const enableLoginBtn = $target => {
+  console.log('[$target.id]: ', $target.id);
+  
+  if ($target.id === 'login-email') {
+    checkEmail($target);
+  } else {
+    checkLengthZero($target);
+  }
+  const $warnings = document.querySelectorAll('.login-container input.warning');
+  const $loginBtn = document.querySelector('.btn-login');
+  $loginBtn.disabled = $warnings.length;
+};
+
 const enableCreateAccount = () => {
   const $warnings = document.querySelectorAll('.signup-form input.warning');
   const $hintText = document.querySelector('.signup-form .hint-selected').textContent.trim();
@@ -88,9 +111,76 @@ const enableNextBtn = $target => {
   $btn.disabled = $warnings.length;
 };
 
+const generateId = () => (users.length ? Math.max(...users.map(user => user.userId)) + 1 : 1);
+
+const getUsers = () => {
+  axios.get('/users')
+    .then(({ data }) => { users = data; })
+    .then(() => { console.log(users); })
+    .catch(err => console.error(err));
+};
+
+const createAccountSuccess = () => {
+  console.log('createAccountSuccess!');
+  ani.movePage($signupPage, $loginPage);
+};
+
+const createAccountFailed = () => {
+  console.log('createAccountFailed');
+};
+
+const createAccount = async () => {
+  const $signupForm = document.querySelector('.signup-form');
+  const nameInput = $signupForm.querySelector('#signup-username');
+  const name = nameInput.value;
+  const email = $signupForm.querySelector('#signup-email').value;
+  const pw = $signupForm.querySelector('#signup-pw').value;
+  const hint = $signupForm.querySelector('.hint-selected').textContent;
+  const answer = $signupForm.querySelector('#signup-pw-hint-answer').value;
+  try {
+    const { data } = await axios.post('/users', { userId: generateId(), online: false, name, email, pw, hint, answer});
+    if (data) {
+      // users = data;
+      createAccountSuccess();
+    } else {
+      createAccountFailed();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const login = async ($email, $pw) => {
+  const $loginMsg = $loginPage.querySelector('.login-error-msg');
+  const email = $email.value.trim();
+  const pw = $pw.value.trim();
+  try {
+    const { data } = await axios.post('/usersLogin', { email, pw });
+    if (data) {
+      user = data;
+      todos = user.todos;
+      settings = user.settings;
+      console.log('user: ', user);
+      console.log('todos: ', todos);
+      console.log('settings: ', settings);
+      $loginMsg.classList.toggle('error', false);
+      ani.movePage($loginPage, $mainPage);
+      $email.value = '';
+      $pw.value = '';
+      const $greetingName = document.querySelector('.greeting .name');
+      $greetingName.textContent = user.name;
+      console.log('[login...users]: ', user.name);
+    } else {
+      $loginMsg.classList.toggle('error', true);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   checkLengthZero, checkEmail, checkPw,
   checkPwCondition, checkPwConditionResult,
-  checkConfirmPw, enableCreateAccount,
-  enableNextBtn
+  checkConfirmPw, enableCreateAccount, enableLoginBtn,
+  enableNextBtn, createAccount, login, getUsers
 };

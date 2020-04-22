@@ -10322,20 +10322,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSearchProvider", function() { return closeSearchProvider; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openTodoList", function() { return openTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+ // search provider
+
+var $searchProvider = document.querySelector('.search-provider');
+var $currentBox = document.querySelector('.current-box');
+var $currentForm = document.querySelector('.search');
+
 var openSearchProvider = function openSearchProvider(searchProvider) {
-  searchProvider.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](searchProvider, 150);
 };
 
 var closeSearchProvider = function closeSearchProvider(searchProvider) {
-  searchProvider.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](searchProvider, 150);
 };
 
+$currentBox.onclick = function () {
+  var providerCs = window.getComputedStyle($searchProvider);
+  var providerOnOff = providerCs.getPropertyValue('display');
+  providerOnOff === 'none' ? openSearchProvider($searchProvider) : closeSearchProvider($searchProvider);
+};
+
+$searchProvider.onclick = function (e) {
+  if (e.target.className === 'youtube') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
+    $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
+  }
+
+  ;
+
+  if (e.target.className === 'google') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
+    $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
+  }
+
+  ;
+
+  if (e.target.className === 'naver') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
+    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
+  }
+
+  ;
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchProvider, 150);
+}; // todolist button
+
+
 var openTodoList = function openTodoList(todoList) {
-  todoList.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](todoList, 150);
 };
 
 var closeTodoList = function closeTodoList(todoList) {
-  todoList.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](todoList, 150);
 };
 
 var $digitalClock = document.querySelector('.current-time');
@@ -10349,12 +10399,109 @@ var clock = setInterval(function () {
   var sec = now.getSeconds();
   sec = sec <= 9 ? sec = '0' + sec : sec;
   min = min <= 9 ? min = '0' + min : min;
-  hour = hour <= 9 ? hour = '0' + hour : hour;
-  $digitalClock.innerHTML = "".concat(hour, ":").concat(min);
+  hour = hour <= 9 ? hour = '0' + hour : hour; // $digitalClock.innerHTML = `${hour}:${min}`
+
   $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
   $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
   $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
-}, 1000);
+}, 1000); // const now = new Date();
+// let hour = now.getHours();
+// let greeting = (hour < 12 ) ? 'Good morning' : (hour >= 12 && hour <= 17) ? 'Good evening' : 'Good afternoon';
+// let greeting;
+// if (hour < 12){
+//   greeting = 'Good morning';
+// } else if(hour >= 12 && hour <= 17) {
+//   greeting = 'Good evening';
+// } else if(hour >= 17 && hour <= 24){
+//   greeting = 'Good afternoon';
+// } else {
+//   greeting = 'Good night';
+// }
+
+var $greeting = document.querySelector('.greeting');
+var greeting = [[0, 4, "Good night"], [5, 11, "Good morning"], [12, 17, "Good afternoon"], [18, 24, "Good night"]],
+    hour = new Date().getHours();
+
+for (var i = 0; i < greeting.length; i++) {
+  if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
+    $greeting.innerHTML = '<p><span class="good">' + greeting[i][2] + ', </span><span>NAME</span></p>';
+    break;
+  }
+}
+
+var $quote = document.querySelector('.quote-sec');
+var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
+var select = Math.floor(Math.random() * saying.length);
+var todayPick = saying.splice(select, 1); // let todayPick = saying.splice(Math.floor(Math.random()), 1)[0];
+
+$quote.innerHTML = '<q>' + '"' + todayPick + '"' + '</q>'; // console.log('todayPick:', todayPick);
+
+var todos = [];
+var active = 'All';
+var $todoList = document.querySelector('.todolist-body');
+var $inputTodo = document.querySelector('.input-todo');
+var $activeTodos = document.getElementById('active');
+var $completedTodos = document.getElementById('completed'); // <li>
+//   <label for="added-todo">
+//   <i class="icon-check-empty"></i>
+//   <input type="checkbox" id="added-todo">
+//   <span class="added-todo-text"></span>
+//   <i class="icon-cancel"></i>
+//   </label>
+// </li>
+
+var render = function render() {
+  var html = '';
+
+  var _todos = _toConsumableArray(todos).filter(function (todo) {
+    return active === 'All' ? true : active === 'Active' ? !todo.completed : todo.completed;
+  }); // 왜 let 이 아니라 const를 쓰는 지?
+
+
+  _todos.forEach(function (todo) {
+    html += " <li>\n                <label for=\"added-todo\">\n                  <i class=\"icon-check-empty\"></i>\n                  <input type=\"checkbox\" id=\"added-todo\">\n                  <span class=\"added-todo-text\">".concat(todo.content, "</span>\n                  <i class=\"icon-cancel\"></i>\n                </label>\n              </li>");
+  });
+
+  $todoList.innerHTML = html; // completedTodos();
+  // activeTodos();
+};
+
+var getTodos = function getTodos() {
+  todos = [{
+    id: 1,
+    content: 'HTML',
+    completed: false
+  }, {
+    id: 2,
+    content: 'css',
+    completed: true
+  }, {
+    id: 3,
+    content: 'Javascript',
+    completed: false
+  }].sort(function (todo1, todo2) {
+    return todo2.id - todo1.id;
+  });
+  render();
+};
+
+window.onload = getTodos; // 호출의 상하관계 알 것
+
+$inputTodo.onkeyup = function (e) {
+  if (e.keyCode !== 13 || $inputTodo.value === '') return;
+  var newId = todos.length ? Math.max.apply(Math, _toConsumableArray(todos.map(function (todo) {
+    return todo.id;
+  }))) + 1 : 1;
+  var newTodo = {
+    id: newId,
+    content: $inputTodo.value,
+    completed: false
+  };
+  todos = [newTodo].concat(_toConsumableArray(todos));
+  $inputTodo.value = '';
+  render();
+};
+
 
 
 /***/ }),
@@ -10370,16 +10517,19 @@ var clock = setInterval(function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
-/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
-/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
+/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
 // src/js/main.js
 
 
 
 
- // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
+ // 상태변수
+// 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 
+var $loginEmail = document.querySelector('#login-email');
+var $loginPw = document.querySelector('#login-pw');
 var $loginSignUp = document.querySelector('.login-signup-text');
 var $btnLogin = document.querySelector('.btn-login'); // Page
 
@@ -10405,7 +10555,19 @@ var $signUpEmail = document.querySelector('#signup-email');
 var $signUpPw = document.querySelector('#signup-pw');
 var $signUpConfirmPw = document.querySelector('#signup-confirm-pw');
 var $signUpHintAnswer = document.querySelector('#signup-pw-hint-answer'); // ---login-page Event Bindings---
-// login-page -> signup-page
+// login-page에서 이메일 형식 확인
+
+$loginEmail.onblur = function (_ref) {
+  var target = _ref.target;
+  _validation__WEBPACK_IMPORTED_MODULE_1__["enableLoginBtn"](target);
+}; // login-page에서 비밀번호 입력 확인
+
+
+$loginPw.onblur = function (_ref2) {
+  var target = _ref2.target;
+  _validation__WEBPACK_IMPORTED_MODULE_1__["enableLoginBtn"](target);
+}; // login-page -> signup-page
+
 
 $loginSignUp.onclick = function () {
   _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $signupPage);
@@ -10413,47 +10575,54 @@ $loginSignUp.onclick = function () {
 
 
 $btnLogin.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
+  var $emailInput = $loginPage.querySelector('#login-email');
+  var $pwInput = $loginPage.querySelector('#login-pw');
+  _validation__WEBPACK_IMPORTED_MODULE_1__["login"]($emailInput, $pwInput);
 }; // --signup-page Event Bindings---
 
 
 $signupCreateBtn.onclick = function () {
+  _validation__WEBPACK_IMPORTED_MODULE_1__["createAccount"](); // axios.get('/users')
+  //   .then(({ data }) => { users = data; })
+  //   .then(() => { console.log(users); })
+  //   .catch(err => console.error(err));
   // email이 중복되지 않으면
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($signupPage, $loginPage); // email이 중복되면 showEmailErrorMsg(); 
+  // ani.movePage($signupPage, $loginPage);
+  // email이 중복되면 showEmailErrorMsg(); 
 };
 
-$signUpUserName.onblur = function (_ref) {
-  var target = _ref.target;
+$signUpUserName.onblur = function (_ref3) {
+  var target = _ref3.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkLengthZero"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
 };
 
-$signUpEmail.onblur = function (_ref2) {
-  var target = _ref2.target;
+$signUpEmail.onblur = function (_ref4) {
+  var target = _ref4.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkEmail"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
 };
 
-$signUpPw.addEventListener('blur', function (_ref3) {
-  var target = _ref3.target;
+$signUpPw.addEventListener('blur', function (_ref5) {
+  var target = _ref5.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPw"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
 });
-$signUpPw.addEventListener('keyup', function (_ref4) {
-  var target = _ref4.target;
+$signUpPw.addEventListener('keyup', function (_ref6) {
+  var target = _ref6.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwCondition"](target);
 }); // signup-page에서 password가 일치(password-confirm)하는지 확인
 
-$signUpConfirmPw.onblur = function (_ref5) {
-  var target = _ref5.target;
+$signUpConfirmPw.onblur = function (_ref7) {
+  var target = _ref7.target;
   var $pw = document.querySelector('.signup-form > #signup-pw');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkConfirmPw"]($pw, target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
 }; // signup-page에서 hint-answer 입력했는지 확인
 
 
-$signUpHintAnswer.onblur = function (_ref6) {
-  var target = _ref6.target;
+$signUpHintAnswer.onblur = function (_ref8) {
+  var target = _ref8.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkLengthZero"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
 }; // signup-page select box 기능
@@ -10463,8 +10632,8 @@ $hintSelected.onclick = function () {
   $optionsContainer.classList.toggle('active');
 };
 
-$optionsContainer.onclick = function (_ref7) {
-  var target = _ref7.target;
+$optionsContainer.onclick = function (_ref9) {
+  var target = _ref9.target;
   if (!target.matches('div.option > label')) return;
   $optionsContainer.classList.toggle('active');
   $hintSelected.textContent = target.textContent;
@@ -10505,8 +10674,8 @@ $loginContainer.onmouseleave = function () {
 }; // backBtn 클릭시 loginPage로 돌아감
 
 
-$loginContainer.onclick = function (_ref8) {
-  var target = _ref8.target;
+$loginContainer.onclick = function (_ref10) {
+  var target = _ref10.target;
   if (!target.matches('div.fade-in > i')) return;
   var $currentPage = target.parentNode;
   _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($currentPage, $loginPage);
@@ -10526,8 +10695,8 @@ $forgotPwNextBtn.onclick = function () {
 
 var $forgotPwEmail = document.querySelector('.forgot-pw-form > #forgot-pw-email');
 
-$forgotPwEmail.onblur = function (_ref9) {
-  var target = _ref9.target;
+$forgotPwEmail.onblur = function (_ref11) {
+  var target = _ref11.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkEmail"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
 }; // ---pw-hint page Event Bindings---
@@ -10543,8 +10712,8 @@ $pwHintNextBtn.onclick = function () {
 
 var $pwHintInput = document.querySelector('.pw-hint-form > #pw-hint-answer');
 
-$pwHintInput.onblur = function (_ref10) {
-  var target = _ref10.target;
+$pwHintInput.onblur = function (_ref12) {
+  var target = _ref12.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkLengthZero"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
 }; // ---pw-reset-page Event Bindings---
@@ -10559,56 +10728,39 @@ $pwResetBtn.onclick = function () {
 }; // pw-reset-page에서 password 입력할때 조건 확인
 
 
-$pwResetNewPw.addEventListener('blur', function (_ref11) {
-  var target = _ref11.target;
+$pwResetNewPw.addEventListener('blur', function (_ref13) {
+  var target = _ref13.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPw"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
 });
-$pwResetNewPw.addEventListener('keyup', function (_ref12) {
-  var target = _ref12.target;
+$pwResetNewPw.addEventListener('keyup', function (_ref14) {
+  var target = _ref14.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwCondition"](target);
 }); // pw-reset-page에서 password가 일치(password-confirm)하는지 확인
 
-$pwResetNewPwConfirm.onblur = function (_ref13) {
-  var target = _ref13.target;
+$pwResetNewPwConfirm.onblur = function (_ref15) {
+  var target = _ref15.target;
   var $newPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkConfirmPw"]($newPw, target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
 }; // weather start
-
-
-var $wMain = document.querySelector('.weather-main');
-var $wBox = document.querySelector('.weather-box');
-
-$wMain.onclick = function () {
-  $wBox.style.display === 'block' ? Object(_weather__WEBPACK_IMPORTED_MODULE_2__["closeWeatherBox"])($wBox) : Object(_weather__WEBPACK_IMPORTED_MODULE_2__["openWeatherBox"])($wBox);
-}; // weather end
+// weather end
 // setting start
-
-
-var $settingBtn = document.querySelector('.setting-sec > i');
-var $settingBox = document.querySelector('.setting-list');
-
-$settingBtn.onclick = function (e) {
-  $settingBox.style.display === 'block' ? _setting__WEBPACK_IMPORTED_MODULE_3__["closeSettingBox"]($settingBox) : _setting__WEBPACK_IMPORTED_MODULE_3__["openSettingBox"]($settingBox);
-};
-
-var $clockToggle = document.querySelector('#clock'); // setting end
+// setting end
 // etc start
 
-var $currentBox = document.querySelector('.current-box');
-var $searchProvider = document.querySelector('.search-provider');
-
-$currentBox.onclick = function (e) {
-  $searchProvider.style.display === 'block' ? _etc__WEBPACK_IMPORTED_MODULE_4__["closeSearchProvider"]($searchProvider) : _etc__WEBPACK_IMPORTED_MODULE_4__["openSearchProvider"]($searchProvider);
-};
 
 var $listIcon = document.querySelector('.icon-th-list');
 var $todolistBox = document.querySelector('.todolist-box');
 
-$listIcon.onclick = function (e) {
-  $todolistBox.style.display === 'block' ? _etc__WEBPACK_IMPORTED_MODULE_4__["closeTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_4__["openTodoList"]($todolistBox);
-};
+$listIcon.onclick = function () {
+  var todoBoxCs = window.getComputedStyle($todolistBox);
+  var todoOnOff = todoBoxCs.getPropertyValue('display');
+  todoOnOff === 'none' ? _etc__WEBPACK_IMPORTED_MODULE_2__["openTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_2__["closeTodoList"]($todolistBox);
+}; // all fade-out
+
+
+window.onload = _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"];
 
 /***/ }),
 
@@ -10697,25 +10849,73 @@ var resetErrorBg = function resetErrorBg() {
 /*!***************************!*\
   !*** ./src/js/setting.js ***!
   \***************************/
-/*! exports provided: openSettingBox, closeSettingBox */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openSettingBox", function() { return openSettingBox; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSettingBox", function() { return closeSettingBox; });
-/* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 
+var $settingBtn = document.querySelector('.setting-sec > i');
+var $settingBox = document.querySelector('.setting-list');
 
 var openSettingBox = function openSettingBox(settingbox) {
-  settingbox.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settingbox, 150);
 };
 
 var closeSettingBox = function closeSettingBox(settingbox) {
-  settingbox.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settingbox, 150);
 };
 
+$settingBtn.onclick = function () {
+  var settingBoxCs = window.getComputedStyle($settingBox);
+  var settingOnOff = settingBoxCs.getPropertyValue('display');
+  console.log(settingOnOff);
+  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
+};
 
+var $toggleClock = document.getElementById('clock');
+var $toggleTodo = document.getElementById('todo');
+var $toggleSearch = document.getElementById('search');
+var $toggleWeather = document.getElementById('weather');
+var $toggleQuote = document.getElementById('quote');
+var $todolistSection = document.querySelector('.todolist-sec');
+
+$toggleTodo.onchange = function () {
+  var todolistCs = window.getComputedStyle($todolistSection);
+  var todoToggle = todolistCs.getPropertyValue('display');
+  if (todoToggle === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+
+  if (todoToggle === 'none') {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
+  } // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300); 
+
+};
+
+var $searchSection = document.querySelector('.search-sec');
+
+$toggleSearch.onchange = function () {
+  var searchCs = window.getComputedStyle($searchSection);
+  var searchToggle = searchCs.getPropertyValue('display');
+  searchToggle === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
+};
+
+var $weatherSection = document.querySelector('.weather-sec');
+
+$toggleWeather.onchange = function () {
+  var weatherCs = window.getComputedStyle($weatherSection);
+  var weatherToggle = weatherCs.getPropertyValue('display');
+  weatherToggle === 'block' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
+};
+
+var $quoteSection = document.querySelector('.quote-sec');
+
+$toggleQuote.onchange = function () {
+  var quoteCs = window.getComputedStyle($quoteSection);
+  var quoteToggle = quoteCs.getPropertyValue('display');
+  quoteToggle === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+};
 
 /***/ }),
 
@@ -10723,7 +10923,7 @@ var closeSettingBox = function closeSettingBox(settingbox) {
 /*!******************************!*\
   !*** ./src/js/validation.js ***!
   \******************************/
-/*! exports provided: checkLengthZero, checkEmail, checkPw, checkPwCondition, checkPwConditionResult, checkConfirmPw, enableCreateAccount, enableNextBtn */
+/*! exports provided: checkLengthZero, checkEmail, checkPw, checkPwCondition, checkPwConditionResult, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10735,8 +10935,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwConditionResult", function() { return checkPwConditionResult; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkConfirmPw", function() { return checkConfirmPw; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableCreateAccount", function() { return enableCreateAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableLoginBtn", function() { return enableLoginBtn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableNextBtn", function() { return enableNextBtn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAccount", function() { return createAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 // validation.js
+
+var user = {};
+var users = [];
+var todos = [];
+var settings = {};
+var $loginPage = document.querySelector('#login');
+var $signupPage = document.querySelector('.signup-page');
+var $forgotPwPage = document.querySelector('.forgot-pw-page');
+var $pwHintPage = document.querySelector('.pw-hint-page');
+var $pwResetPage = document.querySelector('.pw-reset-page');
+var $mainPage = document.querySelector('.main-page');
+
 var checkLengthZero = function checkLengthZero($target) {
   var input = $target.value.trim();
   var $lengthMsg = $target.nextElementSibling;
@@ -10769,10 +11002,7 @@ var checkPwCondition = function checkPwCondition($target) {
   var $pwReqLength = $form.querySelector('ul > li[class*="-length"');
   var $pwReqNumber = $form.querySelector('ul > li[class*="-number"');
   var $pwReqUpper = $form.querySelector('ul > li[class*="-upper"');
-  var $pwReqSpecial = $form.querySelector('ul > li[class*="-special"'); // const $pwReqNumber = document.querySelector('.pw-req > .pw-req-number');
-  // const $pwReqUpper = document.querySelector('.pw-req > .pw-req-upper');
-  // const $pwReqSpecial = document.querySelector('.pw-req > .pw-req-special');
-
+  var $pwReqSpecial = $form.querySelector('ul > li[class*="-special"');
   $pwReqLength.classList.toggle('underline', pw.length >= 8);
   $pwReqNumber.classList.toggle('underline', numExp.test(pw));
   $pwReqUpper.classList.toggle('underline', upperExp.test(pw));
@@ -10805,6 +11035,20 @@ var checkConfirmPw = function checkConfirmPw($pw, $confirmPw) {
   $formMsg.classList.toggle('msg-show', pw !== confirmPw && confirmPw);
 };
 
+var enableLoginBtn = function enableLoginBtn($target) {
+  console.log('[$target.id]: ', $target.id);
+
+  if ($target.id === 'login-email') {
+    checkEmail($target);
+  } else {
+    checkLengthZero($target);
+  }
+
+  var $warnings = document.querySelectorAll('.login-container input.warning');
+  var $loginBtn = document.querySelector('.btn-login');
+  $loginBtn.disabled = $warnings.length;
+};
+
 var enableCreateAccount = function enableCreateAccount() {
   var $warnings = document.querySelectorAll('.signup-form input.warning');
   var $hintText = document.querySelector('.signup-form .hint-selected').textContent.trim();
@@ -10822,6 +11066,152 @@ var enableNextBtn = function enableNextBtn($target) {
   var $btn = $target.parentNode.lastElementChild;
   $btn.disabled = $warnings.length;
 };
+
+var generateId = function generateId() {
+  return users.length ? Math.max.apply(Math, _toConsumableArray(users.map(function (user) {
+    return user.userId;
+  }))) + 1 : 1;
+};
+
+var getUsers = function getUsers() {
+  axios.get('/users').then(function (_ref) {
+    var data = _ref.data;
+    users = data;
+  }).then(function () {
+    console.log(users);
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var createAccountSuccess = function createAccountSuccess() {
+  console.log('createAccountSuccess!');
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($signupPage, $loginPage);
+};
+
+var createAccountFailed = function createAccountFailed() {
+  console.log('createAccountFailed');
+};
+
+var createAccount = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var $signupForm, nameInput, name, email, pw, hint, answer, _yield$axios$post, data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            $signupForm = document.querySelector('.signup-form');
+            nameInput = $signupForm.querySelector('#signup-username');
+            name = nameInput.value;
+            email = $signupForm.querySelector('#signup-email').value;
+            pw = $signupForm.querySelector('#signup-pw').value;
+            hint = $signupForm.querySelector('.hint-selected').textContent;
+            answer = $signupForm.querySelector('#signup-pw-hint-answer').value;
+            _context.prev = 7;
+            _context.next = 10;
+            return axios.post('/users', {
+              userId: generateId(),
+              online: false,
+              name: name,
+              email: email,
+              pw: pw,
+              hint: hint,
+              answer: answer
+            });
+
+          case 10:
+            _yield$axios$post = _context.sent;
+            data = _yield$axios$post.data;
+
+            if (data) {
+              // users = data;
+              createAccountSuccess();
+            } else {
+              createAccountFailed();
+            }
+
+            _context.next = 18;
+            break;
+
+          case 15:
+            _context.prev = 15;
+            _context.t0 = _context["catch"](7);
+            console.error(_context.t0);
+
+          case 18:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[7, 15]]);
+  }));
+
+  return function createAccount() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var login = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2($email, $pw) {
+    var $loginMsg, email, pw, _yield$axios$post2, data, $greetingName;
+
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            $loginMsg = $loginPage.querySelector('.login-error-msg');
+            email = $email.value.trim();
+            pw = $pw.value.trim();
+            _context2.prev = 3;
+            _context2.next = 6;
+            return axios.post('/usersLogin', {
+              email: email,
+              pw: pw
+            });
+
+          case 6:
+            _yield$axios$post2 = _context2.sent;
+            data = _yield$axios$post2.data;
+
+            if (data) {
+              user = data;
+              todos = user.todos;
+              settings = user.settings;
+              console.log('user: ', user);
+              console.log('todos: ', todos);
+              console.log('settings: ', settings);
+              $loginMsg.classList.toggle('error', false);
+              _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
+              $email.value = '';
+              $pw.value = '';
+              $greetingName = document.querySelector('.greeting .name');
+              $greetingName.textContent = user.name;
+              console.log('[login...users]: ', user.name);
+            } else {
+              $loginMsg.classList.toggle('error', true);
+            }
+
+            _context2.next = 14;
+            break;
+
+          case 11:
+            _context2.prev = 11;
+            _context2.t0 = _context2["catch"](3);
+            console.error(_context2.t0);
+
+          case 14:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[3, 11]]);
+  }));
+
+  return function login(_x, _x2) {
+    return _ref3.apply(this, arguments);
+  };
+}();
 
 
 
@@ -10845,6 +11235,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeather", function() { return getWeather; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weatherRender", function() { return weatherRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgRender", function() { return bgRender; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10857,20 +11248,28 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-// DOMs
+ // DOMs
+
 var $container = document.querySelector('.container');
 var $weatherMain = document.querySelector('.weather-main');
+var $weatherBox = document.querySelector('.weather-box');
 var $boxTop = document.querySelector('.box-top');
 var $weeklyDay = document.querySelector('.weekly-day');
 var $weeklyIcon = document.querySelector('.weekly-i');
 var $weeklyTemp = document.querySelector('.weekly-temp'); // toggle weather box
 
 var openWeatherBox = function openWeatherBox(weatherbox) {
-  weatherbox.style.display = 'block';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](weatherbox, 150);
 };
 
 var closeWeatherBox = function closeWeatherBox(weatherbox) {
-  weatherbox.style.display = 'none';
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](weatherbox, 150);
+};
+
+$weatherMain.onclick = function () {
+  var weatherBoxCs = window.getComputedStyle($weatherBox);
+  var weatherOnOff = weatherBoxCs.getPropertyValue('display');
+  weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 }; // Weather API
 
 
@@ -10889,13 +11288,19 @@ var bgRender = function bgRender(res) {
   var _res$current$weather = _slicedToArray(res.current.weather, 1),
       currentId = _res$current$weather[0].id;
 
-  console.log('[currentId]', currentId);
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(23, 31), ".jpg)");
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
-  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(0, 8), ".jpg)");
-  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
+  console.log('[currentId]', currentId); // clouds
+
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // cloud-sun
+
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)"); // rain
+
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)"); // clouds
+
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // sun
+
+  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)"); // cloud-sun
+
+  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
 }; // Weather Infomation Rendering
 
 

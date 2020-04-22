@@ -1,6 +1,9 @@
+import * as ani from './animation';
+
 // DOMs
 const $container = document.querySelector('.container');
 const $weatherMain = document.querySelector('.weather-main');
+const $weatherBox = document.querySelector('.weather-box');
 const $boxTop = document.querySelector('.box-top');
 const $weeklyDay = document.querySelector('.weekly-day');
 const $weeklyIcon = document.querySelector('.weekly-i');
@@ -8,11 +11,17 @@ const $weeklyTemp = document.querySelector('.weekly-temp');
 
 // toggle weather box
 const openWeatherBox = weatherbox => {
-  weatherbox.style.display = 'block';
+  ani.fadeIn(weatherbox, 150);
 };
 
 const closeWeatherBox = weatherbox => {
-  weatherbox.style.display = 'none';
+  ani.fadeOut(weatherbox, 150);
+};
+
+$weatherMain.onclick = () => {
+  const weatherBoxCs = window.getComputedStyle($weatherBox);
+  const weatherOnOff= weatherBoxCs.getPropertyValue('display');
+  weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 };
 
 // Weather API
@@ -31,12 +40,18 @@ const getRandomNum = (num1, num2) => {
 const bgRender = res => {
   const [{ id: currentId }] = res.current.weather;
   console.log('[currentId]', currentId);
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(15, 23)}.jpg)`;
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(8, 15)}.jpg)`;
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(23, 31)}.jpg)`;
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(15, 23)}.jpg)`;
-  if (currentId === 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(0, 8)}.jpg)`;
-  if (currentId > 800) $container.style.backgroundImage = `url(../asset/images/${getRandomNum(8, 15)}.jpg)`;
+  // clouds
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
+  // cloud-sun
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
+  // rain
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `url(../asset/images/rain/${getRandomNum(29, 33)}.jpg)`;
+  // clouds
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
+  // sun
+  if (currentId === 800) $container.style.backgroundImage = `url(../asset/images/sun/${getRandomNum(0, 14)}.jpg)`;
+  // cloud-sun
+  if (currentId > 800) $container.style.backgroundImage = `url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
 };
 
 // Weather Infomation Rendering
@@ -131,6 +146,7 @@ const weatherInit = () => {
 };
 
 weatherInit();
+
 export {
   openWeatherBox,
   closeWeatherBox,
