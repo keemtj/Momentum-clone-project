@@ -43,22 +43,61 @@ div[class$="-page"] {
 }
 .grid {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows:  1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   height: 100vh;
   box-sizing: border-box;
   padding: 1%;
 }
-.grid > div:nth-child(1),
-.grid > div:nth-child(2),
-.grid > div:nth-child(3),
-.grid > div:nth-child(7),
-.grid > div:nth-child(8),
-.grid > div:nth-child(9) {
-  height: 15vh;
+.grid div{
+  box-sizing: border-box;
 }
-.grid > div:nth-child(4),
-.grid > div:nth-child(5),
-.grid > div:nth-child(6) {
-  height: 70vh;
+.search-sec, .weather-sec{
+  height: 13vh;
+}
+.setting-sec, .todolist-sec, .quote-sec{
+  height: 10vh;
+}
+.search-sec{
+  grid-area: 1/1/3/2;
+}
+.weather-sec{
+  grid-area: 1/4/2/5;
+}
+.main-sec{
+  grid-area: 2/2/3/4;
+}
+.setting-sec{
+  grid-area: 3/1/4/2;
+}
+.quote-sec{
+  grid-area: 3/2/4/4;
+}
+.todolist-sec{
+  grid-area: 3/4/4/5;
+}
+
+/* media query */
+@media all and (max-width:980px) {
+  .grid{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 2%;
+  }
+  .search-sec{
+    grid-area:1/1/2/3;
+  }
+  .weather-sec{
+    grid-area:1/4/2/6;
+  }
+  .main-sec{
+    grid-area: 2/1/3/6;
+  }
+  .setting-sec{
+    grid-area: 3/1/4/2;
+  }
+  .quote-sec{
+    grid-area: 3/2/4/5;
+  }
+  .todolist-sec{
+    grid-area: 3/5/4/6;
+  }
 }

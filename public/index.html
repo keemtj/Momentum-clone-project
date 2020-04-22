@@ -162,156 +162,199 @@
     <div id="main" class="grid main-page">
       <!-- Search -->
       <div class="search-sec">
-        <i class="icon-search"></i>
-        <!-- <form class="search" method="get" action="https://www.youtube.com/results?search_query=" target="_self" >   
-         <input class="search-area" type="text" name="q" size="25" maxlength="255" value="" /> 
-         <input class="btn-submit" type="submit" name="btnG" value="youtube" /> 
-       </form>  -->
-      </div>
-      <!-- Nothing -->
-      <div calss="nothing">
+        <div class="search-sec">
+          <i class="icon-search"></i>
+          <form class="search" method="get" action="https://www.youtube.com/results?search_query=" target="_self" >   
+            <input class="search-area" type="text" name="q" size="25" maxlength="255" value="" />
+            <img class="current" src="./asset/logo/google.ico" alt="search at Google">
+            <i class="icon-angle-down"></i>
+          </form>
+          <ul class="search-provider">
+            <li>
+              <img src="./asset/logo/youtube.png" alt="search at Youtube"> <span>Youtube</span>
+            </li>
+            <li>
+              <img src="./asset/logo/naver.png" alt="search at Naver"><span>Naver</span>
+            </li>
+            <li>
+              <img src="./asset/logo/google.ico" alt="search at Google"><span>Google</span>
+            </li>
+          </ul> 
+        </div>
       </div>
       <!-- Weather -->
       <div class="weather-sec">
         <h2 class="weather-heading">Weather-heading</h2>
         <div class="weather-main">
-          <i class="icon-sun main-i-id"></i>
-          <span class="main-temp-id">14</span>
+          <!-- <i class="icon-sun"></i>
+          <span class="main-temp">NULL</span>
           <i class="icon-celcius main-celcius"></i>
-          <div class="weather-location main-location">Seongdong-gu</div>
+          <div class="main-location">City, Continent</div> -->
         </div>
         <div class="weather-box">
           <h3>Weather-box</h3>
           <div class="box-top">
-            <div class="weather-location box-location">Seongdong-gu</div>
-            <div class="box-state box-state-id">Clear Sky</div>
-            <i class="icon-sun box-i box-i-id"></i>
-            <span class="box-temp box-temp-id">14</span>
-            <i class="icon-celcius box-celcius"></i>
+            <!-- <div class="box-location">City, Continent</div>
+            <div class="box-state">weather state</div>
+            <i class="icon-sun box-i"></i>
+            <span class="box-temp">NULL</span>
+            <i class="icon-celcius box-celcius"></i> -->
           </div>
           <div class="box-weekly">
             <div class="weekly-day">
-              <span class="day-id">Mon</span>
-              <span class="day-id">Tue</span>
-              <span class="day-id">Wed</span>
-              <span class="day-id">Thu</span>
-              <span class="day-id">Fri</span>
-              <span class="day-id">Sat</span>
-              <span class="day-id">Sun</span>
+              <!-- <span>SUN</span>
+              <span>MON</span>
+              <span>TUE</span>
+              <span>WED</span>
+              <span>THU</span>
+              <span>FRI</span>
+              <span>SAT</span> -->
             </div>
             <div class="weekly-i">
-              <i class="icon-sun i-id"></i>
-              <i class="icon-cloud-sun i-id"></i>
-              <i class="icon-sun i-id"></i>
-              <i class="icon-rain i-id"></i>
-              <i class="icon-clouds i-id"></i>
-              <i class="icon-cloud-sun i-id"></i>
-              <i class="icon-sun i-id"></i>
+              <!-- <i class="icon-sun"></i>
+              <i class="icon-sun"></i>
+              <i class="icon-sun"></i>
+              <i class="icon-sun"></i>
+              <i class="icon-sun"></i>
+              <i class="icon-sun"></i>
+              <i class="icon-sun"></i> -->
             </div>
             <div class="weekly-temp">
-              <div class="weelky-temp-id">
-                <span class="weekly-max-id">17</span>
-                <span class="weekly-min-id">4</span>
+              <!-- <div>
+                <span>Max</span>
+                <span>Min</span>
               </div>
-              <div class="weekly-temp-id">
-                <span class="weekly-max-id">16</span>
-                <span class="weekly-min]-id">4</span>
+              <div>
+                <span>Max</span>
+                <span>Min</span>
               </div>
-              <div class="weekly-temp-id">
-                <span class="weekly-max-id">17</span>
-                <span class="weekly-min-id">9</span>
+              <div>
+                <span>Max</span>
+                <span>Min</span>
               </div>
-              <div class="weekly-temp-id">
-                <span class="weekly-max-id">14</span>
-                <span class="weekly-min-id">7</span>
+              <div>
+                <span>Max</span>
+                <span>Min</span>
               </div>
-              <div class="weekly-temp-id">
-                <span class="weekly-max-id">16</span>
-                <span class="weekly-min-id">8</span>
+              <div>
+                <span>Max</span>
+                <span>Min</span>
               </div>
-              <div class="weekly-temp-id">
-                <span class="weekly-max-id">21</span>
-                <span class="weekly-min-id">10</span>
+              <div>
+                <span>Max</span>
+                <span>Min</span>
               </div>
-              <div class="weekly-temp-id">
-                <span class="weekly-max-id">22</span>
-                <span class="weekly-min-id">11</span>
-              </div>
+              <div>
+                <span>Max</span>
+                <span>Min</span>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
-      <!-- Nothing -->
-      <div calss="nothing">
-      </div>
       <!-- Clock & Todo -->
       <div class="main-sec">
+        <time class="current-time">14:34</time>
+        <p class="greeting">Good Afternooe, Name</p>
+
         <div class="focus-wr">
           <div class="todo-focus">
             <h3>What is your main focus?</h3>
             <input type="text" class="input-todo" autocomplete="off">
           </div>
         </div>
-        <!-- <ul class="todo-list">
-          <li class="todo">Todo</li><span></span>
-          <li id="myId" class="todo-item">
-            <input id="ck-myid" class="check icon-check-empty" type="checkbox">
-            <label for="ck-myid">Css</label>
-            <i class="btn-todo icon-cancel"></i>
-          </li>
-        </ul> -->
         <div class="todo-rapping">
           <div>
-            <div class="todo">todo<span class="icon-plus icon-plus-circled"></span></div>
+            <div class="todo">todo<span class="icon-plus"></span><span class="icon-plus-circled"></span></div>
           </div>
-          <ul class="todo-list">
-            <li id="myId" class="todo-item">
-              <input id="ck-myid" class="check icon-check-empty icon-check" type="checkbox">
+          <div class="todo-heading">
+            <div class="todo-daily">
+              <input id="ck-myid" type="checkbox" class="checkbox">
               <label for="ck-myid" class="todo-content">HTML</label>
-              <i class="btn-todo icon-cancel icon-cancel-circled"></i>
-            </li>
-          </ul>
+              <div class="btn-todo">
+                <i class="icon-cancel"></i><i class="icon-cancel-circled"></i>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- Nothing -->
-      <div calss="nothing">
-      </div>
       <!-- Setting -->
-      <div class="setting-sec">
-        <i class="icon-cog"></i>
-      </div>
+    <div class="setting-sec">
+      <i class="icon-cog"></i>
+      <ul class="setting-list">
+        <li class="title">
+          <h2>Setting</h2>
+        </li>
+        <li>
+          <h3>Clock</h3>
+          <div class="toggle-box">
+            <input class="toggle toggle-input" id="clock" type="checkbox"/>
+            <label class="btn-toggle" data-tg-off="ANALOG" data-tg-on="DIGITAL" for="clock"></label>
+          </div>
+        </li>
+        <li>
+          <h3>Todo</h3>
+          <div class="toggle-box">
+            <input class="toggle toggle-input" id="todo" type="checkbox"/>
+            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="todo"></label>
+          </div>
+        </li>
+        <li>
+          <h3>Search</h3>
+          <div class="toggle-box">
+            <input class="toggle toggle-input" id="search" type="checkbox"/>
+            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="search"></label>
+          </div>
+        </li>
+        <li>
+          <h3>Weather</h3>
+          <div class="toggle-box">
+            <input class="toggle toggle-input" id="weather" type="checkbox"/>
+            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="weather"></label>
+          </div>
+        </li>
+        <li>
+          <h3>Quote</h3>
+          <div class="toggle-box">
+            <input class="toggle toggle-input" id="quote" type="checkbox"/>
+            <label class="btn-toggle" data-tg-off="OFF" data-tg-on="ON" for="quote"></label>
+          </div>
+        </li>
+      </ul>
+    </div>
       <!-- Quote -->
       <div class="quote-sec">
+        <q>“It is no measure of health to be well adjusted to a profoundly sick society.”</q>
       </div>
       <!-- TodoList -->
       <div class="todolist-sec">
-        <h1></h1>
-        <header class="todo-header">
-          <div class="active-list-container">
-            <span class="list-row active-todo-list">today</span>
-            <i class="icon-wrapper icon-angle-down"></i>
+        <i class="icon-th-list-1"></i>
+        <div class="todolist-sec">
+          <h2></h2>
+          <i class="icon-th-list-1"></i>
+          <div class="todolist-menu">
+            <div class="todo-header">
+              <ul class="todo-list-nav">
+                <li id="all" class="active">today</li>
+                <li id="active">Active</li>
+                <li id="completed">Completed</li>
+              </ul>
+            </div>
+            <div class="todo-list-section">
+              <ul class="todo-list">
+                <li id="myId" class="todo-item">
+                  <input id="ck-myid" class="checkbox" type="checkbox">
+                  <label for="ck-myid" class="todo-content">HTML</label>
+                  <div class="btn-todo">
+                    <i class="icon-cancel"></i><i class="icon-cancel-circled"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-          <ul class="todo-list-dropdown">
-            <li id="all" class="active">today</li>
-            <li id="active">Active</li>
-            <li id="completed">Completed</li>
-          </ul>
-        </header>
-        <section class="todo-list-section">
-          <ul class="todo-list">
-            <li id="myId" class="todo-item">
-              <input id="ck-myid" type="checkbox" class="icon-check-empty icon-check">
-              <label for="ck-myid">HTML</label>
-              <i class="btn-todo icon-cancel"></i>
-            </li>
-          </ul>
-        </section>
-        <!-- <i class="icon-th-list-1"></i> -->
-        <!-- <i class="icon-th-list-1"></i> -->
+        </div>
       </div>
-      <i class="icon-th-list-1"></i>
     </div>
   </div>
 </body>
-
 </html>
