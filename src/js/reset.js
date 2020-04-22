@@ -4,7 +4,7 @@ const $startPageInputs = document.querySelectorAll('.login-container input');
 const $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
 const $signUpPwReq = document.querySelector('.signup-form .pw-req > li');
 const $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req > li');
-const $startPageBtns = document.querySelectorAll('.login-container button');
+const $startPageBtns = document.querySelectorAll('.login-container button:not(.btn-login)');
 
 const resetInputs = () => {
   [...$startPageInputs].forEach($input => {
