@@ -10822,13 +10822,19 @@ var bgRender = function bgRender(res) {
   var _res$current$weather = _slicedToArray(res.current.weather, 1),
       currentId = _res$current$weather[0].id;
 
-  console.log('[currentId]', currentId);
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(23, 31), ".jpg)");
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(15, 23), ".jpg)");
-  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(0, 8), ".jpg)");
-  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/".concat(getRandomNum(8, 15), ".jpg)");
+  console.log('[currentId]', currentId); // clouds
+
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // cloud-sun
+
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)"); // rain
+
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)"); // clouds
+
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // sun
+
+  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)"); // cloud-sun
+
+  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
 }; // Weather Infomation Rendering
 
 
