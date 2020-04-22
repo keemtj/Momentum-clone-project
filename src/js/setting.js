@@ -28,12 +28,12 @@ const $todolistSection = document.querySelector('.todolist-sec');
 $toggleTodo.onchange = () => {
   const todolistCs = window.getComputedStyle($todolistSection);
   const todoToggle = todolistCs.getPropertyValue('display');
-  if(todoToggle === 'block') ani.fadeOut($todolistSection, 300);
-  if(todoToggle === 'none') {
+  if (todoToggle === 'block') ani.fadeOut($todolistSection, 300);
+  if (todoToggle === 'none') {
     $todolistSection.lastElementChild.classList.remove('fade-in');
     ani.fadeIn($todolistSection, 300);
   }
-  // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300); 
+  // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300);
 };
 
 const $searchSection = document.querySelector('.search-sec');
