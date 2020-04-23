@@ -2,10 +2,12 @@
 import * as ani from './animation';
 import * as valid from './validation';
 import * as etc from './etc';
+import * as reset from './reset';
 import * as set from './setting';
 import * as weather from './weather';
 
 // 상태변수
+let onlineUser = {};
 
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 const $loginEmail = document.querySelector('#login-email');
@@ -41,13 +43,20 @@ const $signUpHintAnswer = document.querySelector('#signup-pw-hint-answer');
 
 // ---login-page Event Bindings---
 // login-page에서 이메일 형식 확인
+$loginEmail.onfocus = ({ target }) => {
+  reset.resetErrorMsg(target);
+};
 $loginEmail.onblur = ({ target }) => {
-  valid.enableLoginBtn(target);
+  valid.enableLoginBtn(target, $loginPw);
 };
 
 // login-page에서 비밀번호 입력 확인
+
 $loginPw.onblur = ({ target }) => {
-  valid.enableLoginBtn(target);
+  valid.enableLoginBtn(target, $loginEmail);
+};
+$loginPw.onfocus = ({ target }) => {
+  reset.resetErrorMsg(target);
 };
 
 // login-page -> signup-page
@@ -59,9 +68,9 @@ $btnLogin.onclick = () => {
   const $emailInput = $loginPage.querySelector('#login-email');
   const $pwInput = $loginPage.querySelector('#login-pw');
   // test동안에는 valid.login주석
-  // valid.login($emailInput, $pwInput);
+  valid.login($emailInput, $pwInput);
   // 대신 ani.movePage
-  ani.movePage($loginPage, $mainPage);
+  // ani.movePage($loginPage, $mainPage);
 };
 
 
@@ -85,6 +94,9 @@ $signUpUserName.onblur = ({ target }) => {
 $signUpEmail.onblur = ({ target }) => {
   valid.checkEmail(target);
   valid.enableCreateAccount();
+};
+$signUpEmail.onfocus = ({ target }) => {
+  reset.resetErrorMsg(target);
 };
 
 $signUpPw.addEventListener('blur', ({ target }) => {
@@ -139,6 +151,7 @@ $loginContainer.onmouseover = () => {
   const $currentPage = document.querySelector('div.fade-in');
   if (!$currentPage || $currentPage.id === 'login') return;
   const $iconBackBtn = document.querySelector('.login-container > div[class*="-page"].fade-in > i');
+  if (!$iconBackBtn) return;
   ani.fadeIn($iconBackBtn, 150);
 };
 $loginContainer.onmouseleave = () => {
@@ -226,4 +239,43 @@ $listIcon.onclick = () => {
   todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
 
-window.onload = valid.getUsers;
+const renderMainAll = onlineUser => {
+ console.log('renderMainAll');
+};
+
+const renderMainPage = onlineUser => {
+  $loginPage.classList.remove('fade-in');
+  renderMainAll(onlineUser);
+  $mainPage.classList.add('fade-in');
+
+};
+
+const renderStartPage = () => {
+  $loginPage.classList.add('fade-in');
+};
+
+
+const $logoutBtn = document.querySelector('.logout');
+$logoutBtn.onclick = () => {
+  // onlinerUser의 online 프로퍼티를 true -> false
+  // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
+  // 그 이후에 ani.movePage($mainPage, $loginPage);
+
+};
+
+const init = async () => {
+  const $loadingContainer = document.querySelector('.loading-container');
+  const $loadingText = document.querySelector('.loading-text');
+
+  onlineUser = await valid.getUsers();
+  console.log('OnlineUser: ', onlineUser);
+  if (onlineUser.online) {
+    renderMainPage(onlineUser);
+  } else {
+    renderStartPage();
+  }
+  const weatherStart = await weather.weatherInit();
+};
+window.onload = init;
+
+export { onlineUser };

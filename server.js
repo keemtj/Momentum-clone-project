@@ -9,7 +9,7 @@ let users = [
   {
     userId: 3,
     online: false,
-    name: '  ',
+    name: 'Jiyeon',
     email: 'jang@gmail.com',
     pw: 'Qwerty1234!',
     hint: 'what is your favorite book?',
@@ -43,7 +43,7 @@ let users = [
   {
     userId: 1,
     online: false,
-    name: 'Hanseul',
+    name: 'Jimmy',
     email: 'joo@gmail.com',
     pw: 'Qwerty1234!',
     hint: 'what is your favorite food?',
@@ -69,28 +69,30 @@ app.get('/', (req, res) => res.send(`<h1>${req.protocol}://${req.get('host')}${r
 
 // /users -> users 
 app.get('/users', (req, res) => {
+  onlineUser = users.find(user => user.online);
   console.log('[/users]');
-  res.send(users);
+  res.send(onlineUser);
 });
 
 // /users 아이디 등록
 app.post('/users', (req, res) => {
-  // console.log('[/users]');
-  // const { userId, online, name, email, pw, hint, answer } = req.body;
-  // if (users.find($users => $users.email === email)) {
-  //   res.send(false);
-  // } else {
-  //   const todos = [];
-  //   const settings = {
-  //     digital: true, todo: true, search: true, weather: true, quote: true
-  //   };
-  //   users = [{
-  //     userId, online, name, email, pw, hint, answer, todos, settings }, ...users];
-  //   res.send(users);
-  // }
+  console.log('[/users]');
+  const { userId, online, name, email, pw, hint, answer } = req.body;
+  if (users.find($users => $users.email === email)) {
+    res.send(false);
+  } else {
+    const todos = [];
+    const settings = {
+      digital: true, todo: true, search: true, weather: true, quote: true
+    };
+    users = [{
+      userId, online, name, email, pw, hint, answer, todos, settings }, ...users];
+    console.log('users', users);
+    res.send(users);
+  }
 });
 
-app.post('/usersLogin', (req, res) => {
+app.post('/users/login', (req, res) => {
   console.log('[/usersLogin]');
   const { email, pw } = req.body;
   console.log('/usersLogin...email: ', email);
