@@ -1,6 +1,7 @@
 // validation.js
 import * as ani from './animation';
 import * as etc from './etc';
+import * as t from './todos';
 let user = {};
 let users = [];
 let todos = [];
@@ -170,6 +171,7 @@ const login = async ($email, $pw) => {
       ani.movePage($loginPage, $mainPage);
       $email.value = '';
       $pw.value = '';
+      t.getTodos();
     } else {
       $loginMsg.classList.toggle('error', true);
     }
