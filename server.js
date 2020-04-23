@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors());
+<<<<<<< HEAD
+=======
+
+>>>>>>> 749fa12f86834013bb45fdbe16dc7457b04e7a12
 let onUser = {};
 let users = [
   {
@@ -60,6 +64,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.get('/', (req, res) => res.send(`<h1>${req.protocol}://${req.get('host')}${req.originalUrl}</h1>`));
+
 // ========users===========
 // 회원가입할때 userId 만들어주는 함수 
 const generateUserId = () => (users.length ? Math.max(...users.map($user => $user.userId)) + 1 : 1);
@@ -85,6 +90,7 @@ app.post('/users', (req, res) => {
     res.send(users);
   }
 });
+
 // 유저가 로그인할때 아이디 존재여부와 비밀번호 일치 확인
 app.post('/users/login', (req, res) => {
   const { email, pw } = req.body;
@@ -100,7 +106,40 @@ app.post('/users/login', (req, res) => {
     res.send(userFound);
   }
 });
-// ===========================
+
+// 유저가 비밀번호 찾을때 이메일을 입력하면 
+// 이메일이 존재하는지 확인 -> 
+// 존재하면 그 유저 객체를 보내줌
+// 전역변수 userFound 에다가 저장하고 다음 페이지에서 그 userFound의 이메일과 힌트 비교함
+// 존재하지 않으면 falsy값 리턴하고 존재하지 않는 이메일 msg 표시해줌
+app.post('/users/forgot_pw', (req, res) => {
+  const { email } = req.body;
+  console.log('email:', email);
+  
+  const userFound = users.find($user => $user.email === email);
+  console.log('userFound', userFound);
+
+  if (!userFound) {
+    res.send(false);
+  } else {
+    res.send(userFound);
+  }
+});
+
+// resetPw
+// 이메일과 패스워드를 받고
+// 패스워드 바꾸고
+// 전체 users return함
+app.patch('/users/reset_pw', (req, res) => {
+  const { email, pw } = req.body;
+  const resetPwUser = users.find($user => $user.email === email);
+  resetPwUser.pw = pw;
+  users.map($user => (resetPwUser.email === $user.email ? resetPwUser : $user));
+  res.send(users);
+});// ===========================
+
+
+
 // ========settings===========
 // settings로 요청하면 객체 형식({ digital: true, weather: true, ...})으로 응답함
 app.get('/settings', (req, res) => {
@@ -167,12 +206,12 @@ app.delete('/todos/:id([0-9]+)', (req, res) => {
 // 재할당된 onUser를 가지고 render 함수를 호출한다
 app.patch('/todos/:id', (req, res) => {
   const { id } = req.params;
-  console.log('[PATCH] req.params.id => ', req.params.id);
   const { completed } = req.body;
   console.log('[PATCH] req.body => ', completed);
   onUser = users.find(user => user.online);
   onUser.todos = onUser.todos.map(todo => (todo.id === +id ? { ...todo, completed: !todo.completed } : todo));
   res.send(onUser.todos);
 });
+
 // =======================
 app.listen(9000, () => console.log('Simple Rest API Server listening on port 9000'));

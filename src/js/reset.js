@@ -2,8 +2,8 @@
 // start-page에서 back-btn 클릭시 input.value, btn.disabled, hint, pwcondition 등 reset 시킴
 const $startPageInputs = document.querySelectorAll('.login-container input');
 const $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
-const $signUpPwReq = document.querySelector('.signup-form .pw-req > li');
-const $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req > li');
+const $signUpPwReq = document.querySelector('.signup-form .pw-req');
+const $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req');
 const $startPageBtns = document.querySelectorAll('.login-container button:not(.btn-login)');
 
 const resetInputs = () => {
@@ -23,10 +23,15 @@ const resetBtns = () => {
 };
 
 const resetPwCondition = () => {
+  console.log('======reset======');
   [...$signUpPwReq.children].forEach($req => {
+    console.log($req);
     $req.classList.remove('underline');
   });
+  console.log('$signUpPwReq: ', $signUpPwReq);
+  console.log('$signUpPwReq.children: ', $signUpPwReq.children);  
   [...$pwResetPwReq.children].forEach($req => {
+    console.log($req);
     $req.classList.remove('underline');
   });
 };
@@ -47,7 +52,7 @@ const resetErrorBg = () => {
 
 const resetErrorMsg = $target => {
   $target.parentNode.lastElementChild.classList.remove('error');
-}
+};
 export {
   resetInputs, resetHint, resetBtns,
   resetMsg, resetPwCondition, resetErrorBg,

@@ -10326,6 +10326,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/js/main.js");
+
  // search provider
 
 var $searchProvider = document.querySelector('.search-provider');
@@ -10408,7 +10410,7 @@ for (var i = 0; i < greeting.length; i++) {
 
 ;
 var $quote = document.querySelector('.quote-sec');
-var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
+var saying = ["If you don't study, you work in hot weather and cold weather.", 'The beginning is not half, but the beginning is just the beginning.', 'Handsome men pay for their faces, and ugly men pay for their looks.', 'The enemy meets at the company.', "You don't have to do what you can do tomorrow today.", 'A migraine inevitably follows pain.', "Avoid it if you can't enjoy it", 'Be comfortable to give up.', 'Beer and chicken at dawn are 0 calories.', 'Early birds are tired, Early worms are eaten.'];
 var select = Math.floor(Math.random() * saying.length);
 var todayPick = saying.splice(select, 1);
 $quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>"); // console.log('todayPick:', todayPick);
@@ -10627,7 +10629,8 @@ $forgotPwBtn.onclick = function () {
 
 
 $forgotPwNextBtn.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($forgotPwPage, $pwHintPage);
+  var $email = document.querySelector('.forgot-pw-form #forgot-pw-email');
+  _validation__WEBPACK_IMPORTED_MODULE_1__["checkEmailExists"]($email);
 }; // forgot-pw-page에서 입력했을때 이메일이 존재하고 형식이 맞으면 버튼 활성화
 
 
@@ -10644,7 +10647,8 @@ $forgotPwEmail.onblur = function (_ref14) {
 var $pwHintNextBtn = document.querySelector('.pw-hint-btn-next');
 
 $pwHintNextBtn.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwHintPage, $pwResetPage);
+  var $pwHintAnswer = document.querySelector('.pw-hint-form #pw-hint-answer');
+  _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwHintAnswer"]($pwHintAnswer);
 }; // pw-hint-page에서 힌트 입력 확인
 
 
@@ -10662,7 +10666,7 @@ var $pwResetNewPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
 var $pwResetNewPwConfirm = document.querySelector('.pw-reset-form > #pw-reset-new-pw-confirm'); // pw-reset-page에서 reset 버튼 누르면 login-page로 이동
 
 $pwResetBtn.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwResetPage, $loginPage);
+  _validation__WEBPACK_IMPORTED_MODULE_1__["resetPw"]();
 }; // pw-reset-page에서 password 입력할때 조건 확인
 
 
@@ -10704,17 +10708,19 @@ var renderMainPage = function renderMainPage() {
   _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
+  axios.patch('/settings', {
+    digital: false,
+    weather: false,
+    todo: true,
+    quote: true,
+    search: true
+  }).then(function (data) {
+    console.log('data', data);
+  });
 };
 
 var renderStartPage = function renderStartPage() {
   $loginPage.classList.add('fade-in');
-};
-
-var $logoutBtn = document.querySelector('.logout');
-
-$logoutBtn.onclick = function () {// onlinerUser의 online 프로퍼티를 true -> false
-  // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
-  // 그 이후에 ani.movePage($mainPage, $loginPage);
 };
 
 var init = /*#__PURE__*/function () {
@@ -10725,32 +10731,26 @@ var init = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             $loadingContainer = document.querySelector('.loading-container');
-            $loadingText = document.querySelector('.loading-text'); // 서버로부터 Online인 유저를 가져오고 상태변수를 update
-
+            $loadingText = document.querySelector('.loading-text');
             _context.next = 4;
             return _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"]();
 
           case 4:
             onUser = _context.sent;
-            console.log('[Init]..onUser: ', onUser); // online인 유저가 존재하면 renderMainPage를 호출
 
             if (onUser.online) {
               renderMainPage(onUser);
             } else {
-              // 없다면 renderStartPage를 호출
               renderStartPage();
-            } // 아직까지 로딩페이지가 전체를 가린상태
-            // 데이터를 다 가져오면 아까 부른 renderMainPage()나 renderStartPage()의 결과가 보여진다 
-            // 날씨를 가져온다 -> 백그라운드를 바꾼다 -> 로딩페이지를 fade-out준다
+            }
 
-
-            _context.next = 9;
+            _context.next = 8;
             return _weather__WEBPACK_IMPORTED_MODULE_5__["weatherInit"]();
 
-          case 9:
+          case 8:
             weatherStart = _context.sent;
 
-          case 10:
+          case 9:
           case "end":
             return _context.stop();
         }
@@ -10799,8 +10799,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 // start-page에서 back-btn 클릭시 input.value, btn.disabled, hint, pwcondition 등 reset 시킴
 var $startPageInputs = document.querySelectorAll('.login-container input');
 var $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
-var $signUpPwReq = document.querySelector('.signup-form .pw-req > li');
-var $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req > li');
+var $signUpPwReq = document.querySelector('.signup-form .pw-req');
+var $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req');
 var $startPageBtns = document.querySelectorAll('.login-container button:not(.btn-login)');
 
 var resetInputs = function resetInputs() {
@@ -10820,11 +10820,18 @@ var resetBtns = function resetBtns() {
 };
 
 var resetPwCondition = function resetPwCondition() {
+  console.log('======reset======');
+
   _toConsumableArray($signUpPwReq.children).forEach(function ($req) {
+    console.log($req);
     $req.classList.remove('underline');
   });
 
+  console.log('$signUpPwReq: ', $signUpPwReq);
+  console.log('$signUpPwReq.children: ', $signUpPwReq.children);
+
   _toConsumableArray($pwResetPwReq.children).forEach(function ($req) {
+    console.log($req);
     $req.classList.remove('underline');
   });
 };
@@ -10883,6 +10890,7 @@ var closeSettingBox = function closeSettingBox(settingbox) {
 };
 
 $settingBtn.onclick = function () {
+  $settingBtn.classList.toggle('clicked');
   var settingBoxCs = window.getComputedStyle($settingBox);
   var settingOnOff = settingBoxCs.getPropertyValue('display');
   settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
@@ -11110,7 +11118,7 @@ $nav.onclick = function (_ref10) {
 /*!******************************!*\
   !*** ./src/js/validation.js ***!
   \******************************/
-/*! exports provided: checkLengthZero, checkEmail, checkPw, checkPwCondition, checkPwConditionResult, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers */
+/*! exports provided: checkLengthZero, checkEmail, checkPw, resetPw, checkPwCondition, checkPwConditionResult, checkPwHintAnswer, checkEmailExists, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11118,8 +11126,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkLengthZero", function() { return checkLengthZero; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkEmail", function() { return checkEmail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPw", function() { return checkPw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetPw", function() { return resetPw; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwCondition", function() { return checkPwCondition; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwConditionResult", function() { return checkPwConditionResult; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwHintAnswer", function() { return checkPwHintAnswer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkEmailExists", function() { return checkEmailExists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkConfirmPw", function() { return checkConfirmPw; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableCreateAccount", function() { return enableCreateAccount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableLoginBtn", function() { return enableLoginBtn; });
@@ -11134,26 +11145,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 // validation.js
 
 
 
 var user = {};
-var users = [];
-var todos = [];
-var settings = {};
+var forgotPwUser = {};
 var $loginPage = document.querySelector('#login');
 var $signupPage = document.querySelector('.signup-page');
 var $forgotPwPage = document.querySelector('.forgot-pw-page');
@@ -11235,10 +11232,6 @@ var enableLoginBtn = function enableLoginBtn($target, $siblingTarget) {
 
   var $warnings = document.querySelectorAll('.login-container input.warning');
   var $loginBtn = document.querySelector('.btn-login');
-  console.log('length: ', $warnings.length);
-  console.log('target value: ', !$target.value.trim());
-  console.log('sibling value: ', !$siblingTarget.value.trim());
-  console.log('result, ', $warnings.length || !$target.value.trim() || !$siblingTarget.value.trim());
   $loginBtn.disabled = $warnings.length || !$target.value.trim() || !$siblingTarget.value.trim();
 };
 
@@ -11247,73 +11240,93 @@ var enableCreateAccount = function enableCreateAccount() {
   var $hintText = document.querySelector('.signup-form .hint-selected').textContent.trim();
   var $createAccountBtn = document.querySelector('.signup-form .btn-signup');
   $createAccountBtn.disabled = !(!$warnings.length && $hintText !== 'Select a hint');
-}; // const enableForgotPwNext = () => {
-//   const $warnings = document.querySelectorAll('.forgot-pw-form input.warning');
-//   const $forgotPwNext = document.querySelector('.forgot-pw-form .forgot-pw-btn-next');
-//   $forgotPwNext.disabled = $warnings.length;
-// };
-
+};
 
 var enableNextBtn = function enableNextBtn($target) {
   var $warnings = document.querySelectorAll('.login-container input.warning');
-  var $btn = $target.parentNode.lastElementChild;
+  var $btn = $target.parentNode.lastElementChild.previousElementSibling;
   $btn.disabled = $warnings.length;
 };
 
-var generateId = function generateId() {
-  return users.length ? Math.max.apply(Math, _toConsumableArray(users.map(function (user) {
-    return user.userId;
-  }))) + 1 : 1;
-};
-
-var getUsers = /*#__PURE__*/function () {
+var resetPw = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var _yield$axios$get, data;
+    var pw, _forgotPwUser, email, _yield$axios$patch, data;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return axios.get('/users');
+            pw = document.querySelector('#pw-reset-new-pw').value;
+            _forgotPwUser = forgotPwUser, email = _forgotPwUser.email;
+            _context.prev = 2;
+            _context.next = 5;
+            return axios.patch('/users/reset_pw', {
+              email: email,
+              pw: pw
+            });
 
-          case 2:
-            _yield$axios$get = _context.sent;
-            data = _yield$axios$get.data;
-            console.log('data', data);
-            return _context.abrupt("return", data);
+          case 5:
+            _yield$axios$patch = _context.sent;
+            data = _yield$axios$patch.data;
+            _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwResetPage, $loginPage);
+            _context.next = 13;
+            break;
 
-          case 6:
+          case 10:
+            _context.prev = 10;
+            _context.t0 = _context["catch"](2);
+            console.error(_context.t0);
+
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[2, 10]]);
   }));
 
-  return function getUsers() {
+  return function resetPw() {
     return _ref.apply(this, arguments);
   };
-}();
+}(); // const generateId = () => (users.length ? Math.max(...users.map(user => user.userId)) + 1 : 1);
 
-var createAccountSuccess = function createAccountSuccess() {
-  console.log('createAccountSuccess!');
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($signupPage, $loginPage);
-};
 
-var createAccountFailed = function createAccountFailed() {
-  var $signupErrorMsg = document.querySelector('.signup-error-msg');
-  $signupErrorMsg.classList.add('error');
-  console.log('createAccountFailed');
-};
-
-var createAccount = /*#__PURE__*/function () {
+var getUsers = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var $signupForm, nameInput, name, email, pw, hint, answer, _yield$axios$post, data;
+    var _yield$axios$get, data;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return axios.get('/users');
+
+          case 2:
+            _yield$axios$get = _context2.sent;
+            data = _yield$axios$get.data;
+            return _context2.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getUsers() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var createAccount = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+    var $signupForm, nameInput, name, email, pw, hint, answer, _yield$axios$post, data, $signupErrorMsg;
+
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             $signupForm = document.querySelector('.signup-form');
             nameInput = $signupForm.querySelector('#signup-username');
@@ -11322,10 +11335,9 @@ var createAccount = /*#__PURE__*/function () {
             pw = $signupForm.querySelector('#signup-pw').value;
             hint = $signupForm.querySelector('.hint-selected').textContent;
             answer = $signupForm.querySelector('#signup-pw-hint-answer').value;
-            _context2.prev = 7;
-            _context2.next = 10;
+            _context3.prev = 7;
+            _context3.next = 10;
             return axios.post('/users', {
-              userId: generateId(),
               online: false,
               name: name,
               email: email,
@@ -11335,63 +11347,61 @@ var createAccount = /*#__PURE__*/function () {
             });
 
           case 10:
-            _yield$axios$post = _context2.sent;
+            _yield$axios$post = _context3.sent;
             data = _yield$axios$post.data;
 
             if (data) {
               _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($signupPage, $loginPage);
             } else {
-              console.log(data);
-              createAccountFailed();
+              $signupErrorMsg = document.querySelector('.signup-error-msg');
+              $signupErrorMsg.classList.add('error');
             }
 
-            _context2.next = 18;
+            _context3.next = 18;
             break;
 
           case 15:
-            _context2.prev = 15;
-            _context2.t0 = _context2["catch"](7);
-            console.error(_context2.t0);
+            _context3.prev = 15;
+            _context3.t0 = _context3["catch"](7);
+            console.error(_context3.t0);
 
           case 18:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2, null, [[7, 15]]);
+    }, _callee3, null, [[7, 15]]);
   }));
 
   return function createAccount() {
-    return _ref2.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 
 var login = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3($email, $pw) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4($email, $pw) {
     var $loginMsg, email, pw, _yield$axios$post2, data, $greetingName;
 
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             $loginMsg = $loginPage.querySelector('.login-error-msg');
             email = $email.value.trim();
             pw = $pw.value.trim();
-            _context3.prev = 3;
-            _context3.next = 6;
+            _context4.prev = 3;
+            _context4.next = 6;
             return axios.post('/users/login', {
               email: email,
               pw: pw
             });
 
           case 6:
-            _yield$axios$post2 = _context3.sent;
+            _yield$axios$post2 = _context4.sent;
             data = _yield$axios$post2.data;
 
             if (data) {
               user = data;
-              todos = user.todos;
-              settings = user.settings;
               $loginMsg.classList.toggle('error', false);
               $greetingName = document.querySelector('.greeting .name');
               $greetingName.textContent = user.name;
@@ -11404,26 +11414,89 @@ var login = /*#__PURE__*/function () {
               $loginMsg.classList.toggle('error', true);
             }
 
-            _context3.next = 14;
+            _context4.next = 14;
             break;
 
           case 11:
-            _context3.prev = 11;
-            _context3.t0 = _context3["catch"](3);
-            console.error(_context3.t0);
+            _context4.prev = 11;
+            _context4.t0 = _context4["catch"](3);
+            console.error(_context4.t0);
 
           case 14:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3, null, [[3, 11]]);
+    }, _callee4, null, [[3, 11]]);
   }));
 
   return function login(_x, _x2) {
-    return _ref3.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
+
+var checkEmailExists = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5($email) {
+    var email, $forgotPwMsg, _yield$axios$post3, data, $pwHintQuestion;
+
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            email = $email.value.trim();
+            $forgotPwMsg = $forgotPwPage.querySelector('.forgot-pw-error-msg');
+            _context5.prev = 2;
+            _context5.next = 5;
+            return axios.post('/users/forgot_pw', {
+              email: email
+            });
+
+          case 5:
+            _yield$axios$post3 = _context5.sent;
+            data = _yield$axios$post3.data;
+
+            if (data) {
+              forgotPwUser = data;
+              $forgotPwMsg.classList.toggle('error', false);
+              $pwHintQuestion = $pwHintPage.querySelector('.pw-hint-question');
+              $pwHintQuestion.textContent = forgotPwUser.hint;
+              _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($forgotPwPage, $pwHintPage);
+            } else {
+              $forgotPwMsg.classList.toggle('error', true);
+            }
+
+            _context5.next = 13;
+            break;
+
+          case 10:
+            _context5.prev = 10;
+            _context5.t0 = _context5["catch"](2);
+            console.error(_context5.t0);
+
+          case 13:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[2, 10]]);
+  }));
+
+  return function checkEmailExists(_x3) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+var checkPwHintAnswer = function checkPwHintAnswer($answer) {
+  var answer = $answer.value.trim();
+  var $pwHintMsg = $pwHintPage.querySelector('.pw-hint-error-msg');
+
+  if (answer === forgotPwUser.answer) {
+    $pwHintMsg.classList.toggle('error', false);
+    _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwHintPage, $pwResetPage);
+  } else {
+    $pwHintMsg.classList.toggle('error', true);
+  }
+};
 
 
 
