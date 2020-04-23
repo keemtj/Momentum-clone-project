@@ -26,11 +26,12 @@ $searchProvider.onclick = e => {
   }
   if (e.target.className === 'google') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
-    $currentForm.setAttribute('action', 'https://www.google.com/search?q=')
+    $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
   }
   if (e.target.className === 'naver') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
-    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
+    $currentForm.firstElementChild.setAttribute('name', 'query');
+    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?q=');
   }
   ani.fadeOut($searchProvider, 150);
 };

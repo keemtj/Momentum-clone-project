@@ -138,11 +138,13 @@ const errorLocation = () => {
 };
 
 const getLocation = () => {
+  console.log('좌표 받아오는중');
   navigator.geolocation.getCurrentPosition(succesLocation, errorLocation);
 };
 
 const weatherInit = () => {
   getLocation();
+  console.log('weatherInit');
 };
 
 weatherInit();

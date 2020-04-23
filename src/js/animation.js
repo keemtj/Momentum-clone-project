@@ -39,4 +39,8 @@ const movePage = (from, to) => {
   }, 300);
 };
 
-export { fadeIn, fadeOut, movePage };
+export {
+  fadeIn,
+  fadeOut,
+  movePage,
+};

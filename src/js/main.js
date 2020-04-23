@@ -225,6 +225,5 @@ $listIcon.onclick = () => {
   const todoOnOff = todoBoxCs.getPropertyValue('display');
   todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
-// all fade-out
 
 window.onload = valid.getUsers;
