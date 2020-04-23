@@ -6,8 +6,8 @@ import * as reset from './reset';
 import * as set from './setting';
 import * as weather from './weather';
 
-// 상태변수
-let onlineUser = {};
+// 상태변수(로그인 된 유저를 담는 변수)
+let onUser = { a: 1};
 
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 const $loginEmail = document.querySelector('#login-email');
@@ -177,7 +177,8 @@ $forgotPwBtn.onclick = () => {
 // ---forgot-pw page Event Bindings---
 // forgot-pw-page에서 Next 버튼 누르면 pw-hint-page로 이동
 $forgotPwNextBtn.onclick = () => {
-  ani.movePage($forgotPwPage, $pwHintPage);
+  const $email = document.querySelector('.forgot-pw-form #forgot-pw-email');
+  valid.checkEmailExists($email);
 };
 // forgot-pw-page에서 입력했을때 이메일이 존재하고 형식이 맞으면 버튼 활성화
 const $forgotPwEmail = document.querySelector('.forgot-pw-form > #forgot-pw-email');
@@ -190,7 +191,8 @@ $forgotPwEmail.onblur = ({ target }) => {
 // pw-hint-page에서 Next 버튼 누르면 pw-reset-page로 이동
 const $pwHintNextBtn = document.querySelector('.pw-hint-btn-next');
 $pwHintNextBtn.onclick = () => {
-  ani.movePage($pwHintPage, $pwResetPage);
+  const $pwHintAnswer = document.querySelector('.pw-hint-form #pw-hint-answer');
+  valid.checkPwHintAnswer($pwHintAnswer);
 };
 
 // pw-hint-page에서 힌트 입력 확인
@@ -206,8 +208,8 @@ const $pwResetNewPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw'
 const $pwResetNewPwConfirm = document.querySelector('.pw-reset-form > #pw-reset-new-pw-confirm');
 // pw-reset-page에서 reset 버튼 누르면 login-page로 이동
 $pwResetBtn.onclick = () => {
-  ani.movePage($pwResetPage, $loginPage);
-}
+  valid.resetPw();
+};
 // pw-reset-page에서 password 입력할때 조건 확인
 $pwResetNewPw.addEventListener('blur', ({ target }) => {
   valid.checkPw(target);
@@ -222,6 +224,7 @@ $pwResetNewPwConfirm.onblur = ({ target }) => {
   valid.checkConfirmPw($newPw, target);
   valid.enableNextBtn(target);
 };
+
 
 // weather start
 // weather end
@@ -239,15 +242,17 @@ $listIcon.onclick = () => {
   todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
 
-const renderMainAll = onlineUser => {
- console.log('renderMainAll');
-};
 
-const renderMainPage = onlineUser => {
+const renderMainPage = () => {
+  const $nameText = document.querySelector('.greeting .name');
+  $nameText.textContent = onUser.name;
+  etc.startClock();
   $loginPage.classList.remove('fade-in');
-  renderMainAll(onlineUser);
   $mainPage.classList.add('fade-in');
-
+  axios.patch('/settings', { digital: false, weather: false, todo: true, quote: true, search: true })
+    .then(data => {
+      console.log('data', data);
+    });
 };
 
 const renderStartPage = () => {
@@ -255,27 +260,22 @@ const renderStartPage = () => {
 };
 
 
-const $logoutBtn = document.querySelector('.logout');
-$logoutBtn.onclick = () => {
-  // onlinerUser의 online 프로퍼티를 true -> false
-  // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
-  // 그 이후에 ani.movePage($mainPage, $loginPage);
-
-};
-
 const init = async () => {
   const $loadingContainer = document.querySelector('.loading-container');
   const $loadingText = document.querySelector('.loading-text');
 
-  onlineUser = await valid.getUsers();
-  console.log('OnlineUser: ', onlineUser);
-  if (onlineUser.online) {
-    renderMainPage(onlineUser);
-  } else {
+  // 서버로부터 Online인 유저를 가져오고 상태변수를 update
+  onUser = await valid.getUsers();
+  console.log('[Init]..onUser: ', onUser);
+  // online인 유저가 존재하면 renderMainPage를 호출
+  if (onUser.online) {
+    renderMainPage(onUser);
+  } else { // 없다면 renderStartPage를 호출
     renderStartPage();
   }
+  // 아직까지 로딩페이지가 전체를 가린상태
+  // 데이터를 다 가져오면 아까 부른 renderMainPage()나 renderStartPage()의 결과가 보여진다 
+  // 날씨를 가져온다 -> 백그라운드를 바꾼다 -> 로딩페이지를 fade-out준다
   const weatherStart = await weather.weatherInit();
 };
 window.onload = init;
-
-export { onlineUser };

@@ -105,6 +105,19 @@
   left: 0;
   font-size: 1.4rem;
   cursor: pointer;
+  transform: rotate(0deg);
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+.icon-cog.clicked{
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transform: rotate(45deg);
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 }
 .setting-list{
   background: rgba(0,0,0,0.7);
@@ -361,7 +374,7 @@
   border: 6px solid rgba(255,255,255,.9);
   border-radius: 50%;
   padding-bottom: 1rem;
-  display: block;
+  display: none;
 }
 .hand {
   position: absolute;

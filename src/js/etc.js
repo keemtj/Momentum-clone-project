@@ -1,4 +1,5 @@
 import * as ani from './animation';
+import * as main from './main';
 
 // search provider
 const $searchProvider = document.querySelector('.search-provider');
@@ -86,15 +87,15 @@ for (let i = 0; i < greeting.length; i++) {
 const $quote = document.querySelector('.quote-sec');
 const saying = [
   "If you don't study, you work in hot weather and cold weather.",
-  "The beginning is not half, but the beginning is just the beginning.",
-  "Handsome men pay for their faces, and ugly men pay for their looks.",
-  "The enemy meets at the company.",
+  'The beginning is not half, but the beginning is just the beginning.',
+  'Handsome men pay for their faces, and ugly men pay for their looks.',
+  'The enemy meets at the company.',
   "You don't have to do what you can do tomorrow today.",
-  "A migraine inevitably follows pain.",
+  'A migraine inevitably follows pain.',
   "Avoid it if you can't enjoy it",
-  "Be comfortable to give up.",
-  "Beer and chicken at dawn are 0 calories.",
-  "Early birds are tired, Early worms are eaten."
+  'Be comfortable to give up.',
+  'Beer and chicken at dawn are 0 calories.',
+  'Early birds are tired, Early worms are eaten.'
 ];
 
 const select = Math.floor(Math.random() * saying.length);

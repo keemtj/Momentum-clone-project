@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-let onlineUser = {};
+let onUser = {};
 let users = [
   {
     userId: 3,
@@ -44,8 +44,8 @@ let users = [
     userId: 1,
     online: false,
     name: 'Jimmy',
-    email: 'joo@gmail.com',
-    pw: 'Qwerty1234!',
+    email: 'a@gmail.com',
+    pw: '1',
     hint: 'what is your favorite food?',
     answer: 'Pizza',
     todos: [
@@ -65,19 +65,22 @@ app.use(express.json());
 
 app.get('/', (req, res) => res.send(`<h1>${req.protocol}://${req.get('host')}${req.originalUrl}</h1>`));
 
+
 // ========users===========
+// 회원가입할때 userId 만들어주는 함수 
+const generateUserId = () => (users.length ? Math.max(...users.map($user => $user.userId)) + 1 : 1);
 
 // /users -> users 
 app.get('/users', (req, res) => {
-  onlineUser = users.find(user => user.online);
+  onUser = users.find(user => user.online);
   console.log('[/users]');
-  res.send(onlineUser);
+  res.send(onUser);
 });
 
 // /users 아이디 등록
 app.post('/users', (req, res) => {
   console.log('[/users]');
-  const { userId, online, name, email, pw, hint, answer } = req.body;
+  const { online, name, email, pw, hint, answer } = req.body;
   if (users.find($users => $users.email === email)) {
     res.send(false);
   } else {
@@ -86,23 +89,16 @@ app.post('/users', (req, res) => {
       digital: true, todo: true, search: true, weather: true, quote: true
     };
     users = [{
-      userId, online, name, email, pw, hint, answer, todos, settings }, ...users];
-    console.log('users', users);
+      userId: generateUserId(), online, name, email, pw, hint, answer, todos, settings }, ...users];
     res.send(users);
   }
 });
 
+// 유저가 로그인할때 아이디 존재여부와 비밀번호 일치 확인
 app.post('/users/login', (req, res) => {
-  console.log('[/usersLogin]');
   const { email, pw } = req.body;
-  console.log('/usersLogin...email: ', email);
-  console.log('/usersLogin...pw: ', pw);
-  const userFound = users.find($users => $users.email === email);
-  console.log('/usersLogin...userFound: ', userFound);
-  console.log('/usersLogin...!userFound: ', !userFound);
+  const userFound = users.find($user => $user.email === email);
   const userPw = userFound ? userFound.pw : '';
-  console.log('/usersLogin...userPw: ', userPw);
-  console.log('=====');
   if (!userFound || (pw !== userPw)) {
     res.send(false);
   } else {
@@ -113,7 +109,36 @@ app.post('/users/login', (req, res) => {
   }
 });
 
-// ===========================
+// 유저가 비밀번호 찾을때 이메일을 입력하면 
+// 이메일이 존재하는지 확인 -> 
+// 존재하면 그 유저 객체를 보내줌
+// 전역변수 userFound 에다가 저장하고 다음 페이지에서 그 userFound의 이메일과 힌트 비교함
+// 존재하지 않으면 falsy값 리턴하고 존재하지 않는 이메일 msg 표시해줌
+app.post('/users/forgot_pw', (req, res) => {
+  const { email } = req.body;
+  console.log('email:', email);
+  
+  const userFound = users.find($user => $user.email === email);
+  console.log('userFound', userFound);
+
+  if (!userFound) {
+    res.send(false);
+  } else {
+    res.send(userFound);
+  }
+});
+
+// resetPw
+// 이메일과 패스워드를 받고
+// 패스워드 바꾸고
+// 전체 users return함
+app.patch('/users/reset_pw', (req, res) => {
+  const { email, pw } = req.body;
+  const resetPwUser = users.find($user => $user.email === email);
+  resetPwUser.pw = pw;
+  users.map($user => (resetPwUser.email === $user.email ? resetPwUser : $user));
+  res.send(users);
+});// ===========================
 
 
 
@@ -121,16 +146,20 @@ app.post('/users/login', (req, res) => {
 // settings로 요청하면 객체 형식({ digital: true, weather: true, ...})으로 응답함
 app.get('/settings', (req, res) => {
   console.log('[GET settings]');
-  onlineUser = users.find(user => user.online);
-  res.send(onlineUser.settings);
+  res.send(onUser);
 });
 
 app.patch('/settings', (req, res) => {
-  const { completed } = req.body;
-  console.log('[PATCH] req.body => ', completed);
-  onlineUser = users.find(user => user.online);
-  onlineUser.todos = onlineUser.todos.map(todo => (todo.id === +id ? { ...todo, completed: !todo.completed } : todo));
-  res.send(onlineUser.todos);
+  // const { id } = req.params;
+  const { digital, weather, todo, quote, search } = req.body;
+  console.log('[PATCH] req.digital => ', digital);
+  console.log('[PATCH] req.weather => ', weather);
+  console.log('[PATCH] req.todo => ', todo);
+  console.log('[PATCH] req.quote => ', quote);
+  console.log('[PATCH] req.search => ', search);
+  onUser.settings = { digital, weather, todo, quote, search };
+  users = users.map(user => (user.userId === onUser.userId ? onUser : user));
+  res.send(onUser);
 });
 // ===========================
 
@@ -139,57 +168,35 @@ app.patch('/settings', (req, res) => {
 // ========todos===========
 app.get('/todos', (req, res) => {
   console.log('[GET todos]');
-  onlineUser = users.find(user => user.online);
-  res.send(onlineUser.todos);
+  res.send(onUser.todos);
 });
 
-app.get('/todos/:id', (req, res) => {
-  const { id } = req.params;
-  console.log('[GET] req.params.id => ', req.params.id);
-  onlineUser = users.find(user => user.online);
-  // const { todos } = users.find(user => user.online);
-  res.send(onlineUser.todos.filter(todo => todo.id === +id));
-});
 
+// todo 추가
 app.post('/todos', (req, res) => {
   const { id, content, completed } = req.body;
-  console.log('[POST] req.body => ', req.body);
-  onlineUser = users.find(user => user.online);
-  onlineUser.todos = [{ id, content, completed }, ...onlineUser.todos];
-  users = users.map(user => (user.userId === onlineUser.userId ? onlineUser : user));
-  res.send(onlineUser.todos);
+  onUser.todos = [{ id, content, completed }, ...onUser.todos];
+  users = users.map(user => (user.userId === onUser.userId ? onUser : user));
+  res.send(onUser.todos);
 });
 
+// todo 삭제(클릭된 todo 삭제)
 app.delete('/todos/:id([0-9]+)', (req, res) => {
   const { id } = req.params;
-  console.log('[DELETE] req.params.id => ', req.params.id);
-  onlineUser = users.find(user => user.online);
-  onlineUser.todos = onlineUser.todos.filter(todo => todo.id !== +id);
-  users = users.map(user => (user.userId === onlineUser.userId ? onlineUser : user));
-  res.send(onlineUser.todos);
+  onUser.todos = onUser.todos.filter(todo => todo.id !== +id);
+  users = users.map(user => (user.userId === onUser.userId ? onUser : user));
+  res.send(onUser.todos);
 });
 
 // PATCH : 리스소의 일부를 UPDATE
 app.patch('/todos/:id', (req, res) => {
   const { id } = req.params;
-  console.log('[PATCH] req.params.id => ', req.params.id);
   const { completed } = req.body;
-  console.log('[PATCH] req.body => ', completed);
-  onlineUser = users.find(user => user.online);
-  onlineUser.todos = onlineUser.todos.map(todo => (todo.id === +id ? { ...todo, completed: !todo.completed } : todo));
-  res.send(onlineUser.todos);
+  onUser = users.find(user => user.online);
+  onUser.todos = onUser.todos.map(todo => (todo.id === +id ? { ...todo, completed } : todo));
+  res.send(onUser.todos);
 });
 
 // =======================
-
-// PATCH : 리스소의 일부를 UPDATE
-// 전체 일괄 갱신
-// app.patch('/todos', (req, res) => {
-//   const { completed } = req.body;
-//   console.log('[PATCH] req.body => ', completed);
-
-//   todos = todos.map(todo => ({ ...todo, completed }));
-//   res.send(todos);
-// });
 
 app.listen(9000, () => console.log('Simple Rest API Server listening on port 9000'));
