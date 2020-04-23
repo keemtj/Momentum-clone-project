@@ -97,3 +97,53 @@ div[class$="-page"] {
     grid-area: 3/5/4/6;
   }
 }
+
+.loading-container {
+  position: absolute;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  padding-top: 5rem;
+}
+.loading-container.fade-in {
+  display: block !important;
+  padding-top: 5rem;
+  background-color: rgb(58, 57, 57);
+  z-index: 9999;
+
+}
+.loading-container.fade-out {
+  display: block !important;
+  padding-top: 5rem;
+  background-color: rgb(58, 57, 57);
+  z-index: 9999;
+}
+.loading-text {
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  color: #fff;
+  line-height: 100%;
+  text-align: center;
+}
+.loading-container.loading {
+  animation-name: loading-text;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+
+@keyframes loading-text {
+  0% {
+    content: "Loading"
+  }
+  25% {
+    content: "Loading."
+  }
+  50% {
+    content: "Loading.."
+  }
+  75% {
+    content: "Loading..."
+  }
+}
