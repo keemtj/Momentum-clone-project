@@ -1,6 +1,6 @@
 // validation.js
 import * as ani from './animation';
-
+import * as etc from './etc';
 let user = {};
 let users = [];
 let todos = [];
@@ -79,9 +79,7 @@ const checkConfirmPw = ($pw, $confirmPw) => {
   $formMsg.classList.toggle('msg-show', (pw !== confirmPw) && confirmPw);
 };
 
-const enableLoginBtn = $target => {
-  console.log('[$target.id]: ', $target.id);
-  
+const enableLoginBtn = ($target, $siblingTarget) => {
   if ($target.id === 'login-email') {
     checkEmail($target);
   } else {
@@ -89,7 +87,11 @@ const enableLoginBtn = $target => {
   }
   const $warnings = document.querySelectorAll('.login-container input.warning');
   const $loginBtn = document.querySelector('.btn-login');
-  $loginBtn.disabled = $warnings.length;
+  console.log('length: ', $warnings.length);
+  console.log('target value: ', !$target.value.trim());
+  console.log('sibling value: ', !$siblingTarget.value.trim());
+  console.log('result, ', ($warnings.length || !$target.value.trim() || !$siblingTarget.value.trim()));
+  $loginBtn.disabled = ($warnings.length || !$target.value.trim() || !$siblingTarget.value.trim());
 };
 
 const enableCreateAccount = () => {
@@ -113,11 +115,10 @@ const enableNextBtn = $target => {
 
 const generateId = () => (users.length ? Math.max(...users.map(user => user.userId)) + 1 : 1);
 
-const getUsers = () => {
-  axios.get('/users')
-    .then(({ data }) => { users = data; })
-    .then(() => { console.log(users); })
-    .catch(err => console.error(err));
+const getUsers = async () => {
+  const { data } = await axios.get('/users');
+  console.log('data', data);
+  return data;
 };
 
 const createAccountSuccess = () => {
@@ -126,6 +127,8 @@ const createAccountSuccess = () => {
 };
 
 const createAccountFailed = () => {
+  const $signupErrorMsg = document.querySelector('.signup-error-msg');
+  $signupErrorMsg.classList.add('error');
   console.log('createAccountFailed');
 };
 
@@ -138,11 +141,11 @@ const createAccount = async () => {
   const hint = $signupForm.querySelector('.hint-selected').textContent;
   const answer = $signupForm.querySelector('#signup-pw-hint-answer').value;
   try {
-    const { data } = await axios.post('/users', { userId: generateId(), online: false, name, email, pw, hint, answer});
+    const { data } = await axios.post('/users', { userId: generateId(), online: false, name, email, pw, hint, answer });
     if (data) {
-      // users = data;
-      createAccountSuccess();
+      ani.movePage($signupPage, $loginPage);
     } else {
+      console.log(data);
       createAccountFailed();
     }
   } catch (error) {
@@ -155,21 +158,18 @@ const login = async ($email, $pw) => {
   const email = $email.value.trim();
   const pw = $pw.value.trim();
   try {
-    const { data } = await axios.post('/usersLogin', { email, pw });
+    const { data } = await axios.post('/users/login', { email, pw });
     if (data) {
       user = data;
       todos = user.todos;
       settings = user.settings;
-      console.log('user: ', user);
-      console.log('todos: ', todos);
-      console.log('settings: ', settings);
       $loginMsg.classList.toggle('error', false);
+      const $greetingName = document.querySelector('.greeting .name');
+      $greetingName.textContent = user.name;
+      etc.startClock();
       ani.movePage($loginPage, $mainPage);
       $email.value = '';
       $pw.value = '';
-      const $greetingName = document.querySelector('.greeting .name');
-      $greetingName.textContent = user.name;
-      console.log('[login...users]: ', user.name);
     } else {
       $loginMsg.classList.toggle('error', true);
     }

@@ -13,9 +13,12 @@
 
 <body>
   <div class="container">
+    <div class="loading-container loading fade-in">
+      <div class="loading-text">Loading</div>
+    </div>
     <div class="login-container">
       <!-- Login Page Start-->
-      <div id="login" class="login-page fade-in">
+      <div id="login" class="login-page">
         <h2 class="login-word">ACCOUNT LOGIN</h2>
         <div class="login-form">
           <label for="login-email"></label>
@@ -30,7 +33,7 @@
               Forgot password?
             </span>
           </div>
-          <button class="btn-login">LOGIN</button>
+          <button class="btn-login" disabled>LOGIN</button>
           <div class="login-signup-box">Not a member?
             <span class="login-signup-text">Sign up now</span>
           </div>
@@ -103,6 +106,7 @@
           <input type="text" id="signup-pw-hint-answer" placeholder="Hint Answer">
           <p class="signup-pw-hint-answer-check">Enter hint answer</p>
           <button class="btn-signup" disabled>CREATE ACCOUNT</button>
+          <div class="signup-error-msg">This email already exists. Please enter another email</div>
         </div>
       </div>
       <!-- Signup Page End-->
@@ -170,7 +174,7 @@
       <div class="search-sec fade-in">
         <i class="icon-search"></i>
         <form class="search slide-right slide-left" method="get" action="https://www.google.com/search?q=" target="_blank" >   
-          <input class="search-area" autocomplete="off" type="text" name="q" maxlength="255" value="" />
+          <input class="search-area" autocomplete="off" type="search" name="q" maxlength="255" value="" />
           <span class="current-box"><img class="current" src="./asset/logo/google.ico" alt="search at Google">
             <i class="icon-angle-down"></i></span>
         </form>
@@ -212,7 +216,7 @@
       <!-- Clock & Todo -->
       <div class="main-sec">
         <div class="clock-box">
-          <div clas="digital-clock">
+          <div class="digital-clock">
             <time class="current-time"></time>
           </div>
           <div class="analog-clock">
@@ -316,7 +320,7 @@
             <!-- <li>
               <label for="added-todo">
                 <i class="icon-check-empty"></i>
-                <input type="checkbox" id="added-todo">
+                <input type="checkbox" class="added-todo-checkbox" id="added-todo">
                 <span class="added-todo-text"></span>
                 <i class="icon-cancel"></i>
               </label>

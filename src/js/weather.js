@@ -20,7 +20,7 @@ const closeWeatherBox = weatherbox => {
 
 $weatherMain.onclick = () => {
   const weatherBoxCs = window.getComputedStyle($weatherBox);
-  const weatherOnOff= weatherBoxCs.getPropertyValue('display');
+  const weatherOnOff = weatherBoxCs.getPropertyValue('display');
   weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 };
 
@@ -38,24 +38,36 @@ const getRandomNum = (num1, num2) => {
 
 // Background Image Rendering
 const bgRender = res => {
+  console.log('[bgRender START]');
   const [{ id: currentId }] = res.current.weather;
   console.log('[currentId]', currentId);
   // clouds
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
   // cloud-sun
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
   // rain
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `url(../asset/images/rain/${getRandomNum(29, 33)}.jpg)`;
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/rain/${getRandomNum(29, 33)}.jpg)`;
   // clouds
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
   // sun
-  if (currentId === 800) $container.style.backgroundImage = `url(../asset/images/sun/${getRandomNum(0, 14)}.jpg)`;
+  if (currentId === 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/sun/${getRandomNum(0, 14)}.jpg)`;
   // cloud-sun
-  if (currentId > 800) $container.style.backgroundImage = `url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
+  if (currentId > 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
+  
+  const $loadingContainer = document.querySelector('.loading-container');
+  const $loadingText = document.querySelector('.loading-text');
+  setTimeout(() => {
+    $loadingContainer.classList.remove('loading');
+    $loadingText.style.display = 'none';
+    ani.fadeOut($loadingContainer, 1000);
+  }, 200);
+  console.log('[bgRender END]');
 };
 
 // Weather Infomation Rendering
 const weatherRender = res => {
+  console.log('[weatherRender START]');
+
   const [continent, city] = res.timezone.split('/');
   const temperature = Math.floor(res.current.temp);
   const [{ id: currentId, description }] = res.current.weather;
@@ -114,23 +126,34 @@ const weatherRender = res => {
   $weeklyIcon.removeChild($weeklyIcon.lastElementChild);
   $weeklyTemp.removeChild($weeklyTemp.lastElementChild);
   bgRender(res);
+  console.log('[weatherRender END]');
+  
+
 };
 
 // Get weather Object
 const getWeather = (lat, lng) => {
+  console.log('[getWeather START]');
+
   fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`)
     .then(res => res.json())
     .then(res => {
       weatherRender(res);
     });
+  console.log('[getWeather END]');
+
 };
 
 // Get Coordinate
 const succesLocation = position => {
+  console.log('[successLocation START]');
+
   console.log(position);
   console.log('succes position available');
   const { latitude, longitude } = position.coords;
   getWeather(latitude, longitude);
+  console.log('[successLocation END]');
+
 };
 
 const errorLocation = () => {
@@ -138,14 +161,20 @@ const errorLocation = () => {
 };
 
 const getLocation = () => {
+  console.log('[getLocation START]');
+
   navigator.geolocation.getCurrentPosition(succesLocation, errorLocation);
+  console.log('[getLocation END]');
+
 };
 
 const weatherInit = () => {
+  console.log('[WeatherInit START]');
+  
   getLocation();
-};
+  console.log('[WeatherInit END]');
 
-weatherInit();
+};
 
 export {
   openWeatherBox,
