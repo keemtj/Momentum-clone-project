@@ -244,6 +244,7 @@ const renderMainAll = onlineUser => {
 };
 
 const renderMainPage = onlineUser => {
+  etc.startClock();
   $loginPage.classList.remove('fade-in');
   renderMainAll(onlineUser);
   $mainPage.classList.add('fade-in');

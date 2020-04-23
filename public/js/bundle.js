@@ -10784,6 +10784,7 @@ var renderMainAll = function renderMainAll(onlineUser) {
 };
 
 var renderMainPage = function renderMainPage(onlineUser) {
+  _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
   $loginPage.classList.remove('fade-in');
   renderMainAll(onlineUser);
   $mainPage.classList.add('fade-in');
