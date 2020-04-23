@@ -45,7 +45,11 @@ const resetErrorBg = () => {
   });
 };
 
+const resetErrorMsg = $target => {
+  $target.parentNode.lastElementChild.classList.remove('error');
+}
 export {
   resetInputs, resetHint, resetBtns,
-  resetMsg, resetPwCondition, resetErrorBg
+  resetMsg, resetPwCondition, resetErrorBg,
+  resetErrorMsg
 };

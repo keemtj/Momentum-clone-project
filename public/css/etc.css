@@ -351,6 +351,9 @@
   font-weight: 500;
   /* display: none; */
 }
+.digital-clock {
+  height: 10rem;
+}
 .analog-clock {
   position: relative;
   margin: 0 auto 2rem;
@@ -432,3 +435,7 @@
   
 }
 */
+
+.logout {
+  cursor: pointer;
+}

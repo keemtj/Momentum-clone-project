@@ -37,7 +37,11 @@ $toggleTodo.onchange = () => {
 };
 
 const $searchSection = document.querySelector('.search-sec');
-$toggleSearch.onchange = () => {
+$toggleSearch.onchange = ({ target }) => {
+  console.log('[target]: ', target);
+  
+  console.log('[search.checked]: ', target.checked);
+  
   const searchCs = window.getComputedStyle($searchSection);
   const searchToggle = searchCs.getPropertyValue('display');
   searchToggle === 'flex' ? ani.fadeOut($searchSection, 300) : ani.fadeIn($searchSection, 300); 
