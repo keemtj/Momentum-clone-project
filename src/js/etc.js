@@ -1,4 +1,5 @@
 import * as ani from './animation';
+import * as main from './main';
 
 // search provider
 const $searchProvider = document.querySelector('.search-provider');
@@ -86,87 +87,21 @@ for (let i = 0; i < greeting.length; i++) {
 const $quote = document.querySelector('.quote-sec');
 const saying = [
   "If you don't study, you work in hot weather and cold weather.",
-  "The beginning is not half, but the beginning is just the beginning.",
-  "Handsome men pay for their faces, and ugly men pay for their looks.",
-  "The enemy meets at the company.",
+  'The beginning is not half, but the beginning is just the beginning.',
+  'Handsome men pay for their faces, and ugly men pay for their looks.',
+  'The enemy meets at the company.',
   "You don't have to do what you can do tomorrow today.",
-  "A migraine inevitably follows pain.",
+  'A migraine inevitably follows pain.',
   "Avoid it if you can't enjoy it",
-  "Be comfortable to give up.",
-  "Beer and chicken at dawn are 0 calories.",
-  "Early birds are tired, Early worms are eaten."
+  'Be comfortable to give up.',
+  'Beer and chicken at dawn are 0 calories.',
+  'Early birds are tired, Early worms are eaten.'
 ];
 
 const select = Math.floor(Math.random() * saying.length);
 const todayPick = saying.splice(select, 1);
 $quote.innerHTML = `<q>" ${todayPick} "</q>`;
 // console.log('todayPick:', todayPick);
-
-let todos = [];
-const active = 'All';
-const $todoList = document.querySelector('.todolist-body');
-const $inputTodo = document.querySelector('.input-todo');
-// const $activeTodos = document.getElementById('active');
-// const $completedTodos = document.getElementById('completed');
-
-{/* <li>
-  <label for="added-todo">
-  <i class="icon-check-empty"></i>
-  <input type="checkbox" id="added-todo">
-  <span class="added-todo-text"></span>
-  <i class="icon-cancel"></i>
-  </label>
-</li> */}
-
-const render = () => {
-  let html = '';
-
-  const _todos = [...todos].filter(todo => (active === 'All' ? true : (active === 'Active' ? !todo.completed : todo.completed)));
-
-  _todos.forEach(todo => {
-    html += `<li id="${todo.id}">
-              <label for="added-todo-${todo.id}">
-                <i class="icon-check${todo.completed ? '' : '-empty'}"></i>
-                <input type="checkbox" class="added-todo-checkbox" ${todo.completed ? ' checked' : ''} id="added-todo-${todo.id}">
-                <span class="added-todo-text">${todo.content}</span>
-                <i class="icon-cancel"></i>
-              </label>
-            </li>`;
-  });
-
-    $todoList.innerHTML = html;
-
-  // completedTodos();
-  // activeTodos();
-};
-
-$inputTodo.onkeyup = e => {
-  if (e.keyCode !== 13 || $inputTodo.value === '') return;
-
-  const newId = todos.length ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
-  const newTodo = { id: newId, content: $inputTodo.value, completed: false };
-  todos = [newTodo, ...todos];
-
-  $inputTodo.value = '';
-  render();
-};
-
-$todoList.onchange = e => {
-  todos = todos.map(todo => {
-    return todo.id === +e.target.parentNode.parentNode.id ? { ...todo, completed: !todo.completed } : todo;
-  });
-  // console.log(todos);
-  render();
-};
-
-$todoList.onclick = e => {
-  if (!e.target.matches('.todolist-body > li > label > .icon-cancel')) return;
-  todos = todos.filter(todo => {
-    return todo.id !== +e.target.parentNode.parentNode.id;
-    // console.log(e.target.parentNode.parentNode.id);
-  });
-  render(); 
-};
 
 export {
   openSearchProvider,

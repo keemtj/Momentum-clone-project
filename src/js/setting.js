@@ -19,6 +19,7 @@ const closeSettingBox = settingbox => {
 };
 
 $settingBtn.onclick = () => {
+  $settingBtn.classList.toggle('clicked');
   const settingBoxCs = window.getComputedStyle($settingBox);
   const settingOnOff = settingBoxCs.getPropertyValue('display');
   settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
