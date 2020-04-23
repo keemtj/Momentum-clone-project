@@ -253,21 +253,32 @@
 }
 
 /* main */
-.main-sec{
+/* .main-sec{
   top: 5rem;
   text-align: center;
   vertical-align: text-bottom;
   box-sizing: border-box;
   height: 75vh;
   position: relative;
+} */
+.main-sec{
+  top: 8rem;
+  box-sizing: border-box;
+  height: 75vh;
+  position: relative;
+  text-align: center;
+}
+.greeting{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .greeting p{
   margin: 0;
   font-size: 3.5rem;
-  margin-bottom: 3rem;
   font-weight: 500;
 }
-
 /* quote */
 .quote-sec{
   padding: 1rem 0.5rem;
@@ -340,16 +351,18 @@
 
 /* clock change */
 .clock-box{
-  display: flex;
-  flex-flow: column; 
-  justify-content: center;
-  align-items: center;
   width: 100%;
+  position: relative;
+  height: 16rem;
+  margin-bottom: 3rem;
 }
-.current-time{
-  font-size: 10rem;
+.digital-clock{
+  font-size: 11.5rem;
   font-weight: 500;
-  /* display: none; */
+  display: none;
+}
+.digital-clock {
+  height: 10rem;
 }
 .analog-clock {
   position: relative;
@@ -432,3 +445,7 @@
   
 }
 */
+
+.logout {
+  cursor: pointer;
+}

@@ -10,12 +10,17 @@ const fadeIn = (target, duration) => {
 };
 // fadeOut
 const fadeOut = (target, duration) => {
+  console.log('[fadeOut START]');
+  
   target.style.animationDuration = `${duration / 1000}s`;
   target.classList.add('fade-out');
   target.classList.remove('fade-in');
   setTimeout(() => {
     target.classList.remove('fade-out');
   }, duration);
+
+  console.log('[fadeOut END]');
+
 };
 
 // movePage(from, to)
@@ -39,4 +44,8 @@ const movePage = (from, to) => {
   }, 300);
 };
 
-export { fadeIn, fadeOut, movePage };
+export {
+  fadeIn,
+  fadeOut,
+  movePage,
+};
