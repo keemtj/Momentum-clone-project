@@ -29,7 +29,6 @@ input, button{
   background: none;
 }
 .container {
-  background: url('../asset/images/main/main.jpg') no-repeat center;
   background-size: cover;
   opacity: 1;
   overflow: hidden;
@@ -52,7 +51,7 @@ div[class$="-page"] {
   height: 13vh;
 }
 .setting-sec, .todolist-sec, .quote-sec{
-  height: 10vh;
+  height: 9vh;
 }
 .search-sec{
   grid-area: 1/1/3/2;

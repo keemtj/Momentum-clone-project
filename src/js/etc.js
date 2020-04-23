@@ -23,15 +23,15 @@ $searchProvider.onclick = e => {
   if (e.target.className === 'youtube') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
     $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
-  };
+  }
   if (e.target.className === 'google') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
-    $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
-  };
+    $currentForm.setAttribute('action', 'https://www.google.com/search?q=')
+  }
   if (e.target.className === 'naver') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
     $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
-  };
+  }
   ani.fadeOut($searchProvider, 150);
 };
 
@@ -67,7 +67,7 @@ const greeting = [
   [0, 4, 'Good night'], 
   [5, 11, 'Good morning'],
   [12, 17, 'Good afternoon'],
-  [18, 24, 'Good night']
+  [18, 24, 'Good evening']
 ];
 
 const hour = new Date().getHours();
@@ -82,40 +82,37 @@ for (let i = 0; i < greeting.length; i++) {
 const $quote = document.querySelector('.quote-sec');
 const saying = [
   "If you don't study, you work in hot weather and cold weather.",
-  'The beginning is not half, but the beginning is just the beginning.',
-  'Handsome men pay for their faces, and ugly men pay for their looks.',
-  'The enemy meets at the company.',
+  "The beginning is not half, but the beginning is just the beginning.",
+  "Handsome men pay for their faces, and ugly men pay for their looks.",
+  "The enemy meets at the company.",
   "You don't have to do what you can do tomorrow today.",
-  'A migraine inevitably follows pain.',
+  "A migraine inevitably follows pain.",
   "Avoid it if you can't enjoy it",
-  'Be comfortable to give up.',
-  'Beer and chicken at dawn are 0 calories.',
-  'Early birds are tired, Early worms are eaten.'
+  "Be comfortable to give up.",
+  "Beer and chicken at dawn are 0 calories.",
+  "Early birds are tired, Early worms are eaten."
 ];
 
-  const select = Math.floor(Math.random() * saying.length);
-  const todayPick = saying.splice(select, 1);
-  // $quote.innerHTML = '<q>' + '"' + todayPick + '"' + '</q>';
-  $quote.innerHTML = `<q>"&{todayPick}"</q>`;
-  
-  // console.log('todayPick:', todayPick);
+const select = Math.floor(Math.random() * saying.length);
+const todayPick = saying.splice(select, 1);
+$quote.innerHTML = `<q>" ${todayPick} "</q>`;
+// console.log('todayPick:', todayPick);
 
-  let todos = [];
-  const active = 'All';
+let todos = [];
+const active = 'All';
+const $todoList = document.querySelector('.todolist-body');
+const $inputTodo = document.querySelector('.input-todo');
+// const $activeTodos = document.getElementById('active');
+// const $completedTodos = document.getElementById('completed');
 
-  const $todoList = document.querySelector('.todolist-body');
-  const $inputTodo = document.querySelector('.input-todo');
-  const $activeTodos = document.getElementById('active');
-  const $completedTodos = document.getElementById('completed');
-
-  // <li>
-  //   <label for="added-todo">
-  //   <i class="icon-check-empty"></i>
-  //   <input type="checkbox" id="added-todo">
-  //   <span class="added-todo-text"></span>
-  //   <i class="icon-cancel"></i>
-  //   </label>
-  // </li>
+{/* <li>
+  <label for="added-todo">
+  <i class="icon-check-empty"></i>
+  <input type="checkbox" id="added-todo">
+  <span class="added-todo-text"></span>
+  <i class="icon-cancel"></i>
+  </label>
+</li> */}
 
 const render = () => {
   let html = '';
@@ -123,35 +120,21 @@ const render = () => {
   const _todos = [...todos].filter(todo => (active === 'All' ? true : (active === 'Active' ? !todo.completed : todo.completed)));
 
   _todos.forEach(todo => {
-    html += ` <li>
-                <label for="added-todo">
-                  <i class="icon-check-empty"></i>
-                  <input type="checkbox" id="added-todo">
-                  <span class="added-todo-text">${todo.content}</span>
-                  <i class="icon-cancel"></i>
-                </label>
-              </li>`;
+    html += `<li id="${todo.id}">
+              <label for="added-todo-${todo.id}">
+                <i class="icon-check${todo.completed ? '' : '-empty'}"></i>
+                <input type="checkbox" class="added-todo-checkbox" ${todo.completed ? ' checked' : ''} id="added-todo-${todo.id}">
+                <span class="added-todo-text">${todo.content}</span>
+                <i class="icon-cancel"></i>
+              </label>
+            </li>`;
   });
 
-  $todoList.innerHTML = html;
+    $todoList.innerHTML = html;
 
   // completedTodos();
   // activeTodos();
 };
-
-
-const getTodos = () => {
-  todos = [
-    { id: 1, content: 'HTML', completed: false },
-    { id: 2, content: 'css', completed: true },
-    { id: 3, content: 'Javascript', completed: false },
-  ].sort((todo1, todo2) => todo2.id - todo1.id);
-
-  render();
-};
-
-// window.onload = getTodos; // 호출의 상하관계 알 것
-
 
 $inputTodo.onkeyup = e => {
   if (e.keyCode !== 13 || $inputTodo.value === '') return;
@@ -162,6 +145,31 @@ $inputTodo.onkeyup = e => {
 
   $inputTodo.value = '';
   render();
+};
+
+const $checked = document.querySelector('.icon-check-empty');
+
+$todoList.onchange = e => {
+
+  todos = todos.map(todo => {
+    return todo.id === +e.target.parentNode.parentNode.id ? { ...todo, completed: !todo.completed } : todo;
+  });
+  // console.log(todos);
+
+  render();
+};
+
+$todoList.onclick = e => {
+  if (!e.target.matches('.todolist-body > li > label > .icon-cancel')) return;
+  // if ($checked.className === 'icon-check-empty') {
+  //   $checked.className = 'icon-check';
+  // }
+  todos = todos.filter(todo => {
+    return todo.id !== +e.target.parentNode.parentNode.id;
+    // console.log(e.target.parentNode.parentNode.id);
+  });
+
+  render(); 
 };
 
 export {

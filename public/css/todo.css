@@ -182,3 +182,7 @@ label i:last-child{
   cursor: default;
   font-size: 14vh;
 }
+.added-todo-checkbox:checked + .added-todo-text {
+  text-decoration: line-through;
+  color: rgba(255,255,255,.6);
+}

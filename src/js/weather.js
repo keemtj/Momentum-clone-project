@@ -20,7 +20,7 @@ const closeWeatherBox = weatherbox => {
 
 $weatherMain.onclick = () => {
   const weatherBoxCs = window.getComputedStyle($weatherBox);
-  const weatherOnOff= weatherBoxCs.getPropertyValue('display');
+  const weatherOnOff = weatherBoxCs.getPropertyValue('display');
   weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
 };
 
@@ -41,17 +41,17 @@ const bgRender = res => {
   const [{ id: currentId }] = res.current.weather;
   console.log('[currentId]', currentId);
   // clouds
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
   // cloud-sun
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
   // rain
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `url(../asset/images/rain/${getRandomNum(29, 33)}.jpg)`;
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/rain/${getRandomNum(29, 33)}.jpg)`;
   // clouds
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/${getRandomNum(25, 29)}.jpg)`;
   // sun
-  if (currentId === 800) $container.style.backgroundImage = `url(../asset/images/sun/${getRandomNum(0, 14)}.jpg)`;
+  if (currentId === 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/sun/${getRandomNum(0, 14)}.jpg)`;
   // cloud-sun
-  if (currentId > 800) $container.style.backgroundImage = `url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
+  if (currentId > 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
 };
 
 // Weather Infomation Rendering

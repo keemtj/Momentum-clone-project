@@ -10323,6 +10323,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openTodoList", function() { return openTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10361,21 +10367,16 @@ $searchProvider.onclick = function (e) {
     $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
   }
 
-  ;
-
   if (e.target.className === 'google') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
     $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
   }
-
-  ;
 
   if (e.target.className === 'naver') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
     $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?query=');
   }
 
-  ;
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchProvider, 150);
 }; // todolist button
 
@@ -10406,7 +10407,7 @@ var clock = setInterval(function () {
   $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
 }, 1000);
 var $greeting = document.querySelector('.greeting .good');
-var greeting = [[0, 4, 'Good night'], [5, 11, 'Good morning'], [12, 17, 'Good afternoon'], [18, 24, 'Good night']];
+var greeting = [[0, 4, 'Good night'], [5, 11, 'Good morning'], [12, 17, 'Good afternoon'], [18, 24, 'Good evening']];
 var hour = new Date().getHours();
 
 for (var i = 0; i < greeting.length; i++) {
@@ -10418,25 +10419,27 @@ for (var i = 0; i < greeting.length; i++) {
 
 ;
 var $quote = document.querySelector('.quote-sec');
-var saying = ["If you don't study, you work in hot weather and cold weather.", 'The beginning is not half, but the beginning is just the beginning.', 'Handsome men pay for their faces, and ugly men pay for their looks.', 'The enemy meets at the company.', "You don't have to do what you can do tomorrow today.", 'A migraine inevitably follows pain.', "Avoid it if you can't enjoy it", 'Be comfortable to give up.', 'Beer and chicken at dawn are 0 calories.', 'Early birds are tired, Early worms are eaten.'];
+var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
 var select = Math.floor(Math.random() * saying.length);
-var todayPick = saying.splice(select, 1); // $quote.innerHTML = '<q>' + '"' + todayPick + '"' + '</q>';
-
-$quote.innerHTML = "<q>\"&{todayPick}\"</q>"; // console.log('todayPick:', todayPick);
+var todayPick = saying.splice(select, 1);
+$quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>"); // console.log('todayPick:', todayPick);
 
 var todos = [];
 var active = 'All';
 var $todoList = document.querySelector('.todolist-body');
-var $inputTodo = document.querySelector('.input-todo');
-var $activeTodos = document.getElementById('active');
-var $completedTodos = document.getElementById('completed'); // <li>
-//   <label for="added-todo">
-//   <i class="icon-check-empty"></i>
-//   <input type="checkbox" id="added-todo">
-//   <span class="added-todo-text"></span>
-//   <i class="icon-cancel"></i>
-//   </label>
-// </li>
+var $inputTodo = document.querySelector('.input-todo'); // const $activeTodos = document.getElementById('active');
+// const $completedTodos = document.getElementById('completed');
+
+{
+  /* <li>
+   <label for="added-todo">
+   <i class="icon-check-empty"></i>
+   <input type="checkbox" id="added-todo">
+   <span class="added-todo-text"></span>
+   <i class="icon-cancel"></i>
+   </label>
+  </li> */
+}
 
 var render = function render() {
   var html = '';
@@ -10446,32 +10449,12 @@ var render = function render() {
   });
 
   _todos.forEach(function (todo) {
-    html += " <li>\n                <label for=\"added-todo\">\n                  <i class=\"icon-check-empty\"></i>\n                  <input type=\"checkbox\" id=\"added-todo\">\n                  <span class=\"added-todo-text\">".concat(todo.content, "</span>\n                  <i class=\"icon-cancel\"></i>\n                </label>\n              </li>");
+    html += "<li id=\"".concat(todo.id, "\">\n              <label for=\"added-todo-").concat(todo.id, "\">\n                <i class=\"icon-check").concat(todo.completed ? '' : '-empty', "\"></i>\n                <input type=\"checkbox\" class=\"added-todo-checkbox\" ").concat(todo.completed ? ' checked' : '', " id=\"added-todo-").concat(todo.id, "\">\n                <span class=\"added-todo-text\">").concat(todo.content, "</span>\n                <i class=\"icon-cancel\"></i>\n              </label>\n            </li>");
   });
 
   $todoList.innerHTML = html; // completedTodos();
   // activeTodos();
 };
-
-var getTodos = function getTodos() {
-  todos = [{
-    id: 1,
-    content: 'HTML',
-    completed: false
-  }, {
-    id: 2,
-    content: 'css',
-    completed: true
-  }, {
-    id: 3,
-    content: 'Javascript',
-    completed: false
-  }].sort(function (todo1, todo2) {
-    return todo2.id - todo1.id;
-  });
-  render();
-}; // window.onload = getTodos; // 호출의 상하관계 알 것
-
 
 $inputTodo.onkeyup = function (e) {
   if (e.keyCode !== 13 || $inputTodo.value === '') return;
@@ -10485,6 +10468,29 @@ $inputTodo.onkeyup = function (e) {
   };
   todos = [newTodo].concat(_toConsumableArray(todos));
   $inputTodo.value = '';
+  render();
+};
+
+var $checked = document.querySelector('.icon-check-empty');
+
+$todoList.onchange = function (e) {
+  todos = todos.map(function (todo) {
+    return todo.id === +e.target.parentNode.parentNode.id ? _objectSpread({}, todo, {
+      completed: !todo.completed
+    }) : todo;
+  }); // console.log(todos);
+
+  render();
+};
+
+$todoList.onclick = function (e) {
+  if (!e.target.matches('.todolist-body > li > label > .icon-cancel')) return; // if ($checked.className === 'icon-check-empty') {
+  //   $checked.className = 'icon-check';
+  // }
+
+  todos = todos.filter(function (todo) {
+    return todo.id !== +e.target.parentNode.parentNode.id; // console.log(e.target.parentNode.parentNode.id);
+  });
   render();
 };
 
@@ -10878,7 +10884,7 @@ $toggleTodo.onchange = function () {
   if (todoToggle === 'none') {
     $todolistSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
-  } // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300); 
+  } // todoToggle === 'block' ? ani.fadeOut($todolistSection, 300) : ani.fadeIn($todolistSection, 300);
 
 };
 
@@ -11280,17 +11286,17 @@ var bgRender = function bgRender(res) {
 
   console.log('[currentId]', currentId); // clouds
 
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // cloud-sun
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // cloud-sun
 
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)"); // rain
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)"); // rain
 
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)"); // clouds
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)"); // clouds
 
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // sun
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // sun
 
-  if (currentId === 800) $container.style.backgroundImage = "url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)"); // cloud-sun
+  if (currentId === 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)"); // cloud-sun
 
-  if (currentId > 800) $container.style.backgroundImage = "url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
+  if (currentId > 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
 }; // Weather Infomation Rendering
 
 
