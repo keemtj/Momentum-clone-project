@@ -10274,14 +10274,12 @@ var fadeIn = function fadeIn(target, duration) {
 
 
 var fadeOut = function fadeOut(target, duration) {
-  console.log('[fadeOut START]');
   target.style.animationDuration = "".concat(duration / 1000, "s");
   target.classList.add('fade-out');
   target.classList.remove('fade-in');
   setTimeout(function () {
     target.classList.remove('fade-out');
   }, duration);
-  console.log('[fadeOut END]');
 }; // movePage(from, to)
 
 
@@ -10326,8 +10324,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/js/main.js");
-
  // search provider
 
 var $searchProvider = document.querySelector('.search-provider');
@@ -10979,6 +10975,7 @@ $toggleQuote.onchange = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodos", function() { return getTodos; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10991,12 +10988,28 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+
+var compliments = ['Good job!', 'Great Work!', 'Excellent!', 'Keep it up!', 'Perfect!', 'Awesome!', 'Bravo!', 'Hooray~', 'There you go!', 'Nice!'];
+var latestId = 0;
 var todos = [];
 var navState = 'all';
 var $todoList = document.querySelector('.todolist-body');
 var $inputTodo = document.querySelector('.input-todo');
 var $nav = document.querySelector('.todolist-menu');
-var $todolistIcon = document.querySelector('.icon-th-list'); // 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
+var $todolistIcon = document.querySelector('.icon-th-list');
+var $todoBefore = document.querySelector('.todo-focus-before');
+var $todoAfter = document.querySelector('.todo-focus-after');
+var $latestTodoText = document.querySelector('.latest-todo-text');
+var $compliment = document.querySelector('.compliment');
+var $checkIcon = document.querySelector('.main-sec .check-icon');
+var $icon = $checkIcon.firstElementChild; // random func
+
+var getRandomInt = function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+}; // 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
+
 
 var render = function render() {
   console.log('4.axios.js');
@@ -11044,7 +11057,11 @@ var addTodo = function addTodo(content) {
     var data = _ref4.data;
     console.log(data);
     todos = data;
-  }).then(render)["catch"](function (err) {
+  }).then(render).then(function () {
+    $latestTodoText.textContent = $todoList.firstElementChild.querySelector('.added-todo-text').textContent;
+  }).then(function () {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoBefore, $todoAfter);
+  })["catch"](function (err) {
     return console.error(err);
   });
 };
@@ -11063,11 +11080,72 @@ var toggleCompleted = function toggleCompleted(id) {
   });
 };
 
-var removeTodo = function removeTodo(id) {
-  axios["delete"]("/todos/".concat(id)).then(function (_ref6) {
+var toggleCompFromTodos = function toggleCompFromTodos(id) {
+  var completed = !todos.find(function (todo) {
+    return todo.id === +id;
+  }).completed;
+  axios.patch("/todos/".concat(id), {
+    completed: completed
+  }).then(function (_ref6) {
     var data = _ref6.data;
     todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[0].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodo = function removeTodo(id) {
+  axios["delete"]("/todos/".concat(id)).then(function (_ref7) {
+    var data = _ref7.data;
+    todos = data;
   }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodoFromTodos = function removeTodoFromTodos(id) {
+  axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
+    var data = _ref8.data;
+    todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[generateId() - 2].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 2) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
     return console.error(err);
   });
 };
@@ -11083,9 +11161,9 @@ var changeNav = function changeNav(id) {
   render();
 };
 
-$inputTodo.onkeyup = function (_ref7) {
-  var target = _ref7.target,
-      keyCode = _ref7.keyCode;
+$inputTodo.onkeyup = function (_ref9) {
+  var target = _ref9.target,
+      keyCode = _ref9.keyCode;
   var content = target.value.trim();
   if (!content || keyCode !== 13) return;
   target.value = '';
@@ -11093,21 +11171,51 @@ $inputTodo.onkeyup = function (_ref7) {
   $todolistIcon.classList.toggle('shake');
 };
 
-$todoList.onchange = function (_ref8) {
-  var target = _ref8.target;
-  toggleCompleted(target.parentNode.parentNode.id);
+$todoList.onchange = function (_ref10) {
+  var target = _ref10.target;
+  toggleCompFromTodos(target.parentNode.parentNode.id);
 };
 
-$todoList.onclick = function (_ref9) {
-  var target = _ref9.target;
+$todoList.onclick = function (_ref11) {
+  var target = _ref11.target;
   if (!target.matches('.icon-cancel')) return;
   removeTodo(target.parentNode.parentNode.id);
 };
 
-$nav.onclick = function (_ref10) {
-  var target = _ref10.target;
+$nav.onclick = function (_ref12) {
+  var target = _ref12.target;
   if (!target.matches('.todolist-menu > li')) return;
   changeNav(target.id);
+};
+
+var $addTodoBtn = document.querySelector('.main-sec .add-todo');
+
+$addTodoBtn.onclick = function () {
+  $icon.className = 'icon-check-empty';
+  $compliment.classList.remove('fade-in');
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoAfter, $todoBefore);
+};
+
+$checkIcon.onclick = function () {
+  if ($icon.className === 'icon-check-empty') {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    $compliment.textContent = compliments[getRandomInt(0, 10)];
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  } else {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  }
+};
+
+var $removeIcon = document.querySelector('.icon-cancel');
+
+$removeIcon.onclick = function () {
+  console.log(generateId() - 1);
+  removeTodoFromTodos(generateId() - 1); // $compliment.textContent = compliments[getRandomInt(0, 10)];
 };
 
 

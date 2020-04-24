@@ -2,10 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-<<<<<<< HEAD
-=======
-
->>>>>>> 749fa12f86834013bb45fdbe16dc7457b04e7a12
 let onUser = {};
 let users = [
   {
@@ -74,6 +70,16 @@ app.get('/users', (req, res) => {
   console.log('[/users]');
   res.send(onUser);
 });
+
+// 로그아웃 
+app.get('/logout', (req, res) => {
+  users.forEach(user => {
+    user.online = false; 
+  });
+  onUser = {};
+  res.send(onUser);
+});
+
 // /users 아이디 등록
 app.post('/users', (req, res) => {
   console.log('[/users]');
@@ -114,11 +120,7 @@ app.post('/users/login', (req, res) => {
 // 존재하지 않으면 falsy값 리턴하고 존재하지 않는 이메일 msg 표시해줌
 app.post('/users/forgot_pw', (req, res) => {
   const { email } = req.body;
-  console.log('email:', email);
-  
   const userFound = users.find($user => $user.email === email);
-  console.log('userFound', userFound);
-
   if (!userFound) {
     res.send(false);
   } else {
@@ -136,7 +138,9 @@ app.patch('/users/reset_pw', (req, res) => {
   resetPwUser.pw = pw;
   users.map($user => (resetPwUser.email === $user.email ? resetPwUser : $user));
   res.send(users);
-});// ===========================
+});
+
+// ===========================
 
 
 

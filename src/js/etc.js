@@ -1,5 +1,4 @@
 import * as ani from './animation';
-import * as main from './main';
 
 // search provider
 const $searchProvider = document.querySelector('.search-provider');

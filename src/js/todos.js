@@ -1,11 +1,31 @@
+import * as ani from './animation';
+let compliments = [
+  'Good job!', 'Great Work!', 'Excellent!',
+  'Keep it up!', 'Perfect!', 'Awesome!', 'Bravo!',
+  'Hooray~', 'There you go!', 'Nice!'
+];
+let latestId = 0;
 let todos = [];
 let navState = 'all';
 const $todoList = document.querySelector('.todolist-body');
 const $inputTodo = document.querySelector('.input-todo');
 const $nav = document.querySelector('.todolist-menu');
 const $todolistIcon = document.querySelector('.icon-th-list');
-// 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
+const $todoBefore = document.querySelector('.todo-focus-before');
+const $todoAfter = document.querySelector('.todo-focus-after');
+const $latestTodoText = document.querySelector('.latest-todo-text');
+const $compliment = document.querySelector('.compliment');
+const $checkIcon = document.querySelector('.main-sec .check-icon');
+const $icon = $checkIcon.firstElementChild;
 
+// random func
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+};
+
+// 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
 const render = () => {
   console.log('4.axios.js');
   const _todos = todos.filter(({ completed }) => (navState === 'all' ? true : navState === 'active' ? !completed : completed));
@@ -41,7 +61,13 @@ const addTodo = content => {
     console.log(data);
     todos = data; })
   .then(render)
-    .catch(err => console.error(err));
+  .then(() => {
+    $latestTodoText.textContent = $todoList.firstElementChild.querySelector('.added-todo-text').textContent;
+  })
+  .then(() => {
+    ani.movePage($todoBefore, $todoAfter);
+  })
+  .catch(err => console.error(err));
 };
 
 const toggleCompleted = id => {
@@ -51,12 +77,63 @@ const toggleCompleted = id => {
     .then(render)
     .catch(err => console.error(err));
 };
+
+const toggleCompFromTodos = id => {
+  const completed = !todos.find(todo => todo.id === +id).completed;
+  axios.patch(`/todos/${id}`, { completed })
+    .then(({ data }) => { todos = data; })
+    .then(render)
+    .then(() => {
+      $icon.className = todos[0].completed ? 'icon-check-empty' : 'icon-check';
+      if ($icon.className === 'icon-check-empty') {
+        $icon.classList.toggle('icon-check-empty');
+        $icon.classList.toggle('icon-check');
+        $compliment.textContent = compliments[getRandomInt(0, 10)];
+        if (+id === (generateId() - 1)) {
+          ani.fadeIn($compliment, 200);
+        }
+      } else {
+        $icon.classList.toggle('icon-check-empty');
+        $icon.classList.toggle('icon-check');
+        if (+id === (generateId() - 1)) {
+          ani.fadeOut($compliment, 200);
+        }
+      }
+    })
+    .catch(err => console.error(err));
+};
+
 const removeTodo = id => {
   axios.delete(`/todos/${id}`)
   .then(({ data }) => { todos = data; })
   .then(render)
   .catch(err => console.error(err));
 };
+
+const removeTodoFromTodos = id => {
+  axios.delete(`/todos/${id}`)
+  .then(({ data }) => { todos = data; })
+  .then(render)
+  .then(() => {
+    $icon.className = todos[generateId()-2].completed ? 'icon-check-empty' : 'icon-check';
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+      if (+id === (generateId() - 2)) {
+        ani.fadeIn($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      if (+id === (generateId() - 1)) {
+        ani.fadeOut($compliment, 200);
+      }
+    }
+  })
+  .catch(err => console.error(err));
+};
+
 const changeNav = id => {
   // $navItem의 id가 e.target의 id와 같으면 active 클래스를 추가하고 아니면 active 클래스를 제거
   [...$nav.children].forEach($navItem => {
@@ -76,7 +153,7 @@ $inputTodo.onkeyup = ({ target, keyCode }) => {
 };
 
 $todoList.onchange = ({ target }) => {
-  toggleCompleted(target.parentNode.parentNode.id);
+  toggleCompFromTodos(target.parentNode.parentNode.id);
 };
 
 $todoList.onclick = ({ target }) => {
@@ -87,6 +164,38 @@ $todoList.onclick = ({ target }) => {
 $nav.onclick = ({ target }) => {
   if (!target.matches('.todolist-menu > li')) return;
   changeNav(target.id);
+};
+
+const $addTodoBtn = document.querySelector('.main-sec .add-todo');
+$addTodoBtn.onclick = () => {
+  $icon.className = 'icon-check-empty';
+  $compliment.classList.remove('fade-in');
+  ani.movePage($todoAfter, $todoBefore);
+};
+
+
+$checkIcon.onclick = () => {
+  if ($icon.className === 'icon-check-empty') {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    $compliment.textContent = compliments[getRandomInt(0, 10)];
+    ani.fadeIn($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  } else {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    ani.fadeOut($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  }
+};
+
+const $removeIcon = document.querySelector('.icon-cancel');
+$removeIcon.onclick = () => {
+  console.log(generateId() - 1);
+  
+  removeTodoFromTodos(generateId() - 1);
+  // $compliment.textContent = compliments[getRandomInt(0, 10)];
+
 };
 
 export { render, getTodos };
