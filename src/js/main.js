@@ -221,13 +221,8 @@ const renderMainPage = () => {
   todos.getTodos();
   etc.startClock();
   set.getSettings();
-  set.getView();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
-  axios.patch('/settings', { digital: false, weather: false, todo: true, quote: true, search: true })
-    .then(data => {
-      console.log('data', data);
-    });
 };
 
 const renderStartPage = () => {

@@ -10704,18 +10704,8 @@ var renderMainPage = function renderMainPage() {
   _todos__WEBPACK_IMPORTED_MODULE_6__["getTodos"]();
   _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
   _setting__WEBPACK_IMPORTED_MODULE_4__["getSettings"]();
-  _setting__WEBPACK_IMPORTED_MODULE_4__["getView"]();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
-  axios.patch('/settings', {
-    digital: false,
-    weather: false,
-    todo: true,
-    quote: true,
-    search: true
-  }).then(function (data) {
-    console.log('data', data);
-  });
 };
 
 var renderStartPage = function renderStartPage() {
@@ -10863,14 +10853,13 @@ var resetErrorMsg = function resetErrorMsg($target) {
 /*!***************************!*\
   !*** ./src/js/setting.js ***!
   \***************************/
-/*! exports provided: getSettings, settingRender, getView */
+/*! exports provided: getSettings, settingRender */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSettings", function() { return getSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingRender", function() { return settingRender; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getView", function() { return getView; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -10915,7 +10904,7 @@ var getSettings = function getSettings() {
   axios.get('/users').then(function (_ref) {
     var data = _ref.data;
     setData = data.settings;
-  }).then(settingRender);
+  }).then(settingRender).then(getView);
 };
 
 var openSettingBox = function openSettingBox(settinglist) {
@@ -10928,9 +10917,9 @@ var closeSettingBox = function closeSettingBox(settinglist) {
 
 $settingBtn.onclick = function () {
   $settingBtn.classList.toggle('clicked');
-  var settingBoxCs = window.getComputedStyle($settingBox);
-  var settingOnOff = settingBoxCs.getPropertyValue('display');
-  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
+  var settingListCs = window.getComputedStyle($settingList);
+  var settingOnOff = settingListCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
 };
 
 var clockToggle = function clockToggle(_ref2) {
@@ -11355,11 +11344,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 /* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todos */ "./src/js/todos.js");
+/* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 // validation.js
+
 
 
 
@@ -11620,6 +11611,7 @@ var login = /*#__PURE__*/function () {
               $greetingName = document.querySelector('.greeting .name');
               $greetingName.textContent = user.name;
               _etc__WEBPACK_IMPORTED_MODULE_1__["startClock"]();
+              _setting__WEBPACK_IMPORTED_MODULE_3__["getSettings"]();
               _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
               $email.value = '';
               $pw.value = '';

@@ -18,12 +18,16 @@ let users = [
       { id: 1, content: 'Babel', completed: true }
     ],
     settings: {
-      digital: true, todo: false, search: true, weather: true, quote: false
+      Clock: true,
+      Todo: true,
+      Search: true,
+      Weather: false,
+      Quote: false
     }
   },
   {
     userId: 2,
-    online: true,
+    online: false,
     name: 'Taejin',
     email: 'kim@gmail.com',
     pw: 'Qwerty1234!',
@@ -46,7 +50,7 @@ let users = [
     userId: 1,
     online: false,
     name: 'Jimmy',
-    email: 'a@gmail.com',
+    email: 'j@gmail.com',
     pw: '1',
     hint: 'what is your favorite food?',
     answer: 'Pizza',
@@ -56,7 +60,11 @@ let users = [
       { id: 1, content: 'HTML', completed: false }
     ],
     settings: {
-      digital: true, todo: true, search: true, weather: true, quote: true
+      Clock: true,
+      Todo: false,
+      Search: false,
+      Weather: true,
+      Quote: true
     }
   }
 ];

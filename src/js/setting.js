@@ -40,9 +40,9 @@ const getSettings = () => {
     .then(({ data }) => {
       setData = data.settings;
     })
-    .then(settingRender);
+    .then(settingRender)
+    .then(getView);
 };
-
 const openSettingBox = settinglist => {
   ani.fadeIn(settinglist, 150);
 };
@@ -53,9 +53,9 @@ const closeSettingBox = settinglist => {
 
 $settingBtn.onclick = () => {
   $settingBtn.classList.toggle('clicked');
-  const settingBoxCs = window.getComputedStyle($settingBox);
-  const settingOnOff = settingBoxCs.getPropertyValue('display');
-  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
+  const settingListCs = window.getComputedStyle($settingList);
+  const settingOnOff = settingListCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
 };
 
 const clockToggle = ({ target }) => {
@@ -185,5 +185,4 @@ $settingList.addEventListener('change', quoteToggle);
 export {
   getSettings,
   settingRender,
-  getView
 };

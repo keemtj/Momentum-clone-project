@@ -2,6 +2,7 @@
 import * as ani from './animation';
 import * as etc from './etc';
 import * as t from './todos';
+import * as set from './setting';
 
 let user = {};
 let forgotPwUser = {};
@@ -154,6 +155,7 @@ const login = async ($email, $pw) => {
       const $greetingName = document.querySelector('.greeting .name');
       $greetingName.textContent = user.name;
       etc.startClock();
+      set.getSettings();
       ani.movePage($loginPage, $mainPage);
       $email.value = '';
       $pw.value = '';
