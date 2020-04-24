@@ -99,7 +99,11 @@ app.post('/users', (req, res) => {
   } else {
     const todos = [];
     const settings = {
-      digital: true, todo: true, search: true, weather: true, quote: true
+      Clock: true,
+      Todo: true,
+      Search: true,
+      Weather: true,
+      Quote: true
     };
     users = [{
       userId: generateUserId(), online, name, email, pw, hint, answer, todos, settings

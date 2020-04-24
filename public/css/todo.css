@@ -76,6 +76,9 @@
   color: #fff;
   font-size: 1.9rem;
 }
+.latest-todo-text.text-linethru {
+  text-decoration: line-through;
+}
 .add-icon, .check-icon, .delete-icon{
   opacity: 0;
 }

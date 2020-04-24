@@ -10318,9 +10318,102 @@ var movePage = function movePage(from, to) {
   !*** ./src/js/etc.js ***!
   \***********************/
 /*! exports provided: openSearchProvider, closeSearchProvider, openTodoList, closeTodoList, startClock */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/hanseuljoo/Desktop/Documents/dev/Momentum-clone-project/src/js/etc.js'");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openSearchProvider", function() { return openSearchProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeSearchProvider", function() { return closeSearchProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openTodoList", function() { return openTodoList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+
+var $searchProvider = document.querySelector('.search-provider');
+var $currentBox = document.querySelector('.current-box');
+var $currentForm = document.querySelector('.search');
+
+var openSearchProvider = function openSearchProvider(searchProvider) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](searchProvider, 150);
+};
+
+var closeSearchProvider = function closeSearchProvider(searchProvider) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](searchProvider, 150);
+};
+
+$currentBox.onclick = function () {
+  var providerCs = window.getComputedStyle($searchProvider);
+  var providerOnOff = providerCs.getPropertyValue('display');
+  providerOnOff === 'none' ? openSearchProvider($searchProvider) : closeSearchProvider($searchProvider);
+};
+
+$searchProvider.onclick = function (e) {
+  if (e.target.className === 'youtube') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
+    $currentForm.firstElementChild.setAttribute('name', 'q');
+    $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
+  }
+
+  if (e.target.className === 'google') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/google.ico');
+    $currentForm.setAttribute('action', 'https://www.google.com/search?q=');
+  }
+
+  if (e.target.className === 'naver') {
+    $currentBox.firstElementChild.setAttribute('src', './asset/logo/naver.png');
+    $currentForm.firstElementChild.setAttribute('name', 'query');
+    $currentForm.setAttribute('action', 'https://search.naver.com/search.naver?q=');
+  }
+
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchProvider, 150);
+};
+
+var openTodoList = function openTodoList(todoList) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](todoList, 150);
+};
+
+var closeTodoList = function closeTodoList(todoList) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](todoList, 150);
+};
+
+var startClock = function startClock() {
+  var $digitalClock = document.querySelector('.current-time');
+  var $second = document.querySelector('.second');
+  var $minute = document.querySelector('.minute');
+  var $hour = document.querySelector('.hour');
+  var clock = setInterval(function () {
+    var now = new Date();
+    var hour = now.getHours();
+    var min = now.getMinutes();
+    var sec = now.getSeconds();
+    sec = sec <= 9 ? sec = '0' + sec : sec;
+    min = min <= 9 ? min = '0' + min : min;
+    hour = hour <= 9 ? hour = '0' + hour : hour;
+    $digitalClock.textContent = "".concat(hour, ":").concat(min);
+    $hour.style.transform = "rotate(".concat(hour % 12 * 30, "deg)");
+    $minute.style.transform = "rotate(".concat(min % 60 * 6, "deg)");
+    $second.style.transform = "rotate(".concat(sec % 60 * 6, "deg)");
+  }, 1000);
+};
+
+var $greeting = document.querySelector('.greeting .good');
+var greeting = [[0, 4, 'Good night'], [5, 11, 'Good morning'], [12, 17, 'Good afternoon'], [18, 24, 'Good evening']];
+var hour = new Date().getHours();
+
+for (var i = 0; i < greeting.length; i++) {
+  if (hour >= greeting[i][0] && hour <= greeting[i][1]) {
+    $greeting.textContent = "".concat(greeting[i][2], ", ");
+    break;
+  }
+}
+
+;
+var $quote = document.querySelector('.quote-sec');
+var saying = ["If you don't study, you work in hot weather and cold weather.", 'The beginning is not half, but the beginning is just the beginning.', 'Handsome men pay for their faces, and ugly men pay for their looks.', 'The enemy meets at the company.', "You don't have to do what you can do tomorrow today.", 'A migraine inevitably follows pain.', "Avoid it if you can't enjoy it", 'Be comfortable to give up.', 'Beer and chicken at dawn are 0 calories.', 'Early birds are tired, Early worms are eaten.'];
+var select = Math.floor(Math.random() * saying.length);
+var todayPick = saying.splice(select, 1);
+$quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>");
+
 
 /***/ }),
 
@@ -10715,9 +10808,254 @@ var resetErrorMsg = function resetErrorMsg($target) {
   !*** ./src/js/setting.js ***!
   \***************************/
 /*! exports provided: getSettings, settingRender */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/hanseuljoo/Desktop/Documents/dev/Momentum-clone-project/src/js/setting.js'");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSettings", function() { return getSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingRender", function() { return settingRender; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/js/main.js");
+/* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var setData = {};
+var viewData = {};
+var $settingBtn = document.querySelector('.setting-sec > i');
+var $settingList = document.querySelector('.setting-list');
+var $todolistSection = document.querySelector('.todolist-sec');
+var $searchSection = document.querySelector('.search-sec');
+var $searchInput = document.querySelector('.search-area');
+var $weatherSection = document.querySelector('.weather-sec');
+var $quoteSection = document.querySelector('.quote-sec');
+var $digitalSection = document.querySelector('.digital-clock');
+var $analogSection = document.querySelector('.analog-clock');
+
+var openSettingBox = function openSettingBox(settinglist) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settinglist, 150);
+};
+
+var closeSettingBox = function closeSettingBox(settinglist) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settinglist, 150);
+};
+
+$settingBtn.onclick = function () {
+  $settingBtn.classList.toggle('clicked');
+  var settingListCs = window.getComputedStyle($settingList);
+  var settingOnOff = settingListCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
+};
+
+var clockToggle = function clockToggle(_ref) {
+  var target = _ref.target;
+  if (!target.matches('#Clock')) return;
+  var digitalCs = window.getComputedStyle($digitalSection);
+  var analogCs = window.getComputedStyle($analogSection);
+  var digitalToggle = digitalCs.getPropertyValue('display');
+  var analogToggle = analogCs.getPropertyValue('display');
+
+  if (digitalToggle === 'block' && analogToggle === 'none') {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($digitalSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($analogSection, 300);
+    }, 300);
+  }
+
+  if (analogToggle === 'block' && digitalToggle === 'none') {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($analogSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($digitalSection, 300);
+    }, 300);
+  }
+};
+
+var todoToggle = function todoToggle(_ref2) {
+  var target = _ref2.target;
+  if (!target.matches('#Todo')) return;
+  var todolistCs = window.getComputedStyle($todolistSection);
+  var todoDisplay = todolistCs.getPropertyValue('display');
+  if (todoDisplay === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+
+  if (todoDisplay === 'none') {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
+  }
+};
+
+var searchToggle = function searchToggle(_ref3) {
+  var target = _ref3.target;
+  if (!target.matches('#Search')) return;
+  var searchCs = window.getComputedStyle($searchSection);
+  var searchDisplay = searchCs.getPropertyValue('display');
+  if (searchDisplay === 'flex') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
+
+  if (searchDisplay === 'none') {
+    $searchSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
+    $searchInput.value = '';
+  }
+};
+
+var weatherToggle = function weatherToggle(_ref4) {
+  var target = _ref4.target;
+  if (!target.matches('#Weather')) return;
+  var weatherCs = window.getComputedStyle($weatherSection);
+  var weatherDisplay = weatherCs.getPropertyValue('display');
+  if (weatherDisplay === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
+
+  if (weatherDisplay === 'none') {
+    $weatherSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
+  }
+};
+
+var quoteToggle = function quoteToggle(_ref5) {
+  var target = _ref5.target;
+  if (!target.matches('#Quote')) return;
+  var quoteCs = window.getComputedStyle($quoteSection);
+  var quoteDisplay = quoteCs.getPropertyValue('display');
+  quoteDisplay === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+}; // View Render
+
+
+var clockRender = function clockRender() {
+  if (!viewData.Clock) {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($digitalSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($analogSection, 300);
+    }, 300);
+  }
+
+  if (viewData.Clock) {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($analogSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($digitalSection, 300);
+    }, 300);
+  }
+};
+
+var todoRender = function todoRender() {
+  if (viewData.Todo) {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
+  }
+
+  if (!viewData.Todo) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+};
+
+var searchRender = function searchRender() {
+  if (viewData.Search) {
+    $searchSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
+    $searchInput.value = '';
+  }
+
+  if (!viewData.Search) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
+};
+
+var weatherRender = function weatherRender() {
+  if (!viewData.Weather) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
+
+  if (viewData.Weather) {
+    $weatherSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
+  }
+};
+
+var quoteRender = function quoteRender() {
+  !viewData.Quote ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+};
+
+var getView = function getView() {
+  axios.get('/users').then(function (_ref6) {
+    var data = _ref6.data;
+    viewData = data.settings;
+  }).then(clockRender).then(todoRender).then(searchRender).then(weatherRender).then(quoteRender);
+};
+
+var settingRender = function settingRender() {
+  var setHtml = "<li class=\"title\">\n    <h2>Setting</h2>\n  </li>";
+  setData = Object.entries(setData);
+  setData.forEach(function (set) {
+    var _set = _slicedToArray(set, 2),
+        setCtgr = _set[0],
+        checked = _set[1];
+
+    setHtml += "<li>\n      <h3>".concat(setCtgr, "</h3>\n      <div class=\"toggle-box\">\n        <input class=\"toggle toggle-input\" id=\"").concat(setCtgr, "\" type=\"checkbox\" ").concat(checked ? 'checked' : '', "/>\n        <label class=\"btn-toggle\" data-tg-off=\"").concat(setCtgr === 'Clock' ? 'ANALOG' : 'OFF', "\" data-tg-on=\"").concat(setCtgr === 'Clock' ? 'DIGITAL' : 'ON', "\" for=\"").concat(setCtgr, "\"></label>\n      </div>\n    </li>");
+  });
+  setHtml += "<li class=\"logout\">\n    <h3>LOGOUT</h3>\n  </li>";
+  $settingList.innerHTML = setHtml;
+};
+
+var getSettings = function getSettings() {
+  axios.get('/users').then(function (_ref7) {
+    var data = _ref7.data;
+    setData = data.settings;
+  }).then(settingRender).then(getView);
+};
+
+var logOut = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref8) {
+    var target;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            target = _ref8.target;
+
+            if (!(!target.matches('li.logout') && !target.matches('li.logout > h3'))) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 3:
+            axios.get('/logout').then(function () {
+              var $mainPage = document.querySelector('.main-page');
+              var $loginPage = document.querySelector('.login-page');
+              _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($mainPage, $loginPage);
+            })["catch"](function (err) {
+              return console.error(err);
+            });
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function logOut(_x) {
+    return _ref9.apply(this, arguments);
+  };
+}();
+
+$settingList.addEventListener('click', clockToggle);
+$settingList.addEventListener('change', todoToggle);
+$settingList.addEventListener('change', searchToggle);
+$settingList.addEventListener('change', weatherToggle);
+$settingList.addEventListener('change', quoteToggle);
+$settingList.addEventListener('click', logOut);
+
 
 /***/ }),
 
@@ -10726,9 +11064,256 @@ throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index
   !*** ./src/js/todos.js ***!
   \*************************/
 /*! exports provided: render, getTodos */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/hanseuljoo/Desktop/Documents/dev/Momentum-clone-project/src/js/todos.js'");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodos", function() { return getTodos; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+var compliments = ['Good job!', 'Great Work!', 'Excellent!', 'Keep it up!', 'Perfect!', 'Awesome!', 'Bravo!', 'Hooray~', 'There you go!', 'Nice!'];
+var latestId = 0;
+var todos = [];
+var navState = 'all';
+var $todoList = document.querySelector('.todolist-body');
+var $inputTodo = document.querySelector('.input-todo');
+var $nav = document.querySelector('.todolist-menu');
+var $todolistIcon = document.querySelector('.icon-th-list');
+var $todoBefore = document.querySelector('.todo-focus-before');
+var $todoAfter = document.querySelector('.todo-focus-after');
+var $latestTodoText = document.querySelector('.latest-todo-text');
+var $compliment = document.querySelector('.compliment');
+var $checkIcon = document.querySelector('.main-sec .check-icon');
+var $icon = $checkIcon.firstElementChild;
+
+var getRandomInt = function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+var render = function render() {
+  var _todos = todos.filter(function (_ref) {
+    var completed = _ref.completed;
+    return navState === 'all' ? true : navState === 'active' ? !completed : completed;
+  });
+
+  var html = '';
+
+  _todos.forEach(function (_ref2) {
+    var id = _ref2.id,
+        content = _ref2.content,
+        completed = _ref2.completed;
+    html += "<li id=\"".concat(id, "\">\n              <label for=\"added-todo-").concat(id, "\">\n              <i class=\"icon-check").concat(completed ? '' : '-empty', "\"></i>\n              <input type=\"checkbox\" class=\"added-todo-checkbox\" ").concat(completed ? ' checked' : '', " id=\"added-todo-").concat(id, "\">\n              <span class=\"added-todo-text\">").concat(content, "</span>\n              <i class=\"icon-cancel\"></i>\n              </label>\n            </li>");
+  });
+
+  $todoList.innerHTML = html;
+};
+
+var generateId = function generateId() {
+  return todos.length ? Math.max.apply(Math, _toConsumableArray(todos.map(function (todo) {
+    return todo.id;
+  }))) + 1 : 1;
+};
+
+var getTodos = function getTodos() {
+  axios.get('/todos').then(function (_ref3) {
+    var data = _ref3.data;
+    todos = data;
+  }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var addTodo = function addTodo(content) {
+  axios.post('/todos', {
+    id: generateId(),
+    content: content,
+    completed: false
+  }).then(function (_ref4) {
+    var data = _ref4.data;
+    todos = data;
+  }).then(render).then(function () {
+    $latestTodoText.textContent = $todoList.firstElementChild.querySelector('.added-todo-text').textContent;
+  }).then(function () {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoBefore, $todoAfter);
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var toggleCompleted = function toggleCompleted(id) {
+  var completed = !todos.find(function (todo) {
+    return todo.id === +id;
+  }).completed;
+  axios.patch("/todos/".concat(id), {
+    completed: completed
+  }).then(function (_ref5) {
+    var data = _ref5.data;
+    todos = data;
+  }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var toggleCompFromTodos = function toggleCompFromTodos(id) {
+  var completed = !todos.find(function (todo) {
+    return todo.id === +id;
+  }).completed;
+  axios.patch("/todos/".concat(id), {
+    completed: completed
+  }).then(function (_ref6) {
+    var data = _ref6.data;
+    todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[0].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $latestTodoText.classList.add('text-linethru');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $latestTodoText.classList.remove('text-linethru');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodo = function removeTodo(id) {
+  axios["delete"]("/todos/".concat(id)).then(function (_ref7) {
+    var data = _ref7.data;
+    todos = data;
+  }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodoFromTodos = function removeTodoFromTodos(id) {
+  $compliment.textContent = ''; // $compliment.classList.remove('fade-out');
+  // $compliment.classList.remove('fade-in');
+
+  axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
+    var data = _ref8.data;
+    todos = data;
+  }).then(render).then(function () {
+    $latestTodoText.textContent = todos[0].content;
+    $latestTodoText.classList.toggle('text-linethru', todos[0].completed);
+    $icon.classList.toggle('icon-check', todos[0].completed);
+    $icon.classList.toggle('icon-check-empty', !todos[0].completed);
+
+    if (todos[0].completed && +id === todos[0].id) {
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+    } else {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+    }
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var changeNav = function changeNav(id) {
+  _toConsumableArray($nav.children).forEach(function ($navItem) {
+    $navItem.classList.toggle('active', $navItem.id === id);
+  });
+
+  navState = id;
+  render();
+};
+
+$inputTodo.onkeyup = function (_ref9) {
+  var target = _ref9.target,
+      keyCode = _ref9.keyCode;
+  var content = target.value.trim();
+  if (!content || keyCode !== 13) return;
+  target.value = '';
+  addTodo(content);
+  $todolistIcon.classList.toggle('shake');
+  setTimeout(function () {
+    return $todolistIcon.className = 'icon-th-list';
+  }, 1000);
+};
+
+$todoList.onchange = function (_ref10) {
+  var target = _ref10.target;
+  toggleCompFromTodos(target.parentNode.parentNode.id);
+};
+
+$todoList.onclick = function (_ref11) {
+  var target = _ref11.target;
+  if (!target.matches('.icon-cancel')) return;
+  removeTodoFromTodos(target.parentNode.parentNode.id);
+};
+
+$nav.onclick = function (_ref12) {
+  var target = _ref12.target;
+  if (!target.matches('.todolist-menu > li')) return;
+  changeNav(target.id);
+};
+
+var $addTodoBtn = document.querySelector('.main-sec .add-todo');
+
+$addTodoBtn.onclick = function () {
+  $icon.className = 'icon-check-empty';
+  $compliment.classList.remove('fade-in');
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoAfter, $todoBefore);
+  $latestTodoText.classList.toggle('text-linethru', false);
+};
+
+$checkIcon.onclick = function () {
+  if ($icon.className === 'icon-check-empty') {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    $compliment.textContent = compliments[getRandomInt(0, 10)];
+    $latestTodoText.classList.add('text-linethru');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  } else {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    $latestTodoText.classList.remove('text-linethru');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  }
+};
+
+var $deleteIcon = document.querySelector('.delete-icon');
+
+$deleteIcon.onclick = function () {
+  var deleteIconText = $deleteIcon.previousElementSibling.textContent;
+  var deleteId = todos.find(function (todo) {
+    return todo.content === deleteIconText;
+  }).id;
+  console.log(deleteId);
+  removeTodoFromTodos(deleteId);
+};
+
+
 
 /***/ }),
 
@@ -11131,9 +11716,166 @@ var checkPwHintAnswer = function checkPwHintAnswer($answer) {
   !*** ./src/js/weather.js ***!
   \***************************/
 /*! exports provided: openWeatherBox, closeWeatherBox, weatherInit, getLocation, succesLocation, errorLocation, getWeather, weatherRender, bgRender */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/hanseuljoo/Desktop/Documents/dev/Momentum-clone-project/src/js/weather.js'");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openWeatherBox", function() { return openWeatherBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeWeatherBox", function() { return closeWeatherBox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weatherInit", function() { return weatherInit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLocation", function() { return getLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "succesLocation", function() { return succesLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorLocation", function() { return errorLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeather", function() { return getWeather; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "weatherRender", function() { return weatherRender; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgRender", function() { return bgRender; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var $container = document.querySelector('.container');
+var $weatherMain = document.querySelector('.weather-main');
+var $weatherBox = document.querySelector('.weather-box');
+var $boxTop = document.querySelector('.box-top');
+var $weeklyDay = document.querySelector('.weekly-day');
+var $weeklyIcon = document.querySelector('.weekly-i');
+var $weeklyTemp = document.querySelector('.weekly-temp');
+
+var openWeatherBox = function openWeatherBox(weatherbox) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](weatherbox, 150);
+};
+
+var closeWeatherBox = function closeWeatherBox(weatherbox) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](weatherbox, 150);
+};
+
+$weatherMain.onclick = function () {
+  var weatherBoxCs = window.getComputedStyle($weatherBox);
+  var weatherOnOff = weatherBoxCs.getPropertyValue('display');
+  weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
+};
+
+var API_KEY = 'bbcad54aeb4d627c3798f0773d883830';
+
+var getRandomNum = function getRandomNum(num1, num2) {
+  var min = Math.ceil(num1);
+  var max = Math.floor(num2);
+  var randomNum = Math.floor(Math.random() * (max - min)) + min;
+  return randomNum;
+};
+
+var bgRender = function bgRender(res) {
+  var _res$current$weather = _slicedToArray(res.current.weather, 1),
+      currentId = _res$current$weather[0].id;
+
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)");
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)");
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)");
+  if (currentId === 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)");
+  if (currentId > 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
+  var $loadingContainer = document.querySelector('.loading-container');
+  setTimeout(function () {
+    $loadingContainer.classList.remove('loading');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($loadingContainer, 1000);
+  }, 200);
+};
+
+var weatherRender = function weatherRender(res) {
+  var _res$timezone$split = res.timezone.split('/'),
+      _res$timezone$split2 = _slicedToArray(_res$timezone$split, 2),
+      continent = _res$timezone$split2[0],
+      city = _res$timezone$split2[1];
+
+  var temperature = Math.floor(res.current.temp);
+
+  var _res$current$weather2 = _slicedToArray(res.current.weather, 1),
+      _res$current$weather3 = _res$current$weather2[0],
+      currentId = _res$current$weather3.id,
+      description = _res$current$weather3.description;
+
+  var weeklyId = res.daily.map(function (day) {
+    return day.weather.reduce(function (acc, dayW) {
+      return acc + dayW.id;
+    }, 0);
+  });
+  var weeklyTemp = res.daily.map(function (day) {
+    return [Math.floor(day.temp.min), Math.floor(day.temp.max)];
+  });
+  var dayName = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  var currentIcon = '';
+  if (currentId >= 200 && currentId < 300) currentIcon = 'icon-clouds';
+  if (currentId >= 300 && currentId < 400) currentIcon = 'icon-cloud-sun';
+  if (currentId >= 500 && currentId < 700) currentIcon = 'icon-rain';
+  if (currentId >= 700 && currentId < 800) currentIcon = 'icon-clouds';
+  if (currentId === 800) currentIcon = 'icon-sun';
+  if (currentId > 800) currentIcon = 'icon-cloud-sun';
+  $weatherMain.innerHTML = "\n    <i class=\"".concat(currentIcon, "\"></i>\n    <span class=\"main-temp\">").concat(temperature, "</span>\n    <i class=\"icon-celcius main-celcius\"></i>\n    <div class=\"main-location\">").concat(city, ", ").concat(continent, "</div>\n  ");
+  $boxTop.innerHTML = "\n    <div class=\"box-location\">".concat(city, ", ").concat(continent, "</div>\n    <div class=\"box-state\">").concat(description, "</div>\n    <i class=\"").concat(currentIcon, " box-i\"></i>\n    <span class=\"box-temp\">").concat(temperature, "</span>\n    <i class=\"icon-celcius box-celcius\"></i>\n  ");
+  dayName.forEach(function (_, i, arr) {
+    var today = new Date();
+    $weeklyDay.innerHTML += "<span>".concat(arr[(today.getDay() + i) % 7], "</span>");
+  });
+  var weeklyIcon = '';
+  weeklyId.forEach(function (dailyId) {
+    if (dailyId >= 200 && dailyId < 300) weeklyIcon = 'icon-clouds';
+    if (dailyId >= 300 && dailyId < 400) weeklyIcon = 'icon-cloud-sun';
+    if (dailyId >= 500 && dailyId < 700) weeklyIcon = 'icon-rain';
+    if (dailyId >= 700 && dailyId < 800) weeklyIcon = 'icon-clouds';
+    if (dailyId === 800) weeklyIcon = 'icon-sun';
+    if (dailyId > 800) weeklyIcon = 'icon-cloud-sun';
+    $weeklyIcon.innerHTML += "<i class=\"".concat(weeklyIcon, "\"></i>");
+  });
+  weeklyTemp.forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        min = _ref2[0],
+        max = _ref2[1];
+
+    $weeklyTemp.innerHTML += "\n      <div>\n        <span>".concat(max, "</span>\n        <span>").concat(min, "</span>\n      </div>\n    ");
+  });
+  $weeklyIcon.removeChild($weeklyIcon.lastElementChild);
+  $weeklyTemp.removeChild($weeklyTemp.lastElementChild);
+  bgRender(res);
+};
+
+var getWeather = function getWeather(lat, lng) {
+  fetch("https://api.openweathermap.org/data/2.5/onecall?lat=".concat(lat, "&lon=").concat(lng, "&appid=").concat(API_KEY, "&units=metric")).then(function (res) {
+    return res.json();
+  }).then(function (res) {
+    weatherRender(res);
+  });
+};
+
+var succesLocation = function succesLocation(position) {
+  var _position$coords = position.coords,
+      latitude = _position$coords.latitude,
+      longitude = _position$coords.longitude;
+  getWeather(latitude, longitude);
+};
+
+var errorLocation = function errorLocation() {
+  console.log('Sorry, no position available.');
+};
+
+var getLocation = function getLocation() {
+  navigator.geolocation.getCurrentPosition(succesLocation, errorLocation);
+};
+
+var weatherInit = function weatherInit() {
+  getLocation();
+};
+
+
 
 /***/ }),
 

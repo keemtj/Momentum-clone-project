@@ -83,6 +83,7 @@ const toggleCompFromTodos = id => {
       if ($icon.className === 'icon-check-empty') {
         $icon.classList.toggle('icon-check-empty');
         $icon.classList.toggle('icon-check');
+        $latestTodoText.classList.add('text-linethru');
         $compliment.textContent = compliments[getRandomInt(0, 10)];
         if (+id === (generateId() - 1)) {
           ani.fadeIn($compliment, 200);
@@ -90,6 +91,8 @@ const toggleCompFromTodos = id => {
       } else {
         $icon.classList.toggle('icon-check-empty');
         $icon.classList.toggle('icon-check');
+        $latestTodoText.classList.remove('text-linethru');
+
         if (+id === (generateId() - 1)) {
           ani.fadeOut($compliment, 200);
         }
@@ -106,24 +109,22 @@ const removeTodo = id => {
 };
 
 const removeTodoFromTodos = id => {
+  $compliment.textContent = '';
+  // $compliment.classList.remove('fade-out');
+  // $compliment.classList.remove('fade-in');
   axios.delete(`/todos/${id}`)
   .then(({ data }) => { todos = data; })
   .then(render)
   .then(() => {
-    $icon.className = todos[generateId()-2].completed ? 'icon-check-empty' : 'icon-check';
-    if ($icon.className === 'icon-check-empty') {
-      $icon.classList.toggle('icon-check-empty');
-      $icon.classList.toggle('icon-check');
+    $latestTodoText.textContent = todos[0].content;
+    $latestTodoText.classList.toggle('text-linethru', todos[0].completed);
+    $icon.classList.toggle('icon-check', todos[0].completed);
+    $icon.classList.toggle('icon-check-empty', !todos[0].completed);
+    if (todos[0].completed && (+id === todos[0].id)) {
       $compliment.textContent = compliments[getRandomInt(0, 10)];
-      if (+id === (generateId() - 2)) {
-        ani.fadeIn($compliment, 200);
-      }
+      ani.fadeIn($compliment, 200);
     } else {
-      $icon.classList.toggle('icon-check-empty');
-      $icon.classList.toggle('icon-check');
-      if (+id === (generateId() - 1)) {
-        ani.fadeOut($compliment, 200);
-      }
+      ani.fadeOut($compliment, 200);
     }
   })
   .catch(err => console.error(err));
@@ -152,7 +153,7 @@ $todoList.onchange = ({ target }) => {
 
 $todoList.onclick = ({ target }) => {
   if (!target.matches('.icon-cancel')) return;
-  removeTodo(target.parentNode.parentNode.id);
+  removeTodoFromTodos(target.parentNode.parentNode.id);
 };
 
 $nav.onclick = ({ target }) => {
@@ -165,6 +166,7 @@ $addTodoBtn.onclick = () => {
   $icon.className = 'icon-check-empty';
   $compliment.classList.remove('fade-in');
   ani.movePage($todoAfter, $todoBefore);
+  $latestTodoText.classList.toggle('text-linethru', false);
 };
 
 
@@ -173,19 +175,24 @@ $checkIcon.onclick = () => {
     $icon.classList.toggle('icon-check-empty');
     $icon.classList.toggle('icon-check');
     $compliment.textContent = compliments[getRandomInt(0, 10)];
+    $latestTodoText.classList.add('text-linethru');
     ani.fadeIn($compliment, 200);
     toggleCompleted(generateId() - 1);
   } else {
     $icon.classList.toggle('icon-check-empty');
     $icon.classList.toggle('icon-check');
+    $latestTodoText.classList.remove('text-linethru');
     ani.fadeOut($compliment, 200);
     toggleCompleted(generateId() - 1);
   }
 };
 
-const $removeIcon = document.querySelector('.icon-cancel');
-$removeIcon.onclick = () => {  
-  removeTodoFromTodos(generateId() - 1);
+const $deleteIcon = document.querySelector('.delete-icon');
+$deleteIcon.onclick = () => { 
+  const deleteIconText = $deleteIcon.previousElementSibling.textContent;
+  const deleteId = todos.find(todo => todo.content === deleteIconText).id;
+  console.log(deleteId);
+  removeTodoFromTodos(deleteId);
 };
 
 export { render, getTodos };
