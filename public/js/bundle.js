@@ -11798,13 +11798,10 @@ var bgRender = function bgRender(res) {
 
   if (currentId > 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
   var $loadingContainer = document.querySelector('.loading-container');
-  var $loadingText = document.querySelector('.loading-text');
   setTimeout(function () {
     $loadingContainer.classList.remove('loading');
-    $loadingText.style.display = 'none';
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($loadingContainer, 1000);
   }, 200);
-  console.log('[bgRender END]');
 }; // Weather Infomation Rendering
 
 

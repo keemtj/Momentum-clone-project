@@ -55,13 +55,10 @@ const bgRender = res => {
   if (currentId > 800) $container.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/${getRandomNum(14, 25)}.jpg)`;
   
   const $loadingContainer = document.querySelector('.loading-container');
-  const $loadingText = document.querySelector('.loading-text');
   setTimeout(() => {
     $loadingContainer.classList.remove('loading');
-    $loadingText.style.display = 'none';
     ani.fadeOut($loadingContainer, 1000);
   }, 200);
-  console.log('[bgRender END]');
 };
 
 // Weather Infomation Rendering
