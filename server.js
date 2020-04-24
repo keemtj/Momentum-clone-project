@@ -2,10 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-<<<<<<< HEAD
-=======
 
->>>>>>> 749fa12f86834013bb45fdbe16dc7457b04e7a12
 let onUser = {};
 let users = [
   {
@@ -212,6 +209,6 @@ app.patch('/todos/:id', (req, res) => {
   onUser.todos = onUser.todos.map(todo => (todo.id === +id ? { ...todo, completed: !todo.completed } : todo));
   res.send(onUser.todos);
 });
-
 // =======================
+
 app.listen(9000, () => console.log('Simple Rest API Server listening on port 9000'));
