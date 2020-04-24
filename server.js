@@ -66,19 +66,19 @@ app.use(express.json());
 app.get('/', (req, res) => res.send(`<h1>${req.protocol}://${req.get('host')}${req.originalUrl}</h1>`));
 
 // ========users===========
-// 회원가입할때 userId 만들어주는 함수 
+// 회원가입할때 userId 만들어주는 함수
 const generateUserId = () => (users.length ? Math.max(...users.map($user => $user.userId)) + 1 : 1);
-// /users -> users 
+// /users -> users
 app.get('/users', (req, res) => {
   onUser = users.find(user => user.online);
   console.log('[/users]');
   res.send(onUser);
 });
 
-// 로그아웃 
+// 로그아웃
 app.get('/logout', (req, res) => {
   users.forEach(user => {
-    user.online = false; 
+    user.online = false;
   });
   onUser = {};
   res.send(onUser);
@@ -87,7 +87,9 @@ app.get('/logout', (req, res) => {
 // /users 아이디 등록
 app.post('/users', (req, res) => {
   console.log('[/users]');
-  const { online, name, email, pw, hint, answer } = req.body;
+  const {
+    online, name, email, pw, hint, answer
+  } = req.body;
   if (users.find($users => $users.email === email)) {
     res.send(false);
   } else {
@@ -96,7 +98,8 @@ app.post('/users', (req, res) => {
       digital: true, todo: true, search: true, weather: true, quote: true
     };
     users = [{
-      userId: generateUserId(), online, name, email, pw, hint, answer, todos, settings }, ...users];
+      userId: generateUserId(), online, name, email, pw, hint, answer, todos, settings
+    }, ...users];
     res.send(users);
   }
 });
@@ -117,8 +120,8 @@ app.post('/users/login', (req, res) => {
   }
 });
 
-// 유저가 비밀번호 찾을때 이메일을 입력하면 
-// 이메일이 존재하는지 확인 -> 
+// 유저가 비밀번호 찾을때 이메일을 입력하면
+// 이메일이 존재하는지 확인 ->
 // 존재하면 그 유저 객체를 보내줌
 // 전역변수 userFound 에다가 저장하고 다음 페이지에서 그 userFound의 이메일과 힌트 비교함
 // 존재하지 않으면 falsy값 리턴하고 존재하지 않는 이메일 msg 표시해줌
@@ -147,15 +150,13 @@ app.patch('/users/reset_pw', (req, res) => {
 // ===========================
 
 
-
 // ========settings===========
 // settings로 요청하면 객체 형식({ digital: true, weather: true, ...})으로 응답함
-<<<<<<< HEAD
 app.get('/users', (req, res) => {
   console.log('[GET front-req settings]');
-  onlineUser = users.find(user => user.online);
-  res.send(onlineUser.settings);
-  console.log('[GET back-res settings]', onlineUser.settings);
+  onUser = users.find(user => user.online);
+  res.send(onUser.settings);
+  console.log('[GET back-res settings]', onUser.settings);
 });
 
 // app.patch('/users', (req, res) => {
@@ -169,24 +170,26 @@ app.get('/users', (req, res) => {
 //   res.send(onlineUser.settings);
 //   console.log('[PATCH back-res settings]', onlineUser.settings);
 // });
-=======
 app.get('/settings', (req, res) => {
   console.log('[GET settings]');
   res.send(onUser);
 });
 app.patch('/settings', (req, res) => {
   // const { id } = req.params;
-  const { digital, weather, todo, quote, search } = req.body;
+  const {
+    digital, weather, todo, quote, search
+  } = req.body;
   console.log('[PATCH] req.digital => ', digital);
   console.log('[PATCH] req.weather => ', weather);
   console.log('[PATCH] req.todo => ', todo);
   console.log('[PATCH] req.quote => ', quote);
   console.log('[PATCH] req.search => ', search);
-  onUser.settings = { digital, weather, todo, quote, search };
+  onUser.settings = {
+    digital, weather, todo, quote, search
+  };
   users = users.map(user => (user.userId === onUser.userId ? onUser : user));
   res.send(onUser);
 });
->>>>>>> 29c54f6fc92700a2c8cbe8b1127cc4d85be22c1f
 // ===========================
 // ========todos===========
 // todos 요청
@@ -199,7 +202,7 @@ app.get('/todos', (req, res) => {
   console.log('[GET todos]');
   onUser = users.find(user => user.online);
   console.log(onUser);
-  
+
   res.send(onUser.todos);
 });
 // todo 추가
