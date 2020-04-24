@@ -29,11 +29,16 @@ input, button{
   background: none;
 }
 .container {
-  background: url('../asset/images/main/main.jpg') no-repeat center;
+  background: no-repeat center;
   background-size: cover;
   opacity: 1;
   overflow: hidden;
   height: 100vh;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none; 
+  -webkit-user-select: none; 
+  -khtml-user-select: none; 
+  user-select:none;
 }
 div[class$="-page"] {
   display: none;
@@ -52,7 +57,7 @@ div[class$="-page"] {
   height: 13vh;
 }
 .setting-sec, .todolist-sec, .quote-sec{
-  height: 10vh;
+  height: 9vh;
 }
 .search-sec{
   grid-area: 1/1/3/2;

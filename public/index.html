@@ -106,7 +106,7 @@
           <input type="text" id="signup-pw-hint-answer" placeholder="Hint Answer">
           <p class="signup-pw-hint-answer-check">Enter hint answer</p>
           <button class="btn-signup" disabled>CREATE ACCOUNT</button>
-          <div class="signup-error-msg">This email already exists. Please enter another email</div>
+          <div class="signup-error-msg">This email already exists. Please enter another email.</div>
         </div>
       </div>
       <!-- Signup Page End-->
@@ -120,6 +120,7 @@
           <p class="forgot-pw-length-check">Enter email address</p>
           <p class="forgot-pw-form-check">Verify email address</p>
           <button class="forgot-pw-btn-next" disabled>NEXT</button>
+          <div class="forgot-pw-error-msg">This email does not exist.</div>
         </div>
       </div>
       <!-- Forgot-Pw Page End -->
@@ -129,11 +130,12 @@
         <h2 class="pw-hint-word">FORGOT PASSWORD</h2>
         <div class="pw-hint-form">
           <p class="pw-hint-text">Hint</p>
-          <p class="pw-hint-question">What is your favorite movie?</p>
+          <p class="pw-hint-question"></p>
           <label for="pw-hint-answer"></label>
           <input type="text" id="pw-hint-answer" placeholder="Answer">
           <p class="pw-hint-answer-check">Enter hint answer</p>
           <button class="pw-hint-btn-next">NEXT</button>
+          <div class="pw-hint-error-msg">Answer does not match.</div>
         </div>
       </div>
       <!-- Pw-Hint-Page End -->
@@ -165,6 +167,8 @@
           <p class="pw-reset-confirm-pw-length-check">Enter password</p>
           <p class="pw-reset-confirm-pw-form-check">Password do not match</p>
           <button class="btn-reset-pw" disabled>RESET</button>
+          <div class="pw-reset-confirm-pw-error-msg"></div>
+
         </div>
       </div>
       <!-- Reset-Pw Page End -->
@@ -216,7 +220,7 @@
       <!-- Clock & Todo -->
       <div class="main-sec">
         <div class="clock-box">
-          <div class="digital-clock">
+          <div class="digital-clock fade-in">
             <time class="current-time"></time>
           </div>
           <div class="analog-clock">
@@ -230,7 +234,7 @@
           </div>
         </div>
         
-        <div class="todo-focus-before">
+        <div class="todo-focus-before fade-in">
           <h3>What is your main focus?</h3>
           <input type="text" class="input-todo" autocomplete="off">
         </div>
@@ -251,7 +255,7 @@
               <i class="icon-cancel"></i>
               <i class="icon-cancel-circled"></i>
             </span>
-            <p class="compliment">Good job!</p>
+            <p class="compliment"></p>
           </div>
         </div>
       </div>
@@ -259,7 +263,7 @@
       <div class="setting-sec">
         <i class="icon-cog"></i>
         <ul class="setting-list">
-          <li class="title">
+          <!-- <li class="title">
             <h2>Setting</h2>
           </li>
           <li>
@@ -299,7 +303,7 @@
           </li>
           <li class="logout">
             <h3>LOGOUT</h3>
-          </li>
+          </li> -->
         </ul>
       </div>
       <!-- Quote -->
@@ -320,7 +324,7 @@
             <!-- <li>
               <label for="added-todo">
                 <i class="icon-check-empty"></i>
-                <input type="checkbox" id="added-todo">
+                <input type="checkbox" class="added-todo-checkbox" id="added-todo">
                 <span class="added-todo-text"></span>
                 <i class="icon-cancel"></i>
               </label>
