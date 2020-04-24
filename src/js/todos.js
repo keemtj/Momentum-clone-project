@@ -143,6 +143,7 @@ $inputTodo.onkeyup = ({ target, keyCode }) => {
   target.value = '';
   addTodo(content);
   $todolistIcon.classList.toggle('shake');
+  setTimeout(() => $todolistIcon.className = 'icon-th-list', 1000);
 };
 
 $todoList.onchange = ({ target }) => {

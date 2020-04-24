@@ -11255,6 +11255,9 @@ $inputTodo.onkeyup = function (_ref9) {
   target.value = '';
   addTodo(content);
   $todolistIcon.classList.toggle('shake');
+  setTimeout(function () {
+    return $todolistIcon.className = 'icon-th-list';
+  }, 1000);
 };
 
 $todoList.onchange = function (_ref10) {
