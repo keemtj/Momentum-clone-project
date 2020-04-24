@@ -86,7 +86,7 @@ app.get('/users', (req, res) => {
 
 app.get('/logout', (req, res) => {
   users.forEach(user => {
-    user.online = false; 
+    user.online = false;
   });
   onUser = {};
   res.send(onUser);
@@ -102,7 +102,8 @@ app.post('/users', (req, res) => {
       digital: true, todo: true, search: true, weather: true, quote: true
     };
     users = [{
-      userId: generateUserId(), online, name, email, pw, hint, answer, todos, settings }, ...users];
+      userId: generateUserId(), online, name, email, pw, hint, answer, todos, settings
+    }, ...users];
     res.send(users);
   }
 });
