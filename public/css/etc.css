@@ -106,7 +106,7 @@
   font-size: 1.4rem;
   cursor: pointer;
   transform: rotate(0deg);
-  transition-duration: 0.2s;
+  transition-duration: 0.3s;
   transition-timing-function: ease-out;
 }
 .icon-cog.clicked{
@@ -115,8 +115,8 @@
   left: 0;
   font-size: 1.4rem;
   cursor: pointer;
-  transform: rotate(45deg);
-  transition-duration: 0.2s;
+  transform: rotate(60deg);
+  transition-duration: 0.3s;
   transition-timing-function: ease-out;
 }
 .setting-list{
@@ -435,7 +435,7 @@
   cursor: pointer;
 }
 .shake{
-  animation: shake .5s;
+ animation: shake .5s;
 }
 
 @keyframes shake {

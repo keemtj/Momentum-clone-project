@@ -2,10 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-<<<<<<< HEAD
-=======
-
->>>>>>> 749fa12f86834013bb45fdbe16dc7457b04e7a12
 let onUser = {};
 let users = [
   {
@@ -22,7 +18,11 @@ let users = [
       { id: 1, content: 'Babel', completed: true }
     ],
     settings: {
-      digital: true, todo: false, search: true, weather: true, quote: false
+      Clock: true,
+      Todo: true,
+      Search: true,
+      Weather: false,
+      Quote: false
     }
   },
   {
@@ -39,14 +39,18 @@ let users = [
       { id: 1, content: 'SCSS', completed: false }
     ],
     settings: {
-      digital: false, todo: true, search: false, weather: false, quote: true
+      Clock: true,
+      Todo: false,
+      Search: false,
+      Weather: true,
+      Quote: true
     }
   },
   {
     userId: 1,
     online: false,
     name: 'Jimmy',
-    email: 'a@gmail.com',
+    email: 'j@gmail.com',
     pw: '1',
     hint: 'what is your favorite food?',
     answer: 'Pizza',
@@ -56,7 +60,11 @@ let users = [
       { id: 1, content: 'HTML', completed: false }
     ],
     settings: {
-      digital: true, todo: true, search: true, weather: true, quote: true
+      Clock: true,
+      Todo: false,
+      Search: false,
+      Weather: true,
+      Quote: true
     }
   }
 ];
@@ -74,6 +82,16 @@ app.get('/users', (req, res) => {
   console.log('[/users]');
   res.send(onUser);
 });
+
+// 로그아웃 
+app.get('/logout', (req, res) => {
+  users.forEach(user => {
+    user.online = false; 
+  });
+  onUser = {};
+  res.send(onUser);
+});
+
 // /users 아이디 등록
 app.post('/users', (req, res) => {
   console.log('[/users]');
@@ -114,11 +132,7 @@ app.post('/users/login', (req, res) => {
 // 존재하지 않으면 falsy값 리턴하고 존재하지 않는 이메일 msg 표시해줌
 app.post('/users/forgot_pw', (req, res) => {
   const { email } = req.body;
-  console.log('email:', email);
-  
   const userFound = users.find($user => $user.email === email);
-  console.log('userFound', userFound);
-
   if (!userFound) {
     res.send(false);
   } else {
@@ -136,16 +150,33 @@ app.patch('/users/reset_pw', (req, res) => {
   resetPwUser.pw = pw;
   users.map($user => (resetPwUser.email === $user.email ? resetPwUser : $user));
   res.send(users);
-});// ===========================
+});
+
+// ===========================
 
 
 
 // ========settings===========
 // settings로 요청하면 객체 형식({ digital: true, weather: true, ...})으로 응답함
-app.get('/settings', (req, res) => {
-  console.log('[GET settings]');
-  res.send(onUser);
+app.get('/users', (req, res) => {
+  console.log('[GET front-req settings]');
+  onUser = users.find(user => user.online);
+  res.send(onUser.settings);
+  console.log('[GET back-res settings]', onUser.settings);
 });
+
+// app.patch('/users', (req, res) => {
+//   console.log('[PATCH front-req settings] =>', req.body);
+//   const { checked } = req.body;
+//   console.log('[PATCH] req.body => ', checked);
+//   onlineUser = users.find(user => user.online);
+//   console.log(onlineUser.settings);
+//   onlineUser.settings.Clock !== checked ? onlineUser.settings = { ...onlineUser.settings, Clock: checked } : onlineUser.settings.Clock;
+//   console.log({ ...onlineUser.settings, Clock: checked });
+//   res.send(onlineUser.settings);
+//   console.log('[PATCH back-res settings]', onlineUser.settings);
+// });
+
 app.patch('/settings', (req, res) => {
   // const { id } = req.params;
   const { digital, weather, todo, quote, search } = req.body;
@@ -212,6 +243,6 @@ app.patch('/todos/:id', (req, res) => {
   onUser.todos = onUser.todos.map(todo => (todo.id === +id ? { ...todo, completed: !todo.completed } : todo));
   res.send(onUser.todos);
 });
-
 // =======================
+
 app.listen(9000, () => console.log('Simple Rest API Server listening on port 9000'));

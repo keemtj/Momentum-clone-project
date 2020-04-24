@@ -14,7 +14,33 @@
 <body>
   <div class="container">
     <div class="loading-container loading fade-in">
-      <div class="loading-text">Loading</div>
+      <svg version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+        <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+          <animate
+            attributeName="opacity"
+            dur="1s"
+            values="0;1;0"
+            repeatCount="indefinite"
+            begin="0.1"/>    
+        </circle>
+        <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+          <animate
+            attributeName="opacity"
+            dur="1s"
+            values="0;1;0"
+            repeatCount="indefinite" 
+            begin="0.2"/>       
+        </circle>
+        <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+          <animate
+            attributeName="opacity"
+            dur="1s"
+            values="0;1;0"
+            repeatCount="indefinite" 
+            begin="0.3"/>     
+        </circle>
+      </svg>    
     </div>
     <div class="login-container">
       <!-- Login Page Start-->
@@ -234,7 +260,7 @@
           </div>
         </div>
         
-        <div class="todo-focus-before">
+        <div class="todo-focus-before fade-in">
           <h3>What is your main focus?</h3>
           <input type="text" class="input-todo" autocomplete="off">
         </div>
@@ -255,7 +281,7 @@
               <i class="icon-cancel"></i>
               <i class="icon-cancel-circled"></i>
             </span>
-            <p class="compliment">Good job!</p>
+            <p class="compliment"></p>
           </div>
         </div>
       </div>
@@ -263,7 +289,7 @@
       <div class="setting-sec">
         <i class="icon-cog"></i>
         <ul class="setting-list">
-          <li class="title">
+          <!-- <li class="title">
             <h2>Setting</h2>
           </li>
           <li>
@@ -303,7 +329,7 @@
           </li>
           <li class="logout">
             <h3>LOGOUT</h3>
-          </li>
+          </li> -->
         </ul>
       </div>
       <!-- Quote -->
