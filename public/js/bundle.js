@@ -11214,9 +11214,7 @@ var removeTodo = function removeTodo(id) {
 };
 
 var removeTodoFromTodos = function removeTodoFromTodos(id) {
-  $compliment.textContent = ''; // $compliment.classList.remove('fade-out');
-  // $compliment.classList.remove('fade-in');
-
+  $compliment.textContent = '';
   axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
     var data = _ref8.data;
     todos = data;

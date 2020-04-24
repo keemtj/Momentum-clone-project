@@ -110,8 +110,6 @@ const removeTodo = id => {
 
 const removeTodoFromTodos = id => {
   $compliment.textContent = '';
-  // $compliment.classList.remove('fade-out');
-  // $compliment.classList.remove('fade-in');
   axios.delete(`/todos/${id}`)
   .then(({ data }) => { todos = data; })
   .then(render)
