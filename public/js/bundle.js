@@ -10675,15 +10675,17 @@ var renderStartPage = function renderStartPage() {
 
 var init = /*#__PURE__*/function () {
   var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var weatherStart;
+    var cat, weatherStart;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            cat = "\n                                                                        ,,\n                                                                       /  ,\n                                                                      /   /\n                                                                     /   /\n                                                                    /   /\n     __________________________                                    /   /\n    \u23A2                         \u23A5                                   /   /\n    \u23A2  \uBAA8\uBA58\uD140 \uD560\uC218 \uC788\uB2E4 \uB0E5!~~~~    \u23A5                                  /   /\n    \u23A2____    _________________\u23A5                                 /   /\n          \\/    ,      ,,                                      /   /\n               /@\\____/@ \\                                ____/   /\n              /           \\                         _____/        /__\n        /\" \\ / \u2022    \u2022      \\                     __/             /  @@\"\\ \n        \\    @@  \u3145  @@     /___             ___/                /    _/\n       /\" \\   \\                 \\__________/                    |__/ \"\\ \n       \\   \\                                                   /      /\n        \\    \\  __                                                  _/\n         \\                                                       __/\n           \\_                                             ______/\n              \\ ___                                    __/\n                    \\__                             __/\n                        \\_____                _____/\n                              \\______________/ \n";
+            console.log(cat);
+            _context.next = 4;
             return _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"]();
 
-          case 2:
+          case 4:
             onUser = _context.sent;
 
             if (onUser.online) {
@@ -10692,13 +10694,13 @@ var init = /*#__PURE__*/function () {
               renderStartPage();
             }
 
-            _context.next = 6;
+            _context.next = 8;
             return _weather__WEBPACK_IMPORTED_MODULE_5__["weatherInit"]();
 
-          case 6:
+          case 8:
             weatherStart = _context.sent;
 
-          case 7:
+          case 9:
           case "end":
             return _context.stop();
         }
