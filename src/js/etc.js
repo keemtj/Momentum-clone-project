@@ -18,6 +18,7 @@ $currentBox.onclick = () => {
 $searchProvider.onclick = e => {
   if (e.target.className === 'youtube') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
+    $currentForm.firstElementChild.setAttribute('name', 'q');
     $currentForm.setAttribute('action', 'https://www.youtube.com/results?search_query=');
   }
   if (e.target.className === 'google') {
