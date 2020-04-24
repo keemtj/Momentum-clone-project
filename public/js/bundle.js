@@ -10274,14 +10274,12 @@ var fadeIn = function fadeIn(target, duration) {
 
 
 var fadeOut = function fadeOut(target, duration) {
-  console.log('[fadeOut START]');
   target.style.animationDuration = "".concat(duration / 1000, "s");
   target.classList.add('fade-out');
   target.classList.remove('fade-in');
   setTimeout(function () {
     target.classList.remove('fade-out');
   }, duration);
-  console.log('[fadeOut END]');
 }; // movePage(from, to)
 
 
@@ -10326,9 +10324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/js/main.js");
-
- // search provider
+ // import * as set from './setting';
+// search provider
 
 var $searchProvider = document.querySelector('.search-provider');
 var $currentBox = document.querySelector('.current-box');
@@ -10706,17 +10703,9 @@ var renderMainPage = function renderMainPage() {
   $nameText.textContent = onUser.name;
   _todos__WEBPACK_IMPORTED_MODULE_6__["getTodos"]();
   _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
+  _setting__WEBPACK_IMPORTED_MODULE_4__["getSettings"]();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
-  axios.patch('/settings', {
-    digital: false,
-    weather: false,
-    todo: true,
-    quote: true,
-    search: true
-  }).then(function (data) {
-    console.log('data', data);
-  });
 };
 
 var renderStartPage = function renderStartPage() {
@@ -10864,39 +10853,78 @@ var resetErrorMsg = function resetErrorMsg($target) {
 /*!***************************!*\
   !*** ./src/js/setting.js ***!
   \***************************/
-/*! no exports provided */
+/*! exports provided: getSettings, settingRender */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSettings", function() { return getSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingRender", function() { return settingRender; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var setData = {};
+var viewData = {};
 var $settingBtn = document.querySelector('.setting-sec > i');
-var $settingBox = document.querySelector('.setting-list');
-var $toggleClock = document.getElementById('clock');
-var $toggleTodo = document.getElementById('todo');
-var $toggleSearch = document.getElementById('search');
-var $toggleWeather = document.getElementById('weather');
-var $toggleQuote = document.getElementById('quote');
+var $settingList = document.querySelector('.setting-list');
+var $todolistSection = document.querySelector('.todolist-sec');
+var $searchSection = document.querySelector('.search-sec');
+var $searchInput = document.querySelector('.search-area');
+var $weatherSection = document.querySelector('.weather-sec');
+var $quoteSection = document.querySelector('.quote-sec');
 var $digitalSection = document.querySelector('.digital-clock');
-var $analogSection = document.querySelector('.analog-clock');
+var $analogSection = document.querySelector('.analog-clock'); // setting button Render
 
-var openSettingBox = function openSettingBox(settingbox) {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settingbox, 150);
+var settingRender = function settingRender() {
+  var setHtml = "<li class=\"title\">\n    <h2>Setting</h2>\n  </li>";
+  setData = Object.entries(setData);
+  setData.forEach(function (set) {
+    var _set = _slicedToArray(set, 2),
+        setCtgr = _set[0],
+        checked = _set[1];
+
+    setHtml += "<li>\n      <h3>".concat(setCtgr, "</h3>\n      <div class=\"toggle-box\">\n        <input class=\"toggle toggle-input\" id=\"").concat(setCtgr, "\" type=\"checkbox\" ").concat(checked ? 'checked' : '', "/>\n        <label class=\"btn-toggle\" data-tg-off=\"").concat(setCtgr === 'Clock' ? 'ANALOG' : 'OFF', "\" data-tg-on=\"").concat(setCtgr === 'Clock' ? 'DIGITAL' : 'ON', "\" for=\"").concat(setCtgr, "\"></label>\n      </div>\n    </li>");
+  });
+  setHtml += "<li class=\"logout\">\n    <h3>LOGOUT</h3>\n  </li>";
+  $settingList.innerHTML = setHtml;
 };
 
-var closeSettingBox = function closeSettingBox(settingbox) {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settingbox, 150);
+var getSettings = function getSettings() {
+  axios.get('/users').then(function (_ref) {
+    var data = _ref.data;
+    setData = data.settings;
+  }).then(settingRender).then(getView);
+};
+
+var openSettingBox = function openSettingBox(settinglist) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settinglist, 150);
+};
+
+var closeSettingBox = function closeSettingBox(settinglist) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settinglist, 150);
 };
 
 $settingBtn.onclick = function () {
   $settingBtn.classList.toggle('clicked');
-  var settingBoxCs = window.getComputedStyle($settingBox);
-  var settingOnOff = settingBoxCs.getPropertyValue('display');
-  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
+  var settingListCs = window.getComputedStyle($settingList);
+  var settingOnOff = settingListCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
 };
 
-$toggleClock.onchange = function () {
+var clockToggle = function clockToggle(_ref2) {
+  var target = _ref2.target;
+  if (!target.matches('#Clock')) return;
   var digitalCs = window.getComputedStyle($digitalSection);
   var analogCs = window.getComputedStyle($analogSection);
   var digitalToggle = digitalCs.getPropertyValue('display');
@@ -10917,54 +10945,116 @@ $toggleClock.onchange = function () {
   }
 };
 
-var $todolistSection = document.querySelector('.todolist-sec');
-
-$toggleTodo.onchange = function () {
+var todoToggle = function todoToggle(_ref3) {
+  var target = _ref3.target;
+  if (!target.matches('#Todo')) return;
   var todolistCs = window.getComputedStyle($todolistSection);
-  var todoToggle = todolistCs.getPropertyValue('display');
-  if (todoToggle === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+  var todoDisplay = todolistCs.getPropertyValue('display');
+  if (todoDisplay === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
 
-  if (todoToggle === 'none') {
+  if (todoDisplay === 'none') {
     $todolistSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
   }
 };
 
-var $searchSection = document.querySelector('.search-sec');
-var $searchInput = document.querySelector('.search-area');
-
-$toggleSearch.onchange = function () {
+var searchToggle = function searchToggle(_ref4) {
+  var target = _ref4.target;
+  if (!target.matches('#Search')) return;
   var searchCs = window.getComputedStyle($searchSection);
-  var searchToggle = searchCs.getPropertyValue('display');
-  if (searchToggle === 'flex') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
+  var searchDisplay = searchCs.getPropertyValue('display');
+  if (searchDisplay === 'flex') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
 
-  if (searchToggle === 'none') {
+  if (searchDisplay === 'none') {
     $searchSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
     $searchInput.value = '';
   }
 };
 
-var $weatherSection = document.querySelector('.weather-sec');
-
-$toggleWeather.onchange = function () {
+var weatherToggle = function weatherToggle(_ref5) {
+  var target = _ref5.target;
+  if (!target.matches('#Weather')) return;
   var weatherCs = window.getComputedStyle($weatherSection);
-  var weatherToggle = weatherCs.getPropertyValue('display');
-  if (weatherToggle === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
+  var weatherDisplay = weatherCs.getPropertyValue('display');
+  if (weatherDisplay === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
 
-  if (weatherToggle === 'none') {
+  if (weatherDisplay === 'none') {
     $weatherSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
   }
 };
 
-var $quoteSection = document.querySelector('.quote-sec');
-
-$toggleQuote.onchange = function () {
+var quoteToggle = function quoteToggle(_ref6) {
+  var target = _ref6.target;
+  if (!target.matches('#Quote')) return;
   var quoteCs = window.getComputedStyle($quoteSection);
-  var quoteToggle = quoteCs.getPropertyValue('display');
-  quoteToggle === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+  var quoteDisplay = quoteCs.getPropertyValue('display');
+  quoteDisplay === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+}; // View Render
+
+
+var clockRender = function clockRender() {
+  if (!viewData.Clock) {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($digitalSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($analogSection, 300);
+    }, 300);
+  }
+
+  if (viewData.Clock) {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($analogSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($digitalSection, 300);
+    }, 300);
+  }
 };
+
+var todoRender = function todoRender() {
+  if (viewData.Todo) {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
+  }
+
+  if (!viewData.Todo) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+};
+
+var searchRender = function searchRender() {
+  if (viewData.Search) {
+    $searchSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
+    $searchInput.value = '';
+  }
+
+  if (!viewData.Search) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
+};
+
+var weatherRender = function weatherRender() {
+  if (!viewData.Weather) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
+
+  if (viewData.Weather) {
+    $weatherSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
+  }
+};
+
+var quoteRender = function quoteRender() {
+  !viewData.Quote ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+};
+
+var getView = function getView() {
+  axios.get('/users').then(function (_ref7) {
+    var data = _ref7.data;
+    viewData = data.settings;
+  }).then(clockRender).then(todoRender).then(searchRender).then(weatherRender).then(quoteRender);
+};
+
+$settingList.addEventListener('click', clockToggle);
+$settingList.addEventListener('change', todoToggle);
+$settingList.addEventListener('change', searchToggle);
+$settingList.addEventListener('change', weatherToggle);
+$settingList.addEventListener('change', quoteToggle);
+
 
 /***/ }),
 
@@ -10979,6 +11069,7 @@ $toggleQuote.onchange = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodos", function() { return getTodos; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10991,12 +11082,28 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+
+var compliments = ['Good job!', 'Great Work!', 'Excellent!', 'Keep it up!', 'Perfect!', 'Awesome!', 'Bravo!', 'Hooray~', 'There you go!', 'Nice!'];
+var latestId = 0;
 var todos = [];
 var navState = 'all';
 var $todoList = document.querySelector('.todolist-body');
 var $inputTodo = document.querySelector('.input-todo');
 var $nav = document.querySelector('.todolist-menu');
-var $todolistIcon = document.querySelector('.icon-th-list'); // 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
+var $todolistIcon = document.querySelector('.icon-th-list');
+var $todoBefore = document.querySelector('.todo-focus-before');
+var $todoAfter = document.querySelector('.todo-focus-after');
+var $latestTodoText = document.querySelector('.latest-todo-text');
+var $compliment = document.querySelector('.compliment');
+var $checkIcon = document.querySelector('.main-sec .check-icon');
+var $icon = $checkIcon.firstElementChild; // random func
+
+var getRandomInt = function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+}; // 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
+
 
 var render = function render() {
   console.log('4.axios.js');
@@ -11044,7 +11151,11 @@ var addTodo = function addTodo(content) {
     var data = _ref4.data;
     console.log(data);
     todos = data;
-  }).then(render)["catch"](function (err) {
+  }).then(render).then(function () {
+    $latestTodoText.textContent = $todoList.firstElementChild.querySelector('.added-todo-text').textContent;
+  }).then(function () {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoBefore, $todoAfter);
+  })["catch"](function (err) {
     return console.error(err);
   });
 };
@@ -11063,11 +11174,73 @@ var toggleCompleted = function toggleCompleted(id) {
   });
 };
 
-var removeTodo = function removeTodo(id) {
-  axios["delete"]("/todos/".concat(id)).then(function (_ref6) {
+var toggleCompFromTodos = function toggleCompFromTodos(id) {
+  var completed = !todos.find(function (todo) {
+    return todo.id === +id;
+  }).completed;
+  axios.patch("/todos/".concat(id), {
+    completed: completed
+  }).then(function (_ref6) {
     var data = _ref6.data;
     todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[0].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodo = function removeTodo(id) {
+  axios["delete"]("/todos/".concat(id)).then(function (_ref7) {
+    var data = _ref7.data;
+    todos = data;
   }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodoFromTodos = function removeTodoFromTodos(id) {
+  console.log('id', id);
+  axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
+    var data = _ref8.data;
+    todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[generateId() - 2].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 2) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
     return console.error(err);
   });
 };
@@ -11083,9 +11256,9 @@ var changeNav = function changeNav(id) {
   render();
 };
 
-$inputTodo.onkeyup = function (_ref7) {
-  var target = _ref7.target,
-      keyCode = _ref7.keyCode;
+$inputTodo.onkeyup = function (_ref9) {
+  var target = _ref9.target,
+      keyCode = _ref9.keyCode;
   var content = target.value.trim();
   if (!content || keyCode !== 13) return;
   target.value = '';
@@ -11096,21 +11269,51 @@ $inputTodo.onkeyup = function (_ref7) {
   }, 1000);
 };
 
-$todoList.onchange = function (_ref8) {
-  var target = _ref8.target;
-  toggleCompleted(target.parentNode.parentNode.id);
+$todoList.onchange = function (_ref10) {
+  var target = _ref10.target;
+  toggleCompFromTodos(target.parentNode.parentNode.id);
 };
 
-$todoList.onclick = function (_ref9) {
-  var target = _ref9.target;
+$todoList.onclick = function (_ref11) {
+  var target = _ref11.target;
   if (!target.matches('.icon-cancel')) return;
   removeTodo(target.parentNode.parentNode.id);
 };
 
-$nav.onclick = function (_ref10) {
-  var target = _ref10.target;
+$nav.onclick = function (_ref12) {
+  var target = _ref12.target;
   if (!target.matches('.todolist-menu > li')) return;
   changeNav(target.id);
+};
+
+var $addTodoBtn = document.querySelector('.main-sec .add-todo');
+
+$addTodoBtn.onclick = function () {
+  $icon.className = 'icon-check-empty';
+  $compliment.classList.remove('fade-in');
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoAfter, $todoBefore);
+};
+
+$checkIcon.onclick = function () {
+  if ($icon.className === 'icon-check-empty') {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    $compliment.textContent = compliments[getRandomInt(0, 10)];
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  } else {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  }
+};
+
+var $removeIcon = document.querySelector('.icon-cancel');
+
+$removeIcon.onclick = function () {
+  console.log(generateId() - 1);
+  removeTodoFromTodos(generateId() - 1); // $compliment.textContent = compliments[getRandomInt(0, 10)];
 };
 
 
@@ -11144,11 +11347,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 /* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todos */ "./src/js/todos.js");
+/* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 // validation.js
+
 
 
 
@@ -11409,6 +11614,7 @@ var login = /*#__PURE__*/function () {
               $greetingName = document.querySelector('.greeting .name');
               $greetingName.textContent = user.name;
               _etc__WEBPACK_IMPORTED_MODULE_1__["startClock"]();
+              _setting__WEBPACK_IMPORTED_MODULE_3__["getSettings"]();
               _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
               $email.value = '';
               $pw.value = '';

@@ -1,31 +1,65 @@
 import * as ani from './animation';
 
+let setData = {};
+let viewData = {};
+
 const $settingBtn = document.querySelector('.setting-sec > i');
-const $settingBox = document.querySelector('.setting-list');
-const $toggleClock = document.getElementById('clock');
-const $toggleTodo = document.getElementById('todo');
-const $toggleSearch = document.getElementById('search');
-const $toggleWeather = document.getElementById('weather');
-const $toggleQuote = document.getElementById('quote');
+const $settingList = document.querySelector('.setting-list');
+const $todolistSection = document.querySelector('.todolist-sec');
+const $searchSection = document.querySelector('.search-sec');
+const $searchInput = document.querySelector('.search-area');
+const $weatherSection = document.querySelector('.weather-sec');
+const $quoteSection = document.querySelector('.quote-sec');
 const $digitalSection = document.querySelector('.digital-clock');
 const $analogSection = document.querySelector('.analog-clock');
 
-const openSettingBox = settingbox => {
-  ani.fadeIn(settingbox, 150)
+// setting button Render
+const settingRender = () => {
+  let setHtml = `<li class="title">
+    <h2>Setting</h2>
+  </li>`;
+  setData = Object.entries(setData);
+  setData.forEach(set => {
+    const [setCtgr, checked] = set;
+    setHtml += `<li>
+      <h3>${setCtgr}</h3>
+      <div class="toggle-box">
+        <input class="toggle toggle-input" id="${setCtgr}" type="checkbox" ${checked ? 'checked' : ''}/>
+        <label class="btn-toggle" data-tg-off="${setCtgr === 'Clock' ? 'ANALOG' : 'OFF'}" data-tg-on="${setCtgr === 'Clock' ? 'DIGITAL' : 'ON'}" for="${setCtgr}"></label>
+      </div>
+    </li>`;
+  });
+  setHtml += `<li class="logout">
+    <h3>LOGOUT</h3>
+  </li>`;
+  $settingList.innerHTML = setHtml;
 };
 
-const closeSettingBox = settingbox => {
-  ani.fadeOut(settingbox, 150)
+const getSettings = () => {
+  axios.get('/users')
+    .then(({ data }) => {
+      setData = data.settings;
+    })
+    .then(settingRender)
+    .then(getView);
+};
+const openSettingBox = settinglist => {
+  ani.fadeIn(settinglist, 150);
+};
+
+const closeSettingBox = settinglist => {
+  ani.fadeOut(settinglist, 150);
 };
 
 $settingBtn.onclick = () => {
   $settingBtn.classList.toggle('clicked');
-  const settingBoxCs = window.getComputedStyle($settingBox);
-  const settingOnOff = settingBoxCs.getPropertyValue('display');
-  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
+  const settingListCs = window.getComputedStyle($settingList);
+  const settingOnOff = settingListCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
 };
 
-$toggleClock.onchange = () => {
+const clockToggle = ({ target }) => {
+  if (!target.matches('#Clock')) return;
   const digitalCs = window.getComputedStyle($digitalSection);
   const analogCs = window.getComputedStyle($analogSection);
   const digitalToggle = digitalCs.getPropertyValue('display');
@@ -44,44 +78,111 @@ $toggleClock.onchange = () => {
   }
 };
 
-const $todolistSection = document.querySelector('.todolist-sec');
-$toggleTodo.onchange = () => {
+const todoToggle = ({ target }) => {
+  if (!target.matches('#Todo')) return;
   const todolistCs = window.getComputedStyle($todolistSection);
-  const todoToggle = todolistCs.getPropertyValue('display');
-  if (todoToggle === 'block') ani.fadeOut($todolistSection, 300);
-  if (todoToggle === 'none') {
+  const todoDisplay = todolistCs.getPropertyValue('display');
+  if (todoDisplay === 'block') ani.fadeOut($todolistSection, 300);
+  if (todoDisplay === 'none') {
     $todolistSection.lastElementChild.classList.remove('fade-in');
     ani.fadeIn($todolistSection, 300);
   }
 };
 
-const $searchSection = document.querySelector('.search-sec');
-const $searchInput = document.querySelector('.search-area');
-$toggleSearch.onchange = () => {
+const searchToggle = ({ target }) => {
+  if (!target.matches('#Search')) return;
   const searchCs = window.getComputedStyle($searchSection);
-  const searchToggle = searchCs.getPropertyValue('display');
-  if (searchToggle === 'flex') ani.fadeOut($searchSection, 300);
-  if (searchToggle === 'none') {
+  const searchDisplay = searchCs.getPropertyValue('display');
+  if (searchDisplay === 'flex') ani.fadeOut($searchSection, 300);
+  if (searchDisplay === 'none') {
     $searchSection.lastElementChild.classList.remove('fade-in');
     ani.fadeIn($searchSection, 300);
     $searchInput.value = '';
   }
 };
 
-const $weatherSection = document.querySelector('.weather-sec');
-$toggleWeather.onchange = () => {
+const weatherToggle = ({ target }) => {
+  if (!target.matches('#Weather')) return;
   const weatherCs = window.getComputedStyle($weatherSection);
-  const weatherToggle = weatherCs.getPropertyValue('display');
-  if (weatherToggle === 'block') ani.fadeOut($weatherSection, 300);
-  if (weatherToggle === 'none') {
+  const weatherDisplay = weatherCs.getPropertyValue('display');
+  if (weatherDisplay === 'block') ani.fadeOut($weatherSection, 300);
+  if (weatherDisplay === 'none') {
     $weatherSection.lastElementChild.classList.remove('fade-in');
     ani.fadeIn($weatherSection, 300);
   }
 };
 
-const $quoteSection = document.querySelector('.quote-sec');
-$toggleQuote.onchange = () => {
+const quoteToggle = ({ target }) => {
+  if (!target.matches('#Quote')) return;
   const quoteCs = window.getComputedStyle($quoteSection);
-  const quoteToggle = quoteCs.getPropertyValue('display');
-  quoteToggle === 'flex' ? ani.fadeOut($quoteSection, 300) : ani.fadeIn($quoteSection, 300); 
+  const quoteDisplay = quoteCs.getPropertyValue('display');
+  quoteDisplay === 'flex' ? ani.fadeOut($quoteSection, 300) : ani.fadeIn($quoteSection, 300);
+};
+
+// View Render
+const clockRender = () => {
+  if (!viewData.Clock) {
+    ani.fadeOut($digitalSection, 300);
+    setTimeout(() => {
+      ani.fadeIn($analogSection, 300);
+    }, 300);
+  }
+  if (viewData.Clock) {
+    ani.fadeOut($analogSection, 300);
+    setTimeout(() => {
+      ani.fadeIn($digitalSection, 300);
+    }, 300);
+  }
+};
+
+const todoRender = () => {
+  if (viewData.Todo) {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    ani.fadeIn($todolistSection, 300);
+  }
+  if (!viewData.Todo) ani.fadeOut($todolistSection, 300);
+};
+
+const searchRender = () => {
+  if (viewData.Search) {
+    $searchSection.lastElementChild.classList.remove('fade-in');
+    ani.fadeIn($searchSection, 300);
+    $searchInput.value = '';
+  }
+  if (!viewData.Search) ani.fadeOut($searchSection, 300);
+};
+
+const weatherRender = () => {
+  if (!viewData.Weather) ani.fadeOut($weatherSection, 300);
+  if (viewData.Weather) {
+    $weatherSection.lastElementChild.classList.remove('fade-in');
+    ani.fadeIn($weatherSection, 300);
+  }
+};
+
+const quoteRender = () => {
+  !viewData.Quote ? ani.fadeOut($quoteSection, 300) : ani.fadeIn($quoteSection, 300);
+};
+
+const getView = () => {
+  axios.get('/users')
+    .then(({ data }) => {
+      viewData = data.settings;
+    })
+    .then(clockRender)
+    .then(todoRender)
+    .then(searchRender)
+    .then(weatherRender)
+    .then(quoteRender);
+};
+
+$settingList.addEventListener('click', clockToggle);
+$settingList.addEventListener('change', todoToggle);
+$settingList.addEventListener('change', searchToggle);
+$settingList.addEventListener('change', weatherToggle);
+$settingList.addEventListener('change', quoteToggle);
+
+export {
+  getSettings,
+  settingRender,
 };

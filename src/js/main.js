@@ -214,18 +214,17 @@ $listIcon.onclick = () => {
   const todoOnOff = todoBoxCs.getPropertyValue('display');
   todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
+
 const renderMainPage = () => {
   const $nameText = document.querySelector('.greeting .name');
   $nameText.textContent = onUser.name;
   todos.getTodos();
   etc.startClock();
+  set.getSettings();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
-  axios.patch('/settings', { digital: false, weather: false, todo: true, quote: true, search: true })
-    .then(data => {
-      console.log('data', data);
-    });
 };
+
 const renderStartPage = () => {
   $loginPage.classList.add('fade-in');
 };
