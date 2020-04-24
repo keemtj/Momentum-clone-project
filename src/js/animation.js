@@ -2,13 +2,12 @@ import * as reset from './reset';
 
 const $loginContainer = document.querySelector('.login-container');
 
-// fadeIn
 const fadeIn = (target, duration) => {
   target.style.animationDuration = `${duration / 1000}s`;
   target.classList.add('fade-in');
   target.classList.remove('fade-out');
 };
-// fadeOut
+
 const fadeOut = (target, duration) => {  
   target.style.animationDuration = `${duration / 1000}s`;
   target.classList.add('fade-out');
@@ -18,7 +17,6 @@ const fadeOut = (target, duration) => {
   }, duration);
 };
 
-// movePage(from, to)
 const movePage = (from, to) => {
   fadeOut(from, 300);
   setTimeout(() => {

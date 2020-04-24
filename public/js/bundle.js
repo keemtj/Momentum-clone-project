@@ -10264,14 +10264,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "movePage", function() { return movePage; });
 /* harmony import */ var _reset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./reset */ "./src/js/reset.js");
 
-var $loginContainer = document.querySelector('.login-container'); // fadeIn
+var $loginContainer = document.querySelector('.login-container');
 
 var fadeIn = function fadeIn(target, duration) {
   target.style.animationDuration = "".concat(duration / 1000, "s");
   target.classList.add('fade-in');
   target.classList.remove('fade-out');
-}; // fadeOut
-
+};
 
 var fadeOut = function fadeOut(target, duration) {
   target.style.animationDuration = "".concat(duration / 1000, "s");
@@ -10280,8 +10279,7 @@ var fadeOut = function fadeOut(target, duration) {
   setTimeout(function () {
     target.classList.remove('fade-out');
   }, duration);
-}; // movePage(from, to)
-
+};
 
 var movePage = function movePage(from, to) {
   fadeOut(from, 300);
@@ -10330,8 +10328,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
- // import * as set from './setting';
-// search provider
 
 var $searchProvider = document.querySelector('.search-provider');
 var $currentBox = document.querySelector('.current-box');
@@ -10369,8 +10365,7 @@ $searchProvider.onclick = function (e) {
   }
 
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchProvider, 150);
-}; // todolist button
-
+};
 
 var openTodoList = function openTodoList(todoList) {
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](todoList, 150);
@@ -10416,8 +10411,7 @@ var $quote = document.querySelector('.quote-sec');
 var saying = ["If you don't study, you work in hot weather and cold weather.", 'The beginning is not half, but the beginning is just the beginning.', 'Handsome men pay for their faces, and ugly men pay for their looks.', 'The enemy meets at the company.', "You don't have to do what you can do tomorrow today.", 'A migraine inevitably follows pain.', "Avoid it if you can't enjoy it", 'Be comfortable to give up.', 'Beer and chicken at dawn are 0 calories.', 'Early birds are tired, Early worms are eaten.'];
 var select = Math.floor(Math.random() * saying.length);
 var todayPick = saying.splice(select, 1);
-$quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>"); // console.log('todayPick:', todayPick);
-
+$quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>");
 
 
 /***/ }),
@@ -10444,27 +10438,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-// src/js/main.js
 
 
 
 
 
 
- // 상태변수(로그인 된 유저를 담는 변수)
 
-var onUser = {}; // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
-
+var onUser = {};
 var $loginEmail = document.querySelector('#login-email');
 var $loginPw = document.querySelector('#login-pw');
 var $loginSignUp = document.querySelector('.login-signup-text');
-var $btnLogin = document.querySelector('.btn-login'); // Page
-
+var $btnLogin = document.querySelector('.btn-login');
 var $loginPage = document.querySelector('#login');
 var $signupPage = document.querySelector('.signup-page');
 var $forgotPwPage = document.querySelector('.forgot-pw-page');
-var $pwHintPage = document.querySelector('.pw-hint-page');
-var $pwResetPage = document.querySelector('.pw-reset-page');
 var $mainPage = document.querySelector('.main-page');
 var $forgotPwBtn = document.querySelector('.login-forgot-pw');
 var $forgotPwNextBtn = document.querySelector('.forgot-pw-btn-next');
@@ -10474,15 +10462,18 @@ var $pwReq = document.querySelector('.pw-req');
 var $resetPwReq = document.querySelector('.reset-pw-req');
 var $hintSelected = document.querySelector('.hint-selected');
 var $optionsContainer = document.querySelector('.hint-options-container');
-var $loginContainer = document.querySelector('.login-container'); // SignupPage Elements
-
+var $loginContainer = document.querySelector('.login-container');
 var $signupCreateBtn = document.querySelector('.btn-signup');
 var $signUpUserName = document.querySelector('#signup-username');
 var $signUpEmail = document.querySelector('#signup-email');
 var $signUpPw = document.querySelector('#signup-pw');
 var $signUpConfirmPw = document.querySelector('#signup-confirm-pw');
-var $signUpHintAnswer = document.querySelector('#signup-pw-hint-answer'); // ---login-page Event Bindings---
-// login-page에서 이메일 형식 확인
+var $signUpHintAnswer = document.querySelector('#signup-pw-hint-answer');
+var $pwResetBtn = document.querySelector('.pw-reset-form > .btn-reset-pw');
+var $pwResetNewPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
+var $pwResetNewPwConfirm = document.querySelector('.pw-reset-form > #pw-reset-new-pw-confirm');
+var $listIcon = document.querySelector('.icon-th-list');
+var $todolistBox = document.querySelector('.todolist-box');
 
 $loginEmail.onfocus = function (_ref) {
   var target = _ref.target;
@@ -10492,8 +10483,7 @@ $loginEmail.onfocus = function (_ref) {
 $loginEmail.onblur = function (_ref2) {
   var target = _ref2.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableLoginBtn"](target, $loginPw);
-}; // login-page에서 비밀번호 입력 확인
-
+};
 
 $loginPw.onblur = function (_ref3) {
   var target = _ref3.target;
@@ -10503,31 +10493,20 @@ $loginPw.onblur = function (_ref3) {
 $loginPw.onfocus = function (_ref4) {
   var target = _ref4.target;
   _reset__WEBPACK_IMPORTED_MODULE_3__["resetErrorMsg"](target);
-}; // login-page -> signup-page
-
+};
 
 $loginSignUp.onclick = function () {
   _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $signupPage);
-}; // login-page -> main-page
-
+};
 
 $btnLogin.onclick = function () {
   var $emailInput = $loginPage.querySelector('#login-email');
-  var $pwInput = $loginPage.querySelector('#login-pw'); // test동안에는 valid.login주석
-
-  _validation__WEBPACK_IMPORTED_MODULE_1__["login"]($emailInput, $pwInput); // 대신 ani.movePage
-  // ani.movePage($loginPage, $mainPage);
-}; // --signup-page Event Bindings---
-
+  var $pwInput = $loginPage.querySelector('#login-pw');
+  _validation__WEBPACK_IMPORTED_MODULE_1__["login"]($emailInput, $pwInput);
+};
 
 $signupCreateBtn.onclick = function () {
-  _validation__WEBPACK_IMPORTED_MODULE_1__["createAccount"](); // axios.get('/users')
-  //   .then(({ data }) => { users = data; })
-  //   .then(() => { console.log(users); })
-  //   .catch(err => console.error(err));
-  // email이 중복되지 않으면
-  // ani.movePage($signupPage, $loginPage);
-  // email이 중복되면 showEmailErrorMsg(); 
+  _validation__WEBPACK_IMPORTED_MODULE_1__["createAccount"]();
 };
 
 $signUpUserName.onblur = function (_ref5) {
@@ -10555,22 +10534,20 @@ $signUpPw.addEventListener('blur', function (_ref8) {
 $signUpPw.addEventListener('keyup', function (_ref9) {
   var target = _ref9.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwCondition"](target);
-}); // signup-page에서 password가 일치(password-confirm)하는지 확인
+});
 
 $signUpConfirmPw.onblur = function (_ref10) {
   var target = _ref10.target;
   var $pw = document.querySelector('.signup-form > #signup-pw');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkConfirmPw"]($pw, target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
-}; // signup-page에서 hint-answer 입력했는지 확인
-
+};
 
 $signUpHintAnswer.onblur = function (_ref11) {
   var target = _ref11.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkLengthZero"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
-}; // signup-page select box 기능
-
+};
 
 $hintSelected.onclick = function () {
   $optionsContainer.classList.toggle('active');
@@ -10582,8 +10559,7 @@ $optionsContainer.onclick = function (_ref12) {
   $optionsContainer.classList.toggle('active');
   $hintSelected.textContent = target.textContent;
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableCreateAccount"]();
-}; // 페이지에서 패스워드 input이 focus됬을때 조건을 부드럽게 보여주는 기능
-
+};
 
 $signupPw.onfocus = function () {
   $pwReq.classList.toggle('active');
@@ -10599,8 +10575,7 @@ $resetPw.onfocus = function () {
 
 $resetPw.onblur = function () {
   $resetPwReq.classList.toggle('active');
-}; // loginContainer hover시 backBtn icon을 보여줌
-
+};
 
 $loginContainer.onmouseover = function () {
   var $currentPage = document.querySelector('div.fade-in');
@@ -10616,28 +10591,23 @@ $loginContainer.onmouseleave = function () {
   var $iconBackBtn = document.querySelector('.login-container > div[class*="-page"].fade-in > i');
   if (!$iconBackBtn) return;
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($iconBackBtn, 150);
-}; // backBtn 클릭시 loginPage로 돌아감
-
+};
 
 $loginContainer.onclick = function (_ref13) {
   var target = _ref13.target;
   if (!target.matches('div.fade-in > i')) return;
   var $currentPage = target.parentNode;
   _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($currentPage, $loginPage);
-}; // signup-page에 있는 forgot-pw Btn 클릭시 forgot-pw-page 보여줌
-
+};
 
 $forgotPwBtn.onclick = function () {
   _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $forgotPwPage);
-}; // ---forgot-pw page Event Bindings---
-// forgot-pw-page에서 Next 버튼 누르면 pw-hint-page로 이동
-
+};
 
 $forgotPwNextBtn.onclick = function () {
   var $email = document.querySelector('.forgot-pw-form #forgot-pw-email');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkEmailExists"]($email);
-}; // forgot-pw-page에서 입력했을때 이메일이 존재하고 형식이 맞으면 버튼 활성화
-
+};
 
 var $forgotPwEmail = document.querySelector('.forgot-pw-form > #forgot-pw-email');
 
@@ -10645,17 +10615,14 @@ $forgotPwEmail.onblur = function (_ref14) {
   var target = _ref14.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkEmail"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
-}; // ---pw-hint page Event Bindings---
-// pw-hint-page에서 Next 버튼 누르면 pw-reset-page로 이동
-
+};
 
 var $pwHintNextBtn = document.querySelector('.pw-hint-btn-next');
 
 $pwHintNextBtn.onclick = function () {
   var $pwHintAnswer = document.querySelector('.pw-hint-form #pw-hint-answer');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwHintAnswer"]($pwHintAnswer);
-}; // pw-hint-page에서 힌트 입력 확인
-
+};
 
 var $pwHintInput = document.querySelector('.pw-hint-form > #pw-hint-answer');
 
@@ -10663,17 +10630,11 @@ $pwHintInput.onblur = function (_ref15) {
   var target = _ref15.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkLengthZero"](target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
-}; // ---pw-reset-page Event Bindings---
-
-
-var $pwResetBtn = document.querySelector('.pw-reset-form > .btn-reset-pw');
-var $pwResetNewPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
-var $pwResetNewPwConfirm = document.querySelector('.pw-reset-form > #pw-reset-new-pw-confirm'); // pw-reset-page에서 reset 버튼 누르면 login-page로 이동
+};
 
 $pwResetBtn.onclick = function () {
   _validation__WEBPACK_IMPORTED_MODULE_1__["resetPw"]();
-}; // pw-reset-page에서 password 입력할때 조건 확인
-
+};
 
 $pwResetNewPw.addEventListener('blur', function (_ref16) {
   var target = _ref16.target;
@@ -10683,22 +10644,14 @@ $pwResetNewPw.addEventListener('blur', function (_ref16) {
 $pwResetNewPw.addEventListener('keyup', function (_ref17) {
   var target = _ref17.target;
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwCondition"](target);
-}); // pw-reset-page에서 password가 일치(password-confirm)하는지 확인
+});
 
 $pwResetNewPwConfirm.onblur = function (_ref18) {
   var target = _ref18.target;
   var $newPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
   _validation__WEBPACK_IMPORTED_MODULE_1__["checkConfirmPw"]($newPw, target);
   _validation__WEBPACK_IMPORTED_MODULE_1__["enableNextBtn"](target);
-}; // weather start
-// weather end
-// setting start
-// setting end
-// etc start
-
-
-var $listIcon = document.querySelector('.icon-th-list');
-var $todolistBox = document.querySelector('.todolist-box');
+};
 
 $listIcon.onclick = function () {
   var todoBoxCs = window.getComputedStyle($todolistBox);
@@ -10722,16 +10675,15 @@ var renderStartPage = function renderStartPage() {
 
 var init = /*#__PURE__*/function () {
   var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var $loadingContainer, weatherStart;
+    var weatherStart;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            $loadingContainer = document.querySelector('.loading-container');
-            _context.next = 3;
+            _context.next = 2;
             return _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"]();
 
-          case 3:
+          case 2:
             onUser = _context.sent;
 
             if (onUser.online) {
@@ -10740,13 +10692,13 @@ var init = /*#__PURE__*/function () {
               renderStartPage();
             }
 
-            _context.next = 7;
+            _context.next = 6;
             return _weather__WEBPACK_IMPORTED_MODULE_5__["weatherInit"]();
 
-          case 7:
+          case 6:
             weatherStart = _context.sent;
 
-          case 8:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -10792,8 +10744,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-// reset.js
-// start-page에서 back-btn 클릭시 input.value, btn.disabled, hint, pwcondition 등 reset 시킴
 var $startPageInputs = document.querySelectorAll('.login-container input');
 var $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
 var $signUpPwReq = document.querySelector('.signup-form .pw-req');
@@ -10817,18 +10767,11 @@ var resetBtns = function resetBtns() {
 };
 
 var resetPwCondition = function resetPwCondition() {
-  console.log('======reset======');
-
   _toConsumableArray($signUpPwReq.children).forEach(function ($req) {
-    console.log($req);
     $req.classList.remove('underline');
   });
 
-  console.log('$signUpPwReq: ', $signUpPwReq);
-  console.log('$signUpPwReq.children: ', $signUpPwReq.children);
-
   _toConsumableArray($pwResetPwReq.children).forEach(function ($req) {
-    console.log($req);
     $req.classList.remove('underline');
   });
 };
@@ -11042,8 +10985,7 @@ var getView = function getView() {
     var data = _ref6.data;
     viewData = data.settings;
   }).then(clockRender).then(todoRender).then(searchRender).then(weatherRender).then(quoteRender);
-}; // setting button Render
-
+};
 
 var settingRender = function settingRender() {
   var setHtml = "<li class=\"title\">\n    <h2>Setting</h2>\n  </li>";
@@ -11083,13 +11025,6 @@ var logOut = /*#__PURE__*/function () {
             return _context.abrupt("return");
 
           case 3:
-            // console.log('onUser: ', main.onUser);
-            // console.log('onUser: ', main.onUser.userId);
-            // console.log('onUser: ', main.onUser.pw);
-            // console.log('user: ', valid.user);
-            // console.log('user: ', valid.user.userId);
-            // let currentUserId = main.onUser ? main.onUser.userId : valid.user.userId;
-            // console.log('[currentUserId]: ', currentUserId);
             axios.get('/logout').then(function () {
               var $mainPage = document.querySelector('.main-page');
               var $loginPage = document.querySelector('.login-page');
@@ -11159,18 +11094,15 @@ var $todoAfter = document.querySelector('.todo-focus-after');
 var $latestTodoText = document.querySelector('.latest-todo-text');
 var $compliment = document.querySelector('.compliment');
 var $checkIcon = document.querySelector('.main-sec .check-icon');
-var $icon = $checkIcon.firstElementChild; // random func
+var $icon = $checkIcon.firstElementChild;
 
 var getRandomInt = function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
-}; // 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
-
+  return Math.floor(Math.random() * (max - min)) + min;
+};
 
 var render = function render() {
-  console.log('4.axios.js');
-
   var _todos = todos.filter(function (_ref) {
     var completed = _ref.completed;
     return navState === 'all' ? true : navState === 'active' ? !completed : completed;
@@ -11195,10 +11127,8 @@ var generateId = function generateId() {
 };
 
 var getTodos = function getTodos() {
-  console.log('getTodos START');
   axios.get('/todos').then(function (_ref3) {
     var data = _ref3.data;
-    console.log('[[[DATA]]]', data);
     todos = data;
   }).then(render)["catch"](function (err) {
     return console.error(err);
@@ -11212,7 +11142,6 @@ var addTodo = function addTodo(content) {
     completed: false
   }).then(function (_ref4) {
     var data = _ref4.data;
-    console.log(data);
     todos = data;
   }).then(render).then(function () {
     $latestTodoText.textContent = $todoList.firstElementChild.querySelector('.added-todo-text').textContent;
@@ -11280,7 +11209,6 @@ var removeTodo = function removeTodo(id) {
 };
 
 var removeTodoFromTodos = function removeTodoFromTodos(id) {
-  console.log('id', id);
   axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
     var data = _ref8.data;
     todos = data;
@@ -11309,13 +11237,11 @@ var removeTodoFromTodos = function removeTodoFromTodos(id) {
 };
 
 var changeNav = function changeNav(id) {
-  // $navItem의 id가 e.target의 id와 같으면 active 클래스를 추가하고 아니면 active 클래스를 제거
   _toConsumableArray($nav.children).forEach(function ($navItem) {
     $navItem.classList.toggle('active', $navItem.id === id);
   });
 
   navState = id;
-  console.log('[navState]', navState);
   render();
 };
 
@@ -11372,8 +11298,7 @@ $checkIcon.onclick = function () {
 var $removeIcon = document.querySelector('.icon-cancel');
 
 $removeIcon.onclick = function () {
-  console.log(generateId() - 1);
-  removeTodoFromTodos(generateId() - 1); // $compliment.textContent = compliments[getRandomInt(0, 10)];
+  removeTodoFromTodos(generateId() - 1);
 };
 
 
@@ -11441,8 +11366,7 @@ var checkLengthZero = function checkLengthZero($target) {
 var checkEmailForm = function checkEmailForm(email) {
   var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
   return !re.test(email);
-}; // Email Validation(형식과 길이 둘다 확인)
-
+};
 
 var checkEmail = function checkEmail($target) {
   var email = $target.value.trim();
@@ -11451,8 +11375,7 @@ var checkEmail = function checkEmail($target) {
   $lengthMsg.classList.toggle('msg-show', !email);
   $formMsg.classList.toggle('msg-show', checkEmailForm(email) && email);
   $target.classList.toggle('warning', checkEmailForm(email) || !email);
-}; // Pw Validation(비밀번호 조건을 만족하는지 확인)
-
+};
 
 var checkPwCondition = function checkPwCondition($target) {
   var pw = $target.value.trim();
@@ -11674,7 +11597,6 @@ var login = /*#__PURE__*/function () {
             data = _yield$axios$post2.data;
 
             if (data) {
-              console.log(data);
               user = data;
               $loginMsg.classList.toggle('error', false);
               $greetingName = document.querySelector('.greeting .name');
@@ -11808,7 +11730,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
- // DOMs
 
 var $container = document.querySelector('.container');
 var $weatherMain = document.querySelector('.weather-main');
@@ -11816,7 +11737,7 @@ var $weatherBox = document.querySelector('.weather-box');
 var $boxTop = document.querySelector('.box-top');
 var $weeklyDay = document.querySelector('.weekly-day');
 var $weeklyIcon = document.querySelector('.weekly-i');
-var $weeklyTemp = document.querySelector('.weekly-temp'); // toggle weather box
+var $weeklyTemp = document.querySelector('.weekly-temp');
 
 var openWeatherBox = function openWeatherBox(weatherbox) {
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](weatherbox, 150);
@@ -11830,50 +11751,35 @@ $weatherMain.onclick = function () {
   var weatherBoxCs = window.getComputedStyle($weatherBox);
   var weatherOnOff = weatherBoxCs.getPropertyValue('display');
   weatherOnOff === 'none' ? openWeatherBox($weatherBox) : closeWeatherBox($weatherBox);
-}; // Weather API
+};
 
-
-var API_KEY = 'bbcad54aeb4d627c3798f0773d883830'; // generateNum
+var API_KEY = 'bbcad54aeb4d627c3798f0773d883830';
 
 var getRandomNum = function getRandomNum(num1, num2) {
   var min = Math.ceil(num1);
   var max = Math.floor(num2);
   var randomNum = Math.floor(Math.random() * (max - min)) + min;
-  console.log(randomNum);
   return randomNum;
-}; // Background Image Rendering
-
+};
 
 var bgRender = function bgRender(res) {
-  console.log('[bgRender START]');
-
   var _res$current$weather = _slicedToArray(res.current.weather, 1),
       currentId = _res$current$weather[0].id;
 
-  console.log('[currentId]', currentId); // clouds
-
-  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // cloud-sun
-
-  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)"); // rain
-
-  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)"); // clouds
-
-  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)"); // sun
-
-  if (currentId === 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)"); // cloud-sun
-
+  if (currentId >= 200 && currentId < 300) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)");
+  if (currentId >= 300 && currentId < 400) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
+  if (currentId >= 500 && currentId < 700) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/rain/".concat(getRandomNum(29, 33), ".jpg)");
+  if (currentId >= 700 && currentId < 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/clouds/".concat(getRandomNum(25, 29), ".jpg)");
+  if (currentId === 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/sun/".concat(getRandomNum(0, 14), ".jpg)");
   if (currentId > 800) $container.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../asset/images/cloud-sun/".concat(getRandomNum(14, 25), ".jpg)");
   var $loadingContainer = document.querySelector('.loading-container');
   setTimeout(function () {
     $loadingContainer.classList.remove('loading');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($loadingContainer, 1000);
   }, 200);
-}; // Weather Infomation Rendering
-
+};
 
 var weatherRender = function weatherRender(res) {
-  console.log('[weatherRender START]');
-
   var _res$timezone$split = res.timezone.split('/'),
       _res$timezone$split2 = _slicedToArray(_res$timezone$split, 2),
       continent = _res$timezone$split2[0],
@@ -11928,30 +11834,21 @@ var weatherRender = function weatherRender(res) {
   $weeklyIcon.removeChild($weeklyIcon.lastElementChild);
   $weeklyTemp.removeChild($weeklyTemp.lastElementChild);
   bgRender(res);
-  console.log('[weatherRender END]');
-}; // Get weather Object
-
+};
 
 var getWeather = function getWeather(lat, lng) {
-  console.log('[getWeather START]');
   fetch("https://api.openweathermap.org/data/2.5/onecall?lat=".concat(lat, "&lon=").concat(lng, "&appid=").concat(API_KEY, "&units=metric")).then(function (res) {
     return res.json();
   }).then(function (res) {
     weatherRender(res);
   });
-  console.log('[getWeather END]');
-}; // Get Coordinate
-
+};
 
 var succesLocation = function succesLocation(position) {
-  console.log('[successLocation START]');
-  console.log(position);
-  console.log('succes position available');
   var _position$coords = position.coords,
       latitude = _position$coords.latitude,
       longitude = _position$coords.longitude;
   getWeather(latitude, longitude);
-  console.log('[successLocation END]');
 };
 
 var errorLocation = function errorLocation() {
@@ -11959,15 +11856,11 @@ var errorLocation = function errorLocation() {
 };
 
 var getLocation = function getLocation() {
-  console.log('[getLocation START]');
   navigator.geolocation.getCurrentPosition(succesLocation, errorLocation);
-  console.log('[getLocation END]');
 };
 
 var weatherInit = function weatherInit() {
-  console.log('[WeatherInit START]');
   getLocation();
-  console.log('[WeatherInit END]');
 };
 
 

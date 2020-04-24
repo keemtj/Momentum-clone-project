@@ -148,7 +148,6 @@ const getView = () => {
     .then(quoteRender);
 };
 
-// setting button Render
 const settingRender = () => {
   let setHtml = `<li class="title">
     <h2>Setting</h2>
@@ -181,13 +180,6 @@ const getSettings = () => {
 
 const logOut = async ({ target }) => {
   if (!target.matches('li.logout') && !target.matches('li.logout > h3')) return;
-  // console.log('onUser: ', main.onUser);
-  // console.log('onUser: ', main.onUser.userId);
-  // console.log('onUser: ', main.onUser.pw);
-  // console.log('user: ', valid.user);
-  // console.log('user: ', valid.user.userId);
-  // let currentUserId = main.onUser ? main.onUser.userId : valid.user.userId;
-  // console.log('[currentUserId]: ', currentUserId);
   axios.get('/logout')
   .then(() => {
     const $mainPage = document.querySelector('.main-page');

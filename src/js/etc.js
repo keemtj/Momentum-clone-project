@@ -1,7 +1,5 @@
 import * as ani from './animation';
-// import * as set from './setting';
 
-// search provider
 const $searchProvider = document.querySelector('.search-provider');
 const $currentBox = document.querySelector('.current-box');
 const $currentForm = document.querySelector('.search');
@@ -9,17 +7,14 @@ const $currentForm = document.querySelector('.search');
 const openSearchProvider = searchProvider => {
   ani.fadeIn(searchProvider, 150);
 };
-
 const closeSearchProvider = searchProvider => {
   ani.fadeOut(searchProvider, 150);
 };
-
 $currentBox.onclick = () => {
   const providerCs = window.getComputedStyle($searchProvider);
   const providerOnOff = providerCs.getPropertyValue('display');
   providerOnOff === 'none' ? openSearchProvider($searchProvider) : closeSearchProvider($searchProvider);
 };
-
 $searchProvider.onclick = e => {
   if (e.target.className === 'youtube') {
     $currentBox.firstElementChild.setAttribute('src', './asset/logo/youtube.png');
@@ -37,7 +32,6 @@ $searchProvider.onclick = e => {
   ani.fadeOut($searchProvider, 150);
 };
 
-// todolist button
 const openTodoList = todoList => {
   ani.fadeIn(todoList, 150);
 };
@@ -64,8 +58,7 @@ const startClock = () => {
     $minute.style.transform = `rotate(${min % 60 * 6}deg)`
     $second.style.transform = `rotate(${sec % 60 * 6}deg)`
   }, 1000);
-}
-
+};
 
 const $greeting = document.querySelector('.greeting .good');
 const greeting = [
@@ -101,7 +94,6 @@ const saying = [
 const select = Math.floor(Math.random() * saying.length);
 const todayPick = saying.splice(select, 1);
 $quote.innerHTML = `<q>" ${todayPick} "</q>`;
-// console.log('todayPick:', todayPick);
 
 export {
   openSearchProvider,
