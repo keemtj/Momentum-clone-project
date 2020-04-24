@@ -10324,7 +10324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
- // search provider
+ // import * as set from './setting';
+// search provider
 
 var $searchProvider = document.querySelector('.search-provider');
 var $currentBox = document.querySelector('.current-box');
@@ -10702,6 +10703,8 @@ var renderMainPage = function renderMainPage() {
   $nameText.textContent = onUser.name;
   _todos__WEBPACK_IMPORTED_MODULE_6__["getTodos"]();
   _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
+  _setting__WEBPACK_IMPORTED_MODULE_4__["getSettings"]();
+  _setting__WEBPACK_IMPORTED_MODULE_4__["getView"]();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
   axios.patch('/settings', {
@@ -10717,12 +10720,7 @@ var renderMainPage = function renderMainPage() {
 
 var renderStartPage = function renderStartPage() {
   $loginPage.classList.add('fade-in');
-}; // const $logoutBtn = document.querySelector('.logout');
-// $logoutBtn.onclick = () => {
-//   // onlinerUser의 online 프로퍼티를 true -> false
-//   // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
-//   // 그 이후에 ani.movePage($mainPage, $loginPage);
-// };
+};
 
 var init = /*#__PURE__*/function () {
   var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
