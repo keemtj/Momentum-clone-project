@@ -23,7 +23,7 @@ let users = [
   },
   {
     userId: 2,
-    online: false,
+    online: true,
     name: 'Taejin',
     email: 'kim@gmail.com',
     pw: 'Qwerty1234!',
@@ -35,7 +35,11 @@ let users = [
       { id: 1, content: 'SCSS', completed: false }
     ],
     settings: {
-      digital: false, todo: true, search: false, weather: false, quote: true
+      Clock: true,
+      Todo: false,
+      Search: false,
+      Weather: true,
+      Quote: true
     }
   },
   {
@@ -146,10 +150,25 @@ app.patch('/users/reset_pw', (req, res) => {
 
 // ========settings===========
 // settings로 요청하면 객체 형식({ digital: true, weather: true, ...})으로 응답함
-app.get('/settings', (req, res) => {
-  console.log('[GET settings]');
-  res.send(onUser);
+app.get('/users', (req, res) => {
+  console.log('[GET front-req settings]');
+  onUser = users.find(user => user.online);
+  res.send(onUser.settings);
+  console.log('[GET back-res settings]', onUser.settings);
 });
+
+// app.patch('/users', (req, res) => {
+//   console.log('[PATCH front-req settings] =>', req.body);
+//   const { checked } = req.body;
+//   console.log('[PATCH] req.body => ', checked);
+//   onlineUser = users.find(user => user.online);
+//   console.log(onlineUser.settings);
+//   onlineUser.settings.Clock !== checked ? onlineUser.settings = { ...onlineUser.settings, Clock: checked } : onlineUser.settings.Clock;
+//   console.log({ ...onlineUser.settings, Clock: checked });
+//   res.send(onlineUser.settings);
+//   console.log('[PATCH back-res settings]', onlineUser.settings);
+// });
+
 app.patch('/settings', (req, res) => {
   // const { id } = req.params;
   const { digital, weather, todo, quote, search } = req.body;

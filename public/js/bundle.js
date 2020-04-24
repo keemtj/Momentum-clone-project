@@ -10324,7 +10324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
- // search provider
+ // import * as set from './setting';
+// search provider
 
 var $searchProvider = document.querySelector('.search-provider');
 var $currentBox = document.querySelector('.current-box');
@@ -10702,6 +10703,8 @@ var renderMainPage = function renderMainPage() {
   $nameText.textContent = onUser.name;
   _todos__WEBPACK_IMPORTED_MODULE_6__["getTodos"]();
   _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
+  _setting__WEBPACK_IMPORTED_MODULE_4__["getSettings"]();
+  _setting__WEBPACK_IMPORTED_MODULE_4__["getView"]();
   $loginPage.classList.remove('fade-in');
   $mainPage.classList.add('fade-in');
   axios.patch('/settings', {
@@ -10860,29 +10863,67 @@ var resetErrorMsg = function resetErrorMsg($target) {
 /*!***************************!*\
   !*** ./src/js/setting.js ***!
   \***************************/
-/*! no exports provided */
+/*! exports provided: getSettings, settingRender, getView */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSettings", function() { return getSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingRender", function() { return settingRender; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getView", function() { return getView; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var setData = {};
+var viewData = {};
 var $settingBtn = document.querySelector('.setting-sec > i');
-var $settingBox = document.querySelector('.setting-list');
-var $toggleClock = document.getElementById('clock');
-var $toggleTodo = document.getElementById('todo');
-var $toggleSearch = document.getElementById('search');
-var $toggleWeather = document.getElementById('weather');
-var $toggleQuote = document.getElementById('quote');
+var $settingList = document.querySelector('.setting-list');
+var $todolistSection = document.querySelector('.todolist-sec');
+var $searchSection = document.querySelector('.search-sec');
+var $searchInput = document.querySelector('.search-area');
+var $weatherSection = document.querySelector('.weather-sec');
+var $quoteSection = document.querySelector('.quote-sec');
 var $digitalSection = document.querySelector('.digital-clock');
-var $analogSection = document.querySelector('.analog-clock');
+var $analogSection = document.querySelector('.analog-clock'); // setting button Render
 
-var openSettingBox = function openSettingBox(settingbox) {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settingbox, 150);
+var settingRender = function settingRender() {
+  var setHtml = "<li class=\"title\">\n    <h2>Setting</h2>\n  </li>";
+  setData = Object.entries(setData);
+  setData.forEach(function (set) {
+    var _set = _slicedToArray(set, 2),
+        setCtgr = _set[0],
+        checked = _set[1];
+
+    setHtml += "<li>\n      <h3>".concat(setCtgr, "</h3>\n      <div class=\"toggle-box\">\n        <input class=\"toggle toggle-input\" id=\"").concat(setCtgr, "\" type=\"checkbox\" ").concat(checked ? 'checked' : '', "/>\n        <label class=\"btn-toggle\" data-tg-off=\"").concat(setCtgr === 'Clock' ? 'ANALOG' : 'OFF', "\" data-tg-on=\"").concat(setCtgr === 'Clock' ? 'DIGITAL' : 'ON', "\" for=\"").concat(setCtgr, "\"></label>\n      </div>\n    </li>");
+  });
+  setHtml += "<li class=\"logout\">\n    <h3>LOGOUT</h3>\n  </li>";
+  $settingList.innerHTML = setHtml;
 };
 
-var closeSettingBox = function closeSettingBox(settingbox) {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settingbox, 150);
+var getSettings = function getSettings() {
+  axios.get('/users').then(function (_ref) {
+    var data = _ref.data;
+    setData = data.settings;
+  }).then(settingRender);
+};
+
+var openSettingBox = function openSettingBox(settinglist) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settinglist, 150);
+};
+
+var closeSettingBox = function closeSettingBox(settinglist) {
+  _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"](settinglist, 150);
 };
 
 $settingBtn.onclick = function () {
@@ -10892,7 +10933,9 @@ $settingBtn.onclick = function () {
   settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
 };
 
-$toggleClock.onchange = function () {
+var clockToggle = function clockToggle(_ref2) {
+  var target = _ref2.target;
+  if (!target.matches('#Clock')) return;
   var digitalCs = window.getComputedStyle($digitalSection);
   var analogCs = window.getComputedStyle($analogSection);
   var digitalToggle = digitalCs.getPropertyValue('display');
@@ -10913,54 +10956,116 @@ $toggleClock.onchange = function () {
   }
 };
 
-var $todolistSection = document.querySelector('.todolist-sec');
-
-$toggleTodo.onchange = function () {
+var todoToggle = function todoToggle(_ref3) {
+  var target = _ref3.target;
+  if (!target.matches('#Todo')) return;
   var todolistCs = window.getComputedStyle($todolistSection);
-  var todoToggle = todolistCs.getPropertyValue('display');
-  if (todoToggle === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+  var todoDisplay = todolistCs.getPropertyValue('display');
+  if (todoDisplay === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
 
-  if (todoToggle === 'none') {
+  if (todoDisplay === 'none') {
     $todolistSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
   }
 };
 
-var $searchSection = document.querySelector('.search-sec');
-var $searchInput = document.querySelector('.search-area');
-
-$toggleSearch.onchange = function () {
+var searchToggle = function searchToggle(_ref4) {
+  var target = _ref4.target;
+  if (!target.matches('#Search')) return;
   var searchCs = window.getComputedStyle($searchSection);
-  var searchToggle = searchCs.getPropertyValue('display');
-  if (searchToggle === 'flex') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
+  var searchDisplay = searchCs.getPropertyValue('display');
+  if (searchDisplay === 'flex') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
 
-  if (searchToggle === 'none') {
+  if (searchDisplay === 'none') {
     $searchSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
     $searchInput.value = '';
   }
 };
 
-var $weatherSection = document.querySelector('.weather-sec');
-
-$toggleWeather.onchange = function () {
+var weatherToggle = function weatherToggle(_ref5) {
+  var target = _ref5.target;
+  if (!target.matches('#Weather')) return;
   var weatherCs = window.getComputedStyle($weatherSection);
-  var weatherToggle = weatherCs.getPropertyValue('display');
-  if (weatherToggle === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
+  var weatherDisplay = weatherCs.getPropertyValue('display');
+  if (weatherDisplay === 'block') _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
 
-  if (weatherToggle === 'none') {
+  if (weatherDisplay === 'none') {
     $weatherSection.lastElementChild.classList.remove('fade-in');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
   }
 };
 
-var $quoteSection = document.querySelector('.quote-sec');
-
-$toggleQuote.onchange = function () {
+var quoteToggle = function quoteToggle(_ref6) {
+  var target = _ref6.target;
+  if (!target.matches('#Quote')) return;
   var quoteCs = window.getComputedStyle($quoteSection);
-  var quoteToggle = quoteCs.getPropertyValue('display');
-  quoteToggle === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+  var quoteDisplay = quoteCs.getPropertyValue('display');
+  quoteDisplay === 'flex' ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+}; // View Render
+
+
+var clockRender = function clockRender() {
+  if (!viewData.Clock) {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($digitalSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($analogSection, 300);
+    }, 300);
+  }
+
+  if (viewData.Clock) {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($analogSection, 300);
+    setTimeout(function () {
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($digitalSection, 300);
+    }, 300);
+  }
 };
+
+var todoRender = function todoRender() {
+  if (viewData.Todo) {
+    $todolistSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($todolistSection, 300);
+  }
+
+  if (!viewData.Todo) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($todolistSection, 300);
+};
+
+var searchRender = function searchRender() {
+  if (viewData.Search) {
+    $searchSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($searchSection, 300);
+    $searchInput.value = '';
+  }
+
+  if (!viewData.Search) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($searchSection, 300);
+};
+
+var weatherRender = function weatherRender() {
+  if (!viewData.Weather) _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($weatherSection, 300);
+
+  if (viewData.Weather) {
+    $weatherSection.lastElementChild.classList.remove('fade-in');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($weatherSection, 300);
+  }
+};
+
+var quoteRender = function quoteRender() {
+  !viewData.Quote ? _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($quoteSection, 300) : _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($quoteSection, 300);
+};
+
+var getView = function getView() {
+  axios.get('/users').then(function (_ref7) {
+    var data = _ref7.data;
+    viewData = data.settings;
+  }).then(clockRender).then(todoRender).then(searchRender).then(weatherRender).then(quoteRender);
+};
+
+$settingList.addEventListener('click', clockToggle);
+$settingList.addEventListener('change', todoToggle);
+$settingList.addEventListener('change', searchToggle);
+$settingList.addEventListener('change', weatherToggle);
+$settingList.addEventListener('change', quoteToggle);
+
 
 /***/ }),
 
