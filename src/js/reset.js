@@ -1,5 +1,3 @@
-// reset.js
-// start-page에서 back-btn 클릭시 input.value, btn.disabled, hint, pwcondition 등 reset 시킴
 const $startPageInputs = document.querySelectorAll('.login-container input');
 const $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
 const $signUpPwReq = document.querySelector('.signup-form .pw-req');
@@ -23,15 +21,10 @@ const resetBtns = () => {
 };
 
 const resetPwCondition = () => {
-  console.log('======reset======');
   [...$signUpPwReq.children].forEach($req => {
-    console.log($req);
     $req.classList.remove('underline');
   });
-  console.log('$signUpPwReq: ', $signUpPwReq);
-  console.log('$signUpPwReq.children: ', $signUpPwReq.children);  
   [...$pwResetPwReq.children].forEach($req => {
-    console.log($req);
     $req.classList.remove('underline');
   });
 };

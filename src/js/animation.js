@@ -2,13 +2,12 @@ import * as reset from './reset';
 
 const $loginContainer = document.querySelector('.login-container');
 
-// fadeIn
 const fadeIn = (target, duration) => {
   target.style.animationDuration = `${duration / 1000}s`;
   target.classList.add('fade-in');
   target.classList.remove('fade-out');
 };
-// fadeOut
+
 const fadeOut = (target, duration) => {  
   target.style.animationDuration = `${duration / 1000}s`;
   target.classList.add('fade-out');
@@ -18,7 +17,6 @@ const fadeOut = (target, duration) => {
   }, duration);
 };
 
-// movePage(from, to)
 const movePage = (from, to) => {
   fadeOut(from, 300);
   setTimeout(() => {
@@ -28,6 +26,11 @@ const movePage = (from, to) => {
     }
     if (from.id === 'login' && to.id === 'signup') {
       $loginContainer.style.top = 'calc(50% - 40vh)';
+    }
+    if (from.id === 'main') {
+      $loginContainer.style.display = 'block';
+      const $settingList = document.querySelector('.setting-list');
+      $settingList.classList.remove('fade-in');
     }
     if (to.id === 'main') $loginContainer.style.display = 'none';
     reset.resetInputs();

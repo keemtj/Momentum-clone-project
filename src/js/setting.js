@@ -1,4 +1,6 @@
 import * as ani from './animation';
+import * as main from './main';
+import * as valid from './validation';
 
 let setData = {};
 let viewData = {};
@@ -12,36 +14,6 @@ const $weatherSection = document.querySelector('.weather-sec');
 const $quoteSection = document.querySelector('.quote-sec');
 const $digitalSection = document.querySelector('.digital-clock');
 const $analogSection = document.querySelector('.analog-clock');
-
-// setting button Render
-const settingRender = () => {
-  let setHtml = `<li class="title">
-    <h2>Setting</h2>
-  </li>`;
-  setData = Object.entries(setData);
-  setData.forEach(set => {
-    const [setCtgr, checked] = set;
-    setHtml += `<li>
-      <h3>${setCtgr}</h3>
-      <div class="toggle-box">
-        <input class="toggle toggle-input" id="${setCtgr}" type="checkbox" ${checked ? 'checked' : ''}/>
-        <label class="btn-toggle" data-tg-off="${setCtgr === 'Clock' ? 'ANALOG' : 'OFF'}" data-tg-on="${setCtgr === 'Clock' ? 'DIGITAL' : 'ON'}" for="${setCtgr}"></label>
-      </div>
-    </li>`;
-  });
-  setHtml += `<li class="logout">
-    <h3>LOGOUT</h3>
-  </li>`;
-  $settingList.innerHTML = setHtml;
-};
-
-const getSettings = () => {
-  axios.get('/users')
-    .then(({ data }) => {
-      setData = data.settings;
-    })
-    .then(settingRender);
-};
 
 const openSettingBox = settinglist => {
   ani.fadeIn(settinglist, 150);
@@ -176,14 +148,54 @@ const getView = () => {
     .then(quoteRender);
 };
 
+const settingRender = () => {
+  let setHtml = `<li class="title">
+    <h2>Setting</h2>
+  </li>`;
+  setData = Object.entries(setData);
+  setData.forEach(set => {
+    const [setCtgr, checked] = set;
+    setHtml += `<li>
+      <h3>${setCtgr}</h3>
+      <div class="toggle-box">
+        <input class="toggle toggle-input" id="${setCtgr}" type="checkbox" ${checked ? 'checked' : ''}/>
+        <label class="btn-toggle" data-tg-off="${setCtgr === 'Clock' ? 'ANALOG' : 'OFF'}" data-tg-on="${setCtgr === 'Clock' ? 'DIGITAL' : 'ON'}" for="${setCtgr}"></label>
+      </div>
+    </li>`;
+  });
+  setHtml += `<li class="logout">
+    <h3>LOGOUT</h3>
+  </li>`;
+  $settingList.innerHTML = setHtml;
+};
+
+const getSettings = () => {
+  axios.get('/users')
+    .then(({ data }) => {
+      setData = data.settings;
+    })
+    .then(settingRender)
+    .then(getView);
+};
+
+const logOut = async ({ target }) => {
+  if (!target.matches('li.logout') && !target.matches('li.logout > h3')) return;
+  axios.get('/logout')
+  .then(() => {
+    const $mainPage = document.querySelector('.main-page');
+    const $loginPage = document.querySelector('.login-page');
+    ani.movePage($mainPage, $loginPage);
+  })
+  .catch(err => console.error(err));
+};
+
 $settingList.addEventListener('click', clockToggle);
 $settingList.addEventListener('change', todoToggle);
 $settingList.addEventListener('change', searchToggle);
 $settingList.addEventListener('change', weatherToggle);
 $settingList.addEventListener('change', quoteToggle);
-
+$settingList.addEventListener('click', logOut);
 export {
   getSettings,
   settingRender,
-  getView
 };

@@ -43,6 +43,23 @@
   opacity: 1;
   overflow-y: scroll;
 }
+.hint-options-container.active::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+.hint-options-container.active::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+.hint-options-container.active::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.2);
+	background-color: rgb(150, 150, 150);
+}
 .hint-options-container .option, .hint-selected {
   cursor: pointer;
 }
