@@ -7,7 +7,7 @@ import * as set from './setting';
 import * as weather from './weather';
 
 // 상태변수
-let onlineUser = {};
+let onUser = {};
 
 // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 const $loginEmail = document.querySelector('#login-email');
@@ -239,16 +239,17 @@ $listIcon.onclick = () => {
   todoOnOff === 'none' ? etc.openTodoList($todolistBox) : etc.closeTodoList($todolistBox);
 };
 
-const renderMainAll = onlineUser => {
+const renderMainAll = onUser => {
  console.log('renderMainAll');
 };
 
-const renderMainPage = onlineUser => {
+const renderMainPage = onUser => {
   etc.startClock();
   $loginPage.classList.remove('fade-in');
-  renderMainAll(onlineUser);
+  renderMainAll(onUser);
+  set.getSettings();
+  set.getView();
   $mainPage.classList.add('fade-in');
-
 };
 
 const renderStartPage = () => {
@@ -256,22 +257,22 @@ const renderStartPage = () => {
 };
 
 
-const $logoutBtn = document.querySelector('.logout');
-$logoutBtn.onclick = () => {
-  // onlinerUser의 online 프로퍼티를 true -> false
-  // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
-  // 그 이후에 ani.movePage($mainPage, $loginPage);
+// const $logoutBtn = document.querySelector('.logout');
+// $logoutBtn.onclick = () => {
+//   // onlinerUser의 online 프로퍼티를 true -> false
+//   // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
+//   // 그 이후에 ani.movePage($mainPage, $loginPage);
 
-};
+// };
 
 const init = async () => {
   const $loadingContainer = document.querySelector('.loading-container');
   const $loadingText = document.querySelector('.loading-text');
 
-  onlineUser = await valid.getUsers();
-  console.log('OnlineUser: ', onlineUser);
-  if (onlineUser.online) {
-    renderMainPage(onlineUser);
+  onUser = await valid.getUsers();
+  console.log('onUser: ', onUser);
+  if (onUser.online) {
+    renderMainPage(onUser);
   } else {
     renderStartPage();
   }
@@ -279,4 +280,4 @@ const init = async () => {
 };
 window.onload = init;
 
-export { onlineUser };
+export { onUser };
