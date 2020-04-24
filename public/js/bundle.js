@@ -11184,6 +11184,7 @@ var toggleCompFromTodos = function toggleCompFromTodos(id) {
     if ($icon.className === 'icon-check-empty') {
       $icon.classList.toggle('icon-check-empty');
       $icon.classList.toggle('icon-check');
+      $latestTodoText.classList.add('text-linethru');
       $compliment.textContent = compliments[getRandomInt(0, 10)];
 
       if (+id === generateId() - 1) {
@@ -11192,6 +11193,7 @@ var toggleCompFromTodos = function toggleCompFromTodos(id) {
     } else {
       $icon.classList.toggle('icon-check-empty');
       $icon.classList.toggle('icon-check');
+      $latestTodoText.classList.remove('text-linethru');
 
       if (+id === generateId() - 1) {
         _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
@@ -11212,27 +11214,21 @@ var removeTodo = function removeTodo(id) {
 };
 
 var removeTodoFromTodos = function removeTodoFromTodos(id) {
+  $compliment.textContent = '';
   axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
     var data = _ref8.data;
     todos = data;
   }).then(render).then(function () {
-    $icon.className = todos[generateId() - 2].completed ? 'icon-check-empty' : 'icon-check';
+    $latestTodoText.textContent = todos[0].content;
+    $latestTodoText.classList.toggle('text-linethru', todos[0].completed);
+    $icon.classList.toggle('icon-check', todos[0].completed);
+    $icon.classList.toggle('icon-check-empty', !todos[0].completed);
 
-    if ($icon.className === 'icon-check-empty') {
-      $icon.classList.toggle('icon-check-empty');
-      $icon.classList.toggle('icon-check');
+    if (todos[0].completed && +id === todos[0].id) {
       $compliment.textContent = compliments[getRandomInt(0, 10)];
-
-      if (+id === generateId() - 2) {
-        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
-      }
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
     } else {
-      $icon.classList.toggle('icon-check-empty');
-      $icon.classList.toggle('icon-check');
-
-      if (+id === generateId() - 1) {
-        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
-      }
+      _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
     }
   })["catch"](function (err) {
     return console.error(err);
@@ -11269,7 +11265,7 @@ $todoList.onchange = function (_ref10) {
 $todoList.onclick = function (_ref11) {
   var target = _ref11.target;
   if (!target.matches('.icon-cancel')) return;
-  removeTodo(target.parentNode.parentNode.id);
+  removeTodoFromTodos(target.parentNode.parentNode.id);
 };
 
 $nav.onclick = function (_ref12) {
@@ -11284,6 +11280,7 @@ $addTodoBtn.onclick = function () {
   $icon.className = 'icon-check-empty';
   $compliment.classList.remove('fade-in');
   _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoAfter, $todoBefore);
+  $latestTodoText.classList.toggle('text-linethru', false);
 };
 
 $checkIcon.onclick = function () {
@@ -11291,20 +11288,27 @@ $checkIcon.onclick = function () {
     $icon.classList.toggle('icon-check-empty');
     $icon.classList.toggle('icon-check');
     $compliment.textContent = compliments[getRandomInt(0, 10)];
+    $latestTodoText.classList.add('text-linethru');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
     toggleCompleted(generateId() - 1);
   } else {
     $icon.classList.toggle('icon-check-empty');
     $icon.classList.toggle('icon-check');
+    $latestTodoText.classList.remove('text-linethru');
     _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
     toggleCompleted(generateId() - 1);
   }
 };
 
-var $removeIcon = document.querySelector('.icon-cancel');
+var $deleteIcon = document.querySelector('.delete-icon');
 
-$removeIcon.onclick = function () {
-  removeTodoFromTodos(generateId() - 1);
+$deleteIcon.onclick = function () {
+  var deleteIconText = $deleteIcon.previousElementSibling.textContent;
+  var deleteId = todos.find(function (todo) {
+    return todo.content === deleteIconText;
+  }).id;
+  console.log(deleteId);
+  removeTodoFromTodos(deleteId);
 };
 
 
