@@ -11123,6 +11123,7 @@ var removeTodo = function removeTodo(id) {
 };
 
 var removeTodoFromTodos = function removeTodoFromTodos(id) {
+  console.log('id', id);
   axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
     var data = _ref8.data;
     todos = data;

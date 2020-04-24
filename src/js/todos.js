@@ -111,6 +111,7 @@ const removeTodo = id => {
 };
 
 const removeTodoFromTodos = id => {
+  console.log('id', id);
   axios.delete(`/todos/${id}`)
   .then(({ data }) => { todos = data; })
   .then(render)
