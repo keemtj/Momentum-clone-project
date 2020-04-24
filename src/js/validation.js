@@ -1,10 +1,10 @@
 // validation.js
 import * as ani from './animation';
 import * as etc from './etc';
+import * as t from './todos';
+
 let user = {};
-let users = [];
-let todos = [];
-let settings = {};
+let forgotPwUser = {};
 
 const $loginPage = document.querySelector('#login');
 const $signupPage = document.querySelector('.signup-page');
@@ -87,10 +87,6 @@ const enableLoginBtn = ($target, $siblingTarget) => {
   }
   const $warnings = document.querySelectorAll('.login-container input.warning');
   const $loginBtn = document.querySelector('.btn-login');
-  console.log('length: ', $warnings.length);
-  console.log('target value: ', !$target.value.trim());
-  console.log('sibling value: ', !$siblingTarget.value.trim());
-  console.log('result, ', ($warnings.length || !$target.value.trim() || !$siblingTarget.value.trim()));
   $loginBtn.disabled = ($warnings.length || !$target.value.trim() || !$siblingTarget.value.trim());
 };
 
@@ -101,35 +97,28 @@ const enableCreateAccount = () => {
   $createAccountBtn.disabled = !(!$warnings.length && ($hintText !== 'Select a hint'));
 };
 
-// const enableForgotPwNext = () => {
-//   const $warnings = document.querySelectorAll('.forgot-pw-form input.warning');
-//   const $forgotPwNext = document.querySelector('.forgot-pw-form .forgot-pw-btn-next');
-//   $forgotPwNext.disabled = $warnings.length;
-// };
-
 const enableNextBtn = $target => {
   const $warnings = document.querySelectorAll('.login-container input.warning');
-  const $btn = $target.parentNode.lastElementChild;
+  const $btn = $target.parentNode.lastElementChild.previousElementSibling;
   $btn.disabled = $warnings.length;
 };
 
-const generateId = () => (users.length ? Math.max(...users.map(user => user.userId)) + 1 : 1);
+const resetPw = async () => {
+  const pw = document.querySelector('#pw-reset-new-pw').value;
+  const { email } = forgotPwUser;
+  try {
+    const { data } = await axios.patch('/users/reset_pw', { email, pw });
+    ani.movePage($pwResetPage, $loginPage);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// const generateId = () => (users.length ? Math.max(...users.map(user => user.userId)) + 1 : 1);
 
 const getUsers = async () => {
   const { data } = await axios.get('/users');
-  console.log('data', data);
   return data;
-};
-
-const createAccountSuccess = () => {
-  console.log('createAccountSuccess!');
-  ani.movePage($signupPage, $loginPage);
-};
-
-const createAccountFailed = () => {
-  const $signupErrorMsg = document.querySelector('.signup-error-msg');
-  $signupErrorMsg.classList.add('error');
-  console.log('createAccountFailed');
 };
 
 const createAccount = async () => {
@@ -141,12 +130,12 @@ const createAccount = async () => {
   const hint = $signupForm.querySelector('.hint-selected').textContent;
   const answer = $signupForm.querySelector('#signup-pw-hint-answer').value;
   try {
-    const { data } = await axios.post('/users', { userId: generateId(), online: false, name, email, pw, hint, answer });
+    const { data } = await axios.post('/users', { online: false, name, email, pw, hint, answer });
     if (data) {
       ani.movePage($signupPage, $loginPage);
     } else {
-      console.log(data);
-      createAccountFailed();
+      const $signupErrorMsg = document.querySelector('.signup-error-msg');
+      $signupErrorMsg.classList.add('error');
     }
   } catch (error) {
     console.error(error);
@@ -161,8 +150,6 @@ const login = async ($email, $pw) => {
     const { data } = await axios.post('/users/login', { email, pw });
     if (data) {
       user = data;
-      todos = user.todos;
-      settings = user.settings;
       $loginMsg.classList.toggle('error', false);
       const $greetingName = document.querySelector('.greeting .name');
       $greetingName.textContent = user.name;
@@ -170,6 +157,7 @@ const login = async ($email, $pw) => {
       ani.movePage($loginPage, $mainPage);
       $email.value = '';
       $pw.value = '';
+      t.getTodos();
     } else {
       $loginMsg.classList.toggle('error', true);
     }
@@ -178,9 +166,39 @@ const login = async ($email, $pw) => {
   }
 };
 
+const checkEmailExists = async $email => {
+  const email = $email.value.trim();
+  const $forgotPwMsg = $forgotPwPage.querySelector('.forgot-pw-error-msg');
+  try {
+    const { data } = await axios.post('/users/forgot_pw', { email });
+    if (data) {
+      forgotPwUser = data;
+      $forgotPwMsg.classList.toggle('error', false);
+      const $pwHintQuestion = $pwHintPage.querySelector('.pw-hint-question');
+      $pwHintQuestion.textContent = forgotPwUser.hint;
+      ani.movePage($forgotPwPage, $pwHintPage);
+    } else {
+      $forgotPwMsg.classList.toggle('error', true);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const checkPwHintAnswer = $answer => {
+  const answer = $answer.value.trim();
+  const $pwHintMsg = $pwHintPage.querySelector('.pw-hint-error-msg');
+  if (answer === forgotPwUser.answer) {
+    $pwHintMsg.classList.toggle('error', false);
+    ani.movePage($pwHintPage, $pwResetPage);
+  } else {
+    $pwHintMsg.classList.toggle('error', true);
+  }
+};
+
 export {
-  checkLengthZero, checkEmail, checkPw,
-  checkPwCondition, checkPwConditionResult,
-  checkConfirmPw, enableCreateAccount, enableLoginBtn,
+  checkLengthZero, checkEmail, checkPw, resetPw,
+  checkPwCondition, checkPwConditionResult, checkPwHintAnswer,
+  checkEmailExists, checkConfirmPw, enableCreateAccount, enableLoginBtn,
   enableNextBtn, createAccount, login, getUsers
 };

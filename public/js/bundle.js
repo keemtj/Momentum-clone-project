@@ -10274,14 +10274,12 @@ var fadeIn = function fadeIn(target, duration) {
 
 
 var fadeOut = function fadeOut(target, duration) {
-  console.log('[fadeOut START]');
   target.style.animationDuration = "".concat(duration / 1000, "s");
   target.classList.add('fade-out');
   target.classList.remove('fade-in');
   setTimeout(function () {
     target.classList.remove('fade-out');
   }, duration);
-  console.log('[fadeOut END]');
 }; // movePage(from, to)
 
 
@@ -10326,26 +10324,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeTodoList", function() { return closeTodoList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
- // import * as set from './setting';
-// search provider
+ // search provider
 
 var $searchProvider = document.querySelector('.search-provider');
 var $currentBox = document.querySelector('.current-box');
@@ -10427,75 +10406,10 @@ for (var i = 0; i < greeting.length; i++) {
 
 ;
 var $quote = document.querySelector('.quote-sec');
-var saying = ["If you don't study, you work in hot weather and cold weather.", "The beginning is not half, but the beginning is just the beginning.", "Handsome men pay for their faces, and ugly men pay for their looks.", "The enemy meets at the company.", "You don't have to do what you can do tomorrow today.", "A migraine inevitably follows pain.", "Avoid it if you can't enjoy it", "Be comfortable to give up.", "Beer and chicken at dawn are 0 calories.", "Early birds are tired, Early worms are eaten."];
+var saying = ["If you don't study, you work in hot weather and cold weather.", 'The beginning is not half, but the beginning is just the beginning.', 'Handsome men pay for their faces, and ugly men pay for their looks.', 'The enemy meets at the company.', "You don't have to do what you can do tomorrow today.", 'A migraine inevitably follows pain.', "Avoid it if you can't enjoy it", 'Be comfortable to give up.', 'Beer and chicken at dawn are 0 calories.', 'Early birds are tired, Early worms are eaten.'];
 var select = Math.floor(Math.random() * saying.length);
 var todayPick = saying.splice(select, 1);
 $quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>"); // console.log('todayPick:', todayPick);
-
-var todos = [];
-var active = 'All';
-var $todoList = document.querySelector('.todolist-body');
-var $inputTodo = document.querySelector('.input-todo'); // const $activeTodos = document.getElementById('active');
-// const $completedTodos = document.getElementById('completed');
-
-{
-  /* <li>
-   <label for="added-todo">
-   <i class="icon-check-empty"></i>
-   <input type="checkbox" id="added-todo">
-   <span class="added-todo-text"></span>
-   <i class="icon-cancel"></i>
-   </label>
-  </li> */
-}
-
-var render = function render() {
-  var html = '';
-
-  var _todos = _toConsumableArray(todos).filter(function (todo) {
-    return active === 'All' ? true : active === 'Active' ? !todo.completed : todo.completed;
-  });
-
-  _todos.forEach(function (todo) {
-    html += "<li id=\"".concat(todo.id, "\">\n              <label for=\"added-todo-").concat(todo.id, "\">\n                <i class=\"icon-check").concat(todo.completed ? '' : '-empty', "\"></i>\n                <input type=\"checkbox\" class=\"added-todo-checkbox\" ").concat(todo.completed ? ' checked' : '', " id=\"added-todo-").concat(todo.id, "\">\n                <span class=\"added-todo-text\">").concat(todo.content, "</span>\n                <i class=\"icon-cancel\"></i>\n              </label>\n            </li>");
-  });
-
-  $todoList.innerHTML = html; // completedTodos();
-  // activeTodos();
-};
-
-$inputTodo.onkeyup = function (e) {
-  if (e.keyCode !== 13 || $inputTodo.value === '') return;
-  var newId = todos.length ? Math.max.apply(Math, _toConsumableArray(todos.map(function (todo) {
-    return todo.id;
-  }))) + 1 : 1;
-  var newTodo = {
-    id: newId,
-    content: $inputTodo.value,
-    completed: false
-  };
-  todos = [newTodo].concat(_toConsumableArray(todos));
-  $inputTodo.value = '';
-  render();
-};
-
-$todoList.onchange = function (e) {
-  todos = todos.map(function (todo) {
-    return todo.id === +e.target.parentNode.parentNode.id ? _objectSpread({}, todo, {
-      completed: !todo.completed
-    }) : todo;
-  }); // console.log(todos);
-
-  render();
-};
-
-$todoList.onclick = function (e) {
-  if (!e.target.matches('.todolist-body > li > label > .icon-cancel')) return;
-  todos = todos.filter(function (todo) {
-    return todo.id !== +e.target.parentNode.parentNode.id; // console.log(e.target.parentNode.parentNode.id);
-  });
-  render();
-};
 
 
 
@@ -10505,18 +10419,18 @@ $todoList.onclick = function (e) {
 /*!************************!*\
   !*** ./src/js/main.js ***!
   \************************/
-/*! exports provided: onUser */
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onUser", function() { return onUser; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
 /* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 /* harmony import */ var _reset__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reset */ "./src/js/reset.js");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
 /* harmony import */ var _weather__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./weather */ "./src/js/weather.js");
+/* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./todos */ "./src/js/todos.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -10527,7 +10441,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
- // 상태변수
+
+ // 상태변수(로그인 된 유저를 담는 변수)
 
 var onUser = {}; // 로그인페이지에서 사인업 페이지로 넘어가는 애니메이션
 
@@ -10710,7 +10625,8 @@ $forgotPwBtn.onclick = function () {
 
 
 $forgotPwNextBtn.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($forgotPwPage, $pwHintPage);
+  var $email = document.querySelector('.forgot-pw-form #forgot-pw-email');
+  _validation__WEBPACK_IMPORTED_MODULE_1__["checkEmailExists"]($email);
 }; // forgot-pw-page에서 입력했을때 이메일이 존재하고 형식이 맞으면 버튼 활성화
 
 
@@ -10727,7 +10643,8 @@ $forgotPwEmail.onblur = function (_ref14) {
 var $pwHintNextBtn = document.querySelector('.pw-hint-btn-next');
 
 $pwHintNextBtn.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwHintPage, $pwResetPage);
+  var $pwHintAnswer = document.querySelector('.pw-hint-form #pw-hint-answer');
+  _validation__WEBPACK_IMPORTED_MODULE_1__["checkPwHintAnswer"]($pwHintAnswer);
 }; // pw-hint-page에서 힌트 입력 확인
 
 
@@ -10745,7 +10662,7 @@ var $pwResetNewPw = document.querySelector('.pw-reset-form > #pw-reset-new-pw');
 var $pwResetNewPwConfirm = document.querySelector('.pw-reset-form > #pw-reset-new-pw-confirm'); // pw-reset-page에서 reset 버튼 누르면 login-page로 이동
 
 $pwResetBtn.onclick = function () {
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwResetPage, $loginPage);
+  _validation__WEBPACK_IMPORTED_MODULE_1__["resetPw"]();
 }; // pw-reset-page에서 password 입력할때 조건 확인
 
 
@@ -10780,17 +10697,22 @@ $listIcon.onclick = function () {
   todoOnOff === 'none' ? _etc__WEBPACK_IMPORTED_MODULE_2__["openTodoList"]($todolistBox) : _etc__WEBPACK_IMPORTED_MODULE_2__["closeTodoList"]($todolistBox);
 };
 
-var renderMainAll = function renderMainAll(onUser) {
-  console.log('renderMainAll');
-};
-
-var renderMainPage = function renderMainPage(onUser) {
+var renderMainPage = function renderMainPage() {
+  var $nameText = document.querySelector('.greeting .name');
+  $nameText.textContent = onUser.name;
+  _todos__WEBPACK_IMPORTED_MODULE_6__["getTodos"]();
   _etc__WEBPACK_IMPORTED_MODULE_2__["startClock"]();
   $loginPage.classList.remove('fade-in');
-  renderMainAll(onUser);
-  _setting__WEBPACK_IMPORTED_MODULE_4__["getSettings"]();
-  _setting__WEBPACK_IMPORTED_MODULE_4__["getView"]();
   $mainPage.classList.add('fade-in');
+  axios.patch('/settings', {
+    digital: false,
+    weather: false,
+    todo: true,
+    quote: true,
+    search: true
+  }).then(function (data) {
+    console.log('data', data);
+  });
 };
 
 var renderStartPage = function renderStartPage() {
@@ -10801,7 +10723,6 @@ var renderStartPage = function renderStartPage() {
 //   // 서버에 이 정보를 업데이트 해달라는 요청을 보냄
 //   // 그 이후에 ani.movePage($mainPage, $loginPage);
 // };
-
 
 var init = /*#__PURE__*/function () {
   var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -10817,7 +10738,6 @@ var init = /*#__PURE__*/function () {
 
           case 4:
             onUser = _context.sent;
-            console.log('onUser: ', onUser);
 
             if (onUser.online) {
               renderMainPage(onUser);
@@ -10825,13 +10745,13 @@ var init = /*#__PURE__*/function () {
               renderStartPage();
             }
 
-            _context.next = 9;
+            _context.next = 8;
             return _weather__WEBPACK_IMPORTED_MODULE_5__["weatherInit"]();
 
-          case 9:
+          case 8:
             weatherStart = _context.sent;
 
-          case 10:
+          case 9:
           case "end":
             return _context.stop();
         }
@@ -10845,7 +10765,6 @@ var init = /*#__PURE__*/function () {
 }();
 
 window.onload = init;
-
 
 /***/ }),
 
@@ -10881,8 +10800,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 // start-page에서 back-btn 클릭시 input.value, btn.disabled, hint, pwcondition 등 reset 시킴
 var $startPageInputs = document.querySelectorAll('.login-container input');
 var $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
-var $signUpPwReq = document.querySelector('.signup-form .pw-req > li');
-var $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req > li');
+var $signUpPwReq = document.querySelector('.signup-form .pw-req');
+var $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req');
 var $startPageBtns = document.querySelectorAll('.login-container button:not(.btn-login)');
 
 var resetInputs = function resetInputs() {
@@ -10902,11 +10821,18 @@ var resetBtns = function resetBtns() {
 };
 
 var resetPwCondition = function resetPwCondition() {
+  console.log('======reset======');
+
   _toConsumableArray($signUpPwReq.children).forEach(function ($req) {
+    console.log($req);
     $req.classList.remove('underline');
   });
 
+  console.log('$signUpPwReq: ', $signUpPwReq);
+  console.log('$signUpPwReq.children: ', $signUpPwReq.children);
+
   _toConsumableArray($pwResetPwReq.children).forEach(function ($req) {
+    console.log($req);
     $req.classList.remove('underline');
   });
 };
@@ -11003,9 +10929,10 @@ var closeSettingBox = function closeSettingBox(settinglist) {
 };
 
 $settingBtn.onclick = function () {
-  var settinglistCs = window.getComputedStyle($settingList);
-  var settingDisplay = settinglistCs.getPropertyValue('display');
-  settingDisplay === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
+  $settingBtn.classList.toggle('clicked');
+  var settingBoxCs = window.getComputedStyle($settingBox);
+  var settingOnOff = settingBoxCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
 };
 
 var clockToggle = function clockToggle(_ref2) {
@@ -11144,33 +11071,18 @@ $settingList.addEventListener('change', quoteToggle);
 
 /***/ }),
 
-/***/ "./src/js/validation.js":
-/*!******************************!*\
-  !*** ./src/js/validation.js ***!
-  \******************************/
-/*! exports provided: checkLengthZero, checkEmail, checkPw, checkPwCondition, checkPwConditionResult, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers */
+/***/ "./src/js/todos.js":
+/*!*************************!*\
+  !*** ./src/js/todos.js ***!
+  \*************************/
+/*! exports provided: render, getTodos */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkLengthZero", function() { return checkLengthZero; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkEmail", function() { return checkEmail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPw", function() { return checkPw; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwCondition", function() { return checkPwCondition; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwConditionResult", function() { return checkPwConditionResult; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkConfirmPw", function() { return checkConfirmPw; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableCreateAccount", function() { return enableCreateAccount; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableLoginBtn", function() { return enableLoginBtn; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableNextBtn", function() { return enableNextBtn; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAccount", function() { return createAccount; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTodos", function() { return getTodos; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
-/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -11183,13 +11095,277 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+
+var compliments = ['Good job!', 'Great Work!', 'Excellent!', 'Keep it up!', 'Perfect!', 'Awesome!', 'Bravo!', 'Hooray~', 'There you go!', 'Nice!'];
+var latestId = 0;
+var todos = [];
+var navState = 'all';
+var $todoList = document.querySelector('.todolist-body');
+var $inputTodo = document.querySelector('.input-todo');
+var $nav = document.querySelector('.todolist-menu');
+var $todolistIcon = document.querySelector('.icon-th-list');
+var $todoBefore = document.querySelector('.todo-focus-before');
+var $todoAfter = document.querySelector('.todo-focus-after');
+var $latestTodoText = document.querySelector('.latest-todo-text');
+var $compliment = document.querySelector('.compliment');
+var $checkIcon = document.querySelector('.main-sec .check-icon');
+var $icon = $checkIcon.firstElementChild; // random func
+
+var getRandomInt = function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+}; // 현재 선택된 nav 상태(현재 active 상태인 nav 요소의 자식 요소의 id)
+
+
+var render = function render() {
+  console.log('4.axios.js');
+
+  var _todos = todos.filter(function (_ref) {
+    var completed = _ref.completed;
+    return navState === 'all' ? true : navState === 'active' ? !completed : completed;
+  });
+
+  var html = '';
+
+  _todos.forEach(function (_ref2) {
+    var id = _ref2.id,
+        content = _ref2.content,
+        completed = _ref2.completed;
+    html += "<li id=\"".concat(id, "\">\n              <label for=\"added-todo-").concat(id, "\">\n              <i class=\"icon-check").concat(completed ? '' : '-empty', "\"></i>\n              <input type=\"checkbox\" class=\"added-todo-checkbox\" ").concat(completed ? ' checked' : '', " id=\"added-todo-").concat(id, "\">\n              <span class=\"added-todo-text\">").concat(content, "</span>\n              <i class=\"icon-cancel\"></i>\n              </label>\n            </li>");
+  });
+
+  $todoList.innerHTML = html;
+};
+
+var generateId = function generateId() {
+  return todos.length ? Math.max.apply(Math, _toConsumableArray(todos.map(function (todo) {
+    return todo.id;
+  }))) + 1 : 1;
+};
+
+var getTodos = function getTodos() {
+  console.log('getTodos START');
+  axios.get('/todos').then(function (_ref3) {
+    var data = _ref3.data;
+    console.log('[[[DATA]]]', data);
+    todos = data;
+  }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var addTodo = function addTodo(content) {
+  axios.post('/todos', {
+    id: generateId(),
+    content: content,
+    completed: false
+  }).then(function (_ref4) {
+    var data = _ref4.data;
+    console.log(data);
+    todos = data;
+  }).then(render).then(function () {
+    $latestTodoText.textContent = $todoList.firstElementChild.querySelector('.added-todo-text').textContent;
+  }).then(function () {
+    _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoBefore, $todoAfter);
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var toggleCompleted = function toggleCompleted(id) {
+  var completed = !todos.find(function (todo) {
+    return todo.id === +id;
+  }).completed;
+  axios.patch("/todos/".concat(id), {
+    completed: completed
+  }).then(function (_ref5) {
+    var data = _ref5.data;
+    todos = data;
+  }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var toggleCompFromTodos = function toggleCompFromTodos(id) {
+  var completed = !todos.find(function (todo) {
+    return todo.id === +id;
+  }).completed;
+  axios.patch("/todos/".concat(id), {
+    completed: completed
+  }).then(function (_ref6) {
+    var data = _ref6.data;
+    todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[0].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodo = function removeTodo(id) {
+  axios["delete"]("/todos/".concat(id)).then(function (_ref7) {
+    var data = _ref7.data;
+    todos = data;
+  }).then(render)["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var removeTodoFromTodos = function removeTodoFromTodos(id) {
+  axios["delete"]("/todos/".concat(id)).then(function (_ref8) {
+    var data = _ref8.data;
+    todos = data;
+  }).then(render).then(function () {
+    $icon.className = todos[generateId() - 2].completed ? 'icon-check-empty' : 'icon-check';
+
+    if ($icon.className === 'icon-check-empty') {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+      $compliment.textContent = compliments[getRandomInt(0, 10)];
+
+      if (+id === generateId() - 2) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+      }
+    } else {
+      $icon.classList.toggle('icon-check-empty');
+      $icon.classList.toggle('icon-check');
+
+      if (+id === generateId() - 1) {
+        _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+      }
+    }
+  })["catch"](function (err) {
+    return console.error(err);
+  });
+};
+
+var changeNav = function changeNav(id) {
+  // $navItem의 id가 e.target의 id와 같으면 active 클래스를 추가하고 아니면 active 클래스를 제거
+  _toConsumableArray($nav.children).forEach(function ($navItem) {
+    $navItem.classList.toggle('active', $navItem.id === id);
+  });
+
+  navState = id;
+  console.log('[navState]', navState);
+  render();
+};
+
+$inputTodo.onkeyup = function (_ref9) {
+  var target = _ref9.target,
+      keyCode = _ref9.keyCode;
+  var content = target.value.trim();
+  if (!content || keyCode !== 13) return;
+  target.value = '';
+  addTodo(content);
+  $todolistIcon.classList.toggle('shake');
+};
+
+$todoList.onchange = function (_ref10) {
+  var target = _ref10.target;
+  toggleCompFromTodos(target.parentNode.parentNode.id);
+};
+
+$todoList.onclick = function (_ref11) {
+  var target = _ref11.target;
+  if (!target.matches('.icon-cancel')) return;
+  removeTodo(target.parentNode.parentNode.id);
+};
+
+$nav.onclick = function (_ref12) {
+  var target = _ref12.target;
+  if (!target.matches('.todolist-menu > li')) return;
+  changeNav(target.id);
+};
+
+var $addTodoBtn = document.querySelector('.main-sec .add-todo');
+
+$addTodoBtn.onclick = function () {
+  $icon.className = 'icon-check-empty';
+  $compliment.classList.remove('fade-in');
+  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($todoAfter, $todoBefore);
+};
+
+$checkIcon.onclick = function () {
+  if ($icon.className === 'icon-check-empty') {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    $compliment.textContent = compliments[getRandomInt(0, 10)];
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  } else {
+    $icon.classList.toggle('icon-check-empty');
+    $icon.classList.toggle('icon-check');
+    _animation__WEBPACK_IMPORTED_MODULE_0__["fadeOut"]($compliment, 200);
+    toggleCompleted(generateId() - 1);
+  }
+};
+
+var $removeIcon = document.querySelector('.icon-cancel');
+
+$removeIcon.onclick = function () {
+  console.log(generateId() - 1);
+  removeTodoFromTodos(generateId() - 1); // $compliment.textContent = compliments[getRandomInt(0, 10)];
+};
+
+
+
+/***/ }),
+
+/***/ "./src/js/validation.js":
+/*!******************************!*\
+  !*** ./src/js/validation.js ***!
+  \******************************/
+/*! exports provided: checkLengthZero, checkEmail, checkPw, resetPw, checkPwCondition, checkPwConditionResult, checkPwHintAnswer, checkEmailExists, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkLengthZero", function() { return checkLengthZero; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkEmail", function() { return checkEmail; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPw", function() { return checkPw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetPw", function() { return resetPw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwCondition", function() { return checkPwCondition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwConditionResult", function() { return checkPwConditionResult; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkPwHintAnswer", function() { return checkPwHintAnswer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkEmailExists", function() { return checkEmailExists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkConfirmPw", function() { return checkConfirmPw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableCreateAccount", function() { return enableCreateAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableLoginBtn", function() { return enableLoginBtn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableNextBtn", function() { return enableNextBtn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAccount", function() { return createAccount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+/* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
+/* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todos */ "./src/js/todos.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 // validation.js
 
 
+
 var user = {};
-var users = [];
-var todos = [];
-var settings = {};
+var forgotPwUser = {};
 var $loginPage = document.querySelector('#login');
 var $signupPage = document.querySelector('.signup-page');
 var $forgotPwPage = document.querySelector('.forgot-pw-page');
@@ -11271,10 +11447,6 @@ var enableLoginBtn = function enableLoginBtn($target, $siblingTarget) {
 
   var $warnings = document.querySelectorAll('.login-container input.warning');
   var $loginBtn = document.querySelector('.btn-login');
-  console.log('length: ', $warnings.length);
-  console.log('target value: ', !$target.value.trim());
-  console.log('sibling value: ', !$siblingTarget.value.trim());
-  console.log('result, ', $warnings.length || !$target.value.trim() || !$siblingTarget.value.trim());
   $loginBtn.disabled = $warnings.length || !$target.value.trim() || !$siblingTarget.value.trim();
 };
 
@@ -11283,73 +11455,93 @@ var enableCreateAccount = function enableCreateAccount() {
   var $hintText = document.querySelector('.signup-form .hint-selected').textContent.trim();
   var $createAccountBtn = document.querySelector('.signup-form .btn-signup');
   $createAccountBtn.disabled = !(!$warnings.length && $hintText !== 'Select a hint');
-}; // const enableForgotPwNext = () => {
-//   const $warnings = document.querySelectorAll('.forgot-pw-form input.warning');
-//   const $forgotPwNext = document.querySelector('.forgot-pw-form .forgot-pw-btn-next');
-//   $forgotPwNext.disabled = $warnings.length;
-// };
-
+};
 
 var enableNextBtn = function enableNextBtn($target) {
   var $warnings = document.querySelectorAll('.login-container input.warning');
-  var $btn = $target.parentNode.lastElementChild;
+  var $btn = $target.parentNode.lastElementChild.previousElementSibling;
   $btn.disabled = $warnings.length;
 };
 
-var generateId = function generateId() {
-  return users.length ? Math.max.apply(Math, _toConsumableArray(users.map(function (user) {
-    return user.userId;
-  }))) + 1 : 1;
-};
-
-var getUsers = /*#__PURE__*/function () {
+var resetPw = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var _yield$axios$get, data;
+    var pw, _forgotPwUser, email, _yield$axios$patch, data;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return axios.get('/users');
+            pw = document.querySelector('#pw-reset-new-pw').value;
+            _forgotPwUser = forgotPwUser, email = _forgotPwUser.email;
+            _context.prev = 2;
+            _context.next = 5;
+            return axios.patch('/users/reset_pw', {
+              email: email,
+              pw: pw
+            });
 
-          case 2:
-            _yield$axios$get = _context.sent;
-            data = _yield$axios$get.data;
-            console.log('data', data);
-            return _context.abrupt("return", data);
+          case 5:
+            _yield$axios$patch = _context.sent;
+            data = _yield$axios$patch.data;
+            _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwResetPage, $loginPage);
+            _context.next = 13;
+            break;
 
-          case 6:
+          case 10:
+            _context.prev = 10;
+            _context.t0 = _context["catch"](2);
+            console.error(_context.t0);
+
+          case 13:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[2, 10]]);
   }));
 
-  return function getUsers() {
+  return function resetPw() {
     return _ref.apply(this, arguments);
   };
-}();
+}(); // const generateId = () => (users.length ? Math.max(...users.map(user => user.userId)) + 1 : 1);
 
-var createAccountSuccess = function createAccountSuccess() {
-  console.log('createAccountSuccess!');
-  _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($signupPage, $loginPage);
-};
 
-var createAccountFailed = function createAccountFailed() {
-  var $signupErrorMsg = document.querySelector('.signup-error-msg');
-  $signupErrorMsg.classList.add('error');
-  console.log('createAccountFailed');
-};
-
-var createAccount = /*#__PURE__*/function () {
+var getUsers = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var $signupForm, nameInput, name, email, pw, hint, answer, _yield$axios$post, data;
+    var _yield$axios$get, data;
 
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return axios.get('/users');
+
+          case 2:
+            _yield$axios$get = _context2.sent;
+            data = _yield$axios$get.data;
+            return _context2.abrupt("return", data);
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getUsers() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var createAccount = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+    var $signupForm, nameInput, name, email, pw, hint, answer, _yield$axios$post, data, $signupErrorMsg;
+
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             $signupForm = document.querySelector('.signup-form');
             nameInput = $signupForm.querySelector('#signup-username');
@@ -11358,10 +11550,9 @@ var createAccount = /*#__PURE__*/function () {
             pw = $signupForm.querySelector('#signup-pw').value;
             hint = $signupForm.querySelector('.hint-selected').textContent;
             answer = $signupForm.querySelector('#signup-pw-hint-answer').value;
-            _context2.prev = 7;
-            _context2.next = 10;
+            _context3.prev = 7;
+            _context3.next = 10;
             return axios.post('/users', {
-              userId: generateId(),
               online: false,
               name: name,
               email: email,
@@ -11371,63 +11562,61 @@ var createAccount = /*#__PURE__*/function () {
             });
 
           case 10:
-            _yield$axios$post = _context2.sent;
+            _yield$axios$post = _context3.sent;
             data = _yield$axios$post.data;
 
             if (data) {
               _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($signupPage, $loginPage);
             } else {
-              console.log(data);
-              createAccountFailed();
+              $signupErrorMsg = document.querySelector('.signup-error-msg');
+              $signupErrorMsg.classList.add('error');
             }
 
-            _context2.next = 18;
+            _context3.next = 18;
             break;
 
           case 15:
-            _context2.prev = 15;
-            _context2.t0 = _context2["catch"](7);
-            console.error(_context2.t0);
+            _context3.prev = 15;
+            _context3.t0 = _context3["catch"](7);
+            console.error(_context3.t0);
 
           case 18:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2, null, [[7, 15]]);
+    }, _callee3, null, [[7, 15]]);
   }));
 
   return function createAccount() {
-    return _ref2.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 
 var login = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3($email, $pw) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4($email, $pw) {
     var $loginMsg, email, pw, _yield$axios$post2, data, $greetingName;
 
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             $loginMsg = $loginPage.querySelector('.login-error-msg');
             email = $email.value.trim();
             pw = $pw.value.trim();
-            _context3.prev = 3;
-            _context3.next = 6;
+            _context4.prev = 3;
+            _context4.next = 6;
             return axios.post('/users/login', {
               email: email,
               pw: pw
             });
 
           case 6:
-            _yield$axios$post2 = _context3.sent;
+            _yield$axios$post2 = _context4.sent;
             data = _yield$axios$post2.data;
 
             if (data) {
               user = data;
-              todos = user.todos;
-              settings = user.settings;
               $loginMsg.classList.toggle('error', false);
               $greetingName = document.querySelector('.greeting .name');
               $greetingName.textContent = user.name;
@@ -11435,30 +11624,94 @@ var login = /*#__PURE__*/function () {
               _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($loginPage, $mainPage);
               $email.value = '';
               $pw.value = '';
+              _todos__WEBPACK_IMPORTED_MODULE_2__["getTodos"]();
             } else {
               $loginMsg.classList.toggle('error', true);
             }
 
-            _context3.next = 14;
+            _context4.next = 14;
             break;
 
           case 11:
-            _context3.prev = 11;
-            _context3.t0 = _context3["catch"](3);
-            console.error(_context3.t0);
+            _context4.prev = 11;
+            _context4.t0 = _context4["catch"](3);
+            console.error(_context4.t0);
 
           case 14:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3, null, [[3, 11]]);
+    }, _callee4, null, [[3, 11]]);
   }));
 
   return function login(_x, _x2) {
-    return _ref3.apply(this, arguments);
+    return _ref4.apply(this, arguments);
   };
 }();
+
+var checkEmailExists = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5($email) {
+    var email, $forgotPwMsg, _yield$axios$post3, data, $pwHintQuestion;
+
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            email = $email.value.trim();
+            $forgotPwMsg = $forgotPwPage.querySelector('.forgot-pw-error-msg');
+            _context5.prev = 2;
+            _context5.next = 5;
+            return axios.post('/users/forgot_pw', {
+              email: email
+            });
+
+          case 5:
+            _yield$axios$post3 = _context5.sent;
+            data = _yield$axios$post3.data;
+
+            if (data) {
+              forgotPwUser = data;
+              $forgotPwMsg.classList.toggle('error', false);
+              $pwHintQuestion = $pwHintPage.querySelector('.pw-hint-question');
+              $pwHintQuestion.textContent = forgotPwUser.hint;
+              _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($forgotPwPage, $pwHintPage);
+            } else {
+              $forgotPwMsg.classList.toggle('error', true);
+            }
+
+            _context5.next = 13;
+            break;
+
+          case 10:
+            _context5.prev = 10;
+            _context5.t0 = _context5["catch"](2);
+            console.error(_context5.t0);
+
+          case 13:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[2, 10]]);
+  }));
+
+  return function checkEmailExists(_x3) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+var checkPwHintAnswer = function checkPwHintAnswer($answer) {
+  var answer = $answer.value.trim();
+  var $pwHintMsg = $pwHintPage.querySelector('.pw-hint-error-msg');
+
+  if (answer === forgotPwUser.answer) {
+    $pwHintMsg.classList.toggle('error', false);
+    _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($pwHintPage, $pwResetPage);
+  } else {
+    $pwHintMsg.classList.toggle('error', true);
+  }
+};
 
 
 

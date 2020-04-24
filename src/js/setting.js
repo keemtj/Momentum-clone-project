@@ -52,9 +52,10 @@ const closeSettingBox = settinglist => {
 };
 
 $settingBtn.onclick = () => {
-  const settinglistCs = window.getComputedStyle($settingList);
-  const settingDisplay = settinglistCs.getPropertyValue('display');
-  settingDisplay === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
+  $settingBtn.classList.toggle('clicked');
+  const settingBoxCs = window.getComputedStyle($settingBox);
+  const settingOnOff = settingBoxCs.getPropertyValue('display');
+  settingOnOff === 'none' ? openSettingBox($settingBox) : closeSettingBox($settingBox);
 };
 
 const clockToggle = ({ target }) => {
