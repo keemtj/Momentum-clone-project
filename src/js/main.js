@@ -231,8 +231,6 @@ const renderStartPage = () => {
 
 const init = async () => {
   const $loadingContainer = document.querySelector('.loading-container');
-  const $loadingText = document.querySelector('.loading-text');
-
   onUser = await valid.getUsers();
   if (onUser.online) {
     renderMainPage(onUser);
@@ -242,3 +240,5 @@ const init = async () => {
   const weatherStart = await weather.weatherInit();
 };
 window.onload = init;
+
+export { onUser, renderStartPage };

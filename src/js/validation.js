@@ -3,6 +3,8 @@ import * as ani from './animation';
 import * as etc from './etc';
 import * as t from './todos';
 import * as set from './setting';
+import * as main from './main';
+import * as valid from './validation';
 
 let user = {};
 let forgotPwUser = {};
@@ -150,6 +152,8 @@ const login = async ($email, $pw) => {
   try {
     const { data } = await axios.post('/users/login', { email, pw });
     if (data) {
+      console.log(data);
+      
       user = data;
       $loginMsg.classList.toggle('error', false);
       const $greetingName = document.querySelector('.greeting .name');
@@ -202,5 +206,5 @@ export {
   checkLengthZero, checkEmail, checkPw, resetPw,
   checkPwCondition, checkPwConditionResult, checkPwHintAnswer,
   checkEmailExists, checkConfirmPw, enableCreateAccount, enableLoginBtn,
-  enableNextBtn, createAccount, login, getUsers
+  enableNextBtn, createAccount, login, getUsers, user
 };

@@ -29,6 +29,11 @@ const movePage = (from, to) => {
     if (from.id === 'login' && to.id === 'signup') {
       $loginContainer.style.top = 'calc(50% - 40vh)';
     }
+    if (from.id === 'main') {
+      $loginContainer.style.display = 'block';
+      const $settingList = document.querySelector('.setting-list');
+      $settingList.classList.remove('fade-in');
+    }
     if (to.id === 'main') $loginContainer.style.display = 'none';
     reset.resetInputs();
     reset.resetBtns();

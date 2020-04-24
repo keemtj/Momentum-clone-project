@@ -10295,6 +10295,12 @@ var movePage = function movePage(from, to) {
       $loginContainer.style.top = 'calc(50% - 40vh)';
     }
 
+    if (from.id === 'main') {
+      $loginContainer.style.display = 'block';
+      var $settingList = document.querySelector('.setting-list');
+      $settingList.classList.remove('fade-in');
+    }
+
     if (to.id === 'main') $loginContainer.style.display = 'none';
     _reset__WEBPACK_IMPORTED_MODULE_0__["resetInputs"]();
     _reset__WEBPACK_IMPORTED_MODULE_0__["resetBtns"]();
@@ -10420,11 +10426,13 @@ $quote.innerHTML = "<q>\" ".concat(todayPick, " \"</q>"); // console.log('todayP
 /*!************************!*\
   !*** ./src/js/main.js ***!
   \************************/
-/*! no exports provided */
+/*! exports provided: onUser, renderStartPage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onUser", function() { return onUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderStartPage", function() { return renderStartPage; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
 /* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
@@ -10714,17 +10722,16 @@ var renderStartPage = function renderStartPage() {
 
 var init = /*#__PURE__*/function () {
   var _ref19 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var $loadingContainer, $loadingText, weatherStart;
+    var $loadingContainer, weatherStart;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             $loadingContainer = document.querySelector('.loading-container');
-            $loadingText = document.querySelector('.loading-text');
-            _context.next = 4;
+            _context.next = 3;
             return _validation__WEBPACK_IMPORTED_MODULE_1__["getUsers"]();
 
-          case 4:
+          case 3:
             onUser = _context.sent;
 
             if (onUser.online) {
@@ -10733,13 +10740,13 @@ var init = /*#__PURE__*/function () {
               renderStartPage();
             }
 
-            _context.next = 8;
+            _context.next = 7;
             return _weather__WEBPACK_IMPORTED_MODULE_5__["weatherInit"]();
 
-          case 8:
+          case 7:
             weatherStart = _context.sent;
 
-          case 9:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -10753,6 +10760,7 @@ var init = /*#__PURE__*/function () {
 }();
 
 window.onload = init;
+
 
 /***/ }),
 
@@ -10861,6 +10869,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSettings", function() { return getSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingRender", function() { return settingRender; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/js/main.js");
+/* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10874,6 +10888,8 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
+
+
 var setData = {};
 var viewData = {};
 var $settingBtn = document.querySelector('.setting-sec > i');
@@ -10884,28 +10900,7 @@ var $searchInput = document.querySelector('.search-area');
 var $weatherSection = document.querySelector('.weather-sec');
 var $quoteSection = document.querySelector('.quote-sec');
 var $digitalSection = document.querySelector('.digital-clock');
-var $analogSection = document.querySelector('.analog-clock'); // setting button Render
-
-var settingRender = function settingRender() {
-  var setHtml = "<li class=\"title\">\n    <h2>Setting</h2>\n  </li>";
-  setData = Object.entries(setData);
-  setData.forEach(function (set) {
-    var _set = _slicedToArray(set, 2),
-        setCtgr = _set[0],
-        checked = _set[1];
-
-    setHtml += "<li>\n      <h3>".concat(setCtgr, "</h3>\n      <div class=\"toggle-box\">\n        <input class=\"toggle toggle-input\" id=\"").concat(setCtgr, "\" type=\"checkbox\" ").concat(checked ? 'checked' : '', "/>\n        <label class=\"btn-toggle\" data-tg-off=\"").concat(setCtgr === 'Clock' ? 'ANALOG' : 'OFF', "\" data-tg-on=\"").concat(setCtgr === 'Clock' ? 'DIGITAL' : 'ON', "\" for=\"").concat(setCtgr, "\"></label>\n      </div>\n    </li>");
-  });
-  setHtml += "<li class=\"logout\">\n    <h3>LOGOUT</h3>\n  </li>";
-  $settingList.innerHTML = setHtml;
-};
-
-var getSettings = function getSettings() {
-  axios.get('/users').then(function (_ref) {
-    var data = _ref.data;
-    setData = data.settings;
-  }).then(settingRender).then(getView);
-};
+var $analogSection = document.querySelector('.analog-clock');
 
 var openSettingBox = function openSettingBox(settinglist) {
   _animation__WEBPACK_IMPORTED_MODULE_0__["fadeIn"](settinglist, 150);
@@ -10922,8 +10917,8 @@ $settingBtn.onclick = function () {
   settingOnOff === 'none' ? openSettingBox($settingList) : closeSettingBox($settingList);
 };
 
-var clockToggle = function clockToggle(_ref2) {
-  var target = _ref2.target;
+var clockToggle = function clockToggle(_ref) {
+  var target = _ref.target;
   if (!target.matches('#Clock')) return;
   var digitalCs = window.getComputedStyle($digitalSection);
   var analogCs = window.getComputedStyle($analogSection);
@@ -10945,8 +10940,8 @@ var clockToggle = function clockToggle(_ref2) {
   }
 };
 
-var todoToggle = function todoToggle(_ref3) {
-  var target = _ref3.target;
+var todoToggle = function todoToggle(_ref2) {
+  var target = _ref2.target;
   if (!target.matches('#Todo')) return;
   var todolistCs = window.getComputedStyle($todolistSection);
   var todoDisplay = todolistCs.getPropertyValue('display');
@@ -10958,8 +10953,8 @@ var todoToggle = function todoToggle(_ref3) {
   }
 };
 
-var searchToggle = function searchToggle(_ref4) {
-  var target = _ref4.target;
+var searchToggle = function searchToggle(_ref3) {
+  var target = _ref3.target;
   if (!target.matches('#Search')) return;
   var searchCs = window.getComputedStyle($searchSection);
   var searchDisplay = searchCs.getPropertyValue('display');
@@ -10972,8 +10967,8 @@ var searchToggle = function searchToggle(_ref4) {
   }
 };
 
-var weatherToggle = function weatherToggle(_ref5) {
-  var target = _ref5.target;
+var weatherToggle = function weatherToggle(_ref4) {
+  var target = _ref4.target;
   if (!target.matches('#Weather')) return;
   var weatherCs = window.getComputedStyle($weatherSection);
   var weatherDisplay = weatherCs.getPropertyValue('display');
@@ -10985,8 +10980,8 @@ var weatherToggle = function weatherToggle(_ref5) {
   }
 };
 
-var quoteToggle = function quoteToggle(_ref6) {
-  var target = _ref6.target;
+var quoteToggle = function quoteToggle(_ref5) {
+  var target = _ref5.target;
   if (!target.matches('#Quote')) return;
   var quoteCs = window.getComputedStyle($quoteSection);
   var quoteDisplay = quoteCs.getPropertyValue('display');
@@ -11043,17 +11038,85 @@ var quoteRender = function quoteRender() {
 };
 
 var getView = function getView() {
-  axios.get('/users').then(function (_ref7) {
-    var data = _ref7.data;
+  axios.get('/users').then(function (_ref6) {
+    var data = _ref6.data;
     viewData = data.settings;
   }).then(clockRender).then(todoRender).then(searchRender).then(weatherRender).then(quoteRender);
+}; // setting button Render
+
+
+var settingRender = function settingRender() {
+  var setHtml = "<li class=\"title\">\n    <h2>Setting</h2>\n  </li>";
+  setData = Object.entries(setData);
+  setData.forEach(function (set) {
+    var _set = _slicedToArray(set, 2),
+        setCtgr = _set[0],
+        checked = _set[1];
+
+    setHtml += "<li>\n      <h3>".concat(setCtgr, "</h3>\n      <div class=\"toggle-box\">\n        <input class=\"toggle toggle-input\" id=\"").concat(setCtgr, "\" type=\"checkbox\" ").concat(checked ? 'checked' : '', "/>\n        <label class=\"btn-toggle\" data-tg-off=\"").concat(setCtgr === 'Clock' ? 'ANALOG' : 'OFF', "\" data-tg-on=\"").concat(setCtgr === 'Clock' ? 'DIGITAL' : 'ON', "\" for=\"").concat(setCtgr, "\"></label>\n      </div>\n    </li>");
+  });
+  setHtml += "<li class=\"logout\">\n    <h3>LOGOUT</h3>\n  </li>";
+  $settingList.innerHTML = setHtml;
 };
+
+var getSettings = function getSettings() {
+  axios.get('/users').then(function (_ref7) {
+    var data = _ref7.data;
+    setData = data.settings;
+  }).then(settingRender).then(getView);
+};
+
+var logOut = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref8) {
+    var target;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            target = _ref8.target;
+
+            if (!(!target.matches('li.logout') && !target.matches('li.logout > h3'))) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 3:
+            // console.log('onUser: ', main.onUser);
+            // console.log('onUser: ', main.onUser.userId);
+            // console.log('onUser: ', main.onUser.pw);
+            // console.log('user: ', valid.user);
+            // console.log('user: ', valid.user.userId);
+            // let currentUserId = main.onUser ? main.onUser.userId : valid.user.userId;
+            // console.log('[currentUserId]: ', currentUserId);
+            axios.get('/logout').then(function () {
+              var $mainPage = document.querySelector('.main-page');
+              var $loginPage = document.querySelector('.login-page');
+              _animation__WEBPACK_IMPORTED_MODULE_0__["movePage"]($mainPage, $loginPage);
+            })["catch"](function (err) {
+              return console.error(err);
+            });
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function logOut(_x) {
+    return _ref9.apply(this, arguments);
+  };
+}();
 
 $settingList.addEventListener('click', clockToggle);
 $settingList.addEventListener('change', todoToggle);
 $settingList.addEventListener('change', searchToggle);
 $settingList.addEventListener('change', weatherToggle);
 $settingList.addEventListener('change', quoteToggle);
+$settingList.addEventListener('click', logOut);
 
 
 /***/ }),
@@ -11321,7 +11384,7 @@ $removeIcon.onclick = function () {
 /*!******************************!*\
   !*** ./src/js/validation.js ***!
   \******************************/
-/*! exports provided: checkLengthZero, checkEmail, checkPw, resetPw, checkPwCondition, checkPwConditionResult, checkPwHintAnswer, checkEmailExists, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers */
+/*! exports provided: checkLengthZero, checkEmail, checkPw, resetPw, checkPwCondition, checkPwConditionResult, checkPwHintAnswer, checkEmailExists, checkConfirmPw, enableCreateAccount, enableLoginBtn, enableNextBtn, createAccount, login, getUsers, user */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11341,15 +11404,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createAccount", function() { return createAccount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
 /* harmony import */ var _animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animation */ "./src/js/animation.js");
 /* harmony import */ var _etc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./etc */ "./src/js/etc.js");
 /* harmony import */ var _todos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todos */ "./src/js/todos.js");
 /* harmony import */ var _setting__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting */ "./src/js/setting.js");
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./main */ "./src/js/main.js");
+/* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./validation */ "./src/js/validation.js");
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 // validation.js
+
+
 
 
 
@@ -11606,6 +11674,7 @@ var login = /*#__PURE__*/function () {
             data = _yield$axios$post2.data;
 
             if (data) {
+              console.log(data);
               user = data;
               $loginMsg.classList.toggle('error', false);
               $greetingName = document.querySelector('.greeting .name');
