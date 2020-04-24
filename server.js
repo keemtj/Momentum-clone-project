@@ -181,9 +181,5 @@ app.patch('/todos/:id', (req, res) => {
   onUser.todos = onUser.todos.map(todo => (todo.id === +id ? { ...todo, completed: !todo.completed } : todo));
   res.send(onUser.todos);
 });
-<<<<<<< HEAD
-=======
-// =======================
->>>>>>> 0161f4e6a849feada997f7889904c96d37fb78e6
 
 app.listen(9000, () => console.log('Simple Rest API Server listening on port 9000'));

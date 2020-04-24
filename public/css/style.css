@@ -114,6 +114,7 @@ div[class$="-page"] {
   height: 100vh;
   z-index: 9999;
   padding-top: 5rem;
+  line-height: 100vh;
 }
 svg{
   width: 100%;
@@ -133,5 +134,12 @@ svg{
   padding-top: 5rem;
   background-color: rgb(58, 57, 57);
   z-index: 9999;
+  line-height: 100vh;
+}
+.loading-container.fade-in svg {
+  display: inline-block;
+}
+.loading-container.fade-out svg {
+  display: none;
 }
 
