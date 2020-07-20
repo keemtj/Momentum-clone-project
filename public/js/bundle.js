@@ -10751,7 +10751,7 @@ var $startPageInputs = document.querySelectorAll('.login-container input');
 var $signUpHintSelected = document.querySelector('.signup-form .hint-selected');
 var $signUpPwReq = document.querySelector('.signup-form .pw-req');
 var $pwResetPwReq = document.querySelector('.pw-reset-form .reset-pw-req');
-var $startPageBtns = document.querySelectorAll('.login-container button:not(.btn-login)');
+var $startPageBtns = document.querySelectorAll('.login-container button');
 
 var resetInputs = function resetInputs() {
   _toConsumableArray($startPageInputs).forEach(function ($input) {
